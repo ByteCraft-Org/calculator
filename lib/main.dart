@@ -16,6 +16,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: bgColor,
+        primaryColor: primaryColor
       ),
       home: const HomePage(),
     );
