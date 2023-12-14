@@ -1,3 +1,5 @@
+import 'package:calculator/pages/home_page.dart';
+import 'package:calculator/utils/values/colors.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,12 +11,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text("Calculator"),
-        ),
+    return MaterialApp(
+      title: "Calculator",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: bgColor,
       ),
+      home: const HomePage(),
     );
   }
 }
