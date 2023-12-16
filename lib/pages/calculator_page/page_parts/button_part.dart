@@ -1,16 +1,21 @@
+import 'package:calculator/pages/calculator_page/page_parts/theme_dialog.dart';
 import 'package:calculator/utils/values/colors.dart';
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ButtonPart extends StatefulWidget {
-  const ButtonPart({super.key});
+	final Function(Color) changeAccentColor;
+  const ButtonPart({
+		super.key,
+		required this.changeAccentColor
+	});
 
   @override
   State<ButtonPart> createState() => _ButtonPartState();
 }
 
-class _ButtonPartState extends State<ButtonPart> {
+class _ButtonPartState extends State<ButtonPart> {  
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -123,7 +128,9 @@ class _ButtonPartState extends State<ButtonPart> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomButtonWithIcon(
-                onTap: (){},
+              onTap: () {
+                ThemeDialog.setAccentColor(context, widget.changeAccentColor);
+              },
                 icon: Icons.color_lens,
                 iconColor: Theme.of(context).colorScheme.secondary,
                 iconSize: 25,

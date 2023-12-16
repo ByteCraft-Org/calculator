@@ -20,7 +20,7 @@ class CustomButtonWithText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: (){},
+      onPressed: () => onTap(),
       style: const ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(transparentColor),
         overlayColor: MaterialStatePropertyAll(secondaryColor),
@@ -61,7 +61,7 @@ class CustomButtonWithIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: (){},
+      onPressed: () => onTap(),
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(bgColor),
         overlayColor: const MaterialStatePropertyAll(secondaryColor),

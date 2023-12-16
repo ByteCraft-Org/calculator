@@ -3,7 +3,11 @@ import 'package:calculator/utils/values/colors.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorPage extends StatelessWidget {
-  const CalculatorPage({super.key});
+	final Function(Color) changeAccentColor;
+  const CalculatorPage({
+		super.key,
+		required this.changeAccentColor
+	});
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +30,9 @@ class CalculatorPage extends StatelessWidget {
             color: Theme.of(context).primaryColor.withOpacity(0.6),
           ),
           const SizedBox(height: 5,),
-          const Align(// * : Button Segment
+          Align(// * : Button Segment
             alignment: Alignment.bottomCenter,
-            child: ButtonPart(),
+            child: ButtonPart(changeAccentColor: changeAccentColor),
           ),
         ],
       ),

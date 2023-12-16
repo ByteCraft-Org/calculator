@@ -15,7 +15,7 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  late Color accentColor;
+  late Color accentColor = colorList[0];
 
   @override
   void initState() {
@@ -49,7 +49,7 @@ class _MainAppState extends State<MainApp> {
           secondary: accentColor,
         ),
       ),
-      home: const HomePage(),
+      home: HomePage(changeAccentColor: changeAccentColor),
     );
   }
 }
