@@ -13,7 +13,7 @@ class CustomButtonWithText extends StatelessWidget {
     required this.onTap,
     required this.buttontext,
     this.textColor = primaryColor,
-    this.fontWeight = FontWeight.normal,
+    this.fontWeight = FontWeight.bold,
     this.fontSize = 30,
   });
 
@@ -46,33 +46,36 @@ class CustomButtonWithText extends StatelessWidget {
 class CustomButtonWithIcon extends StatelessWidget {
   final Function() onTap;
   final IconData icon;
-  final Color iconColor;
+  final Color iconColor, bgColor;
+  final double iconSize;
 
   const CustomButtonWithIcon({
     super.key,
     required this.onTap,
     required this.icon,
-    this.iconColor = primaryColor,
+    this.iconColor = Colors.orange,
+    this.bgColor = transparentColor,
+    this.iconSize = 25,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: (){},
-      style: const ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(transparentColor),
-        overlayColor: MaterialStatePropertyAll(secondaryColor),
-        shape: MaterialStatePropertyAll(
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(bgColor),
+        overlayColor: const MaterialStatePropertyAll(secondaryColor),
+        shape: const MaterialStatePropertyAll(
           CircleBorder(),
         ),
-        minimumSize: MaterialStatePropertyAll(
+        minimumSize: const MaterialStatePropertyAll(
           Size(70, 70)
         )
       ),
       child: Icon(
         icon,
         color: iconColor,
-        size: 35,
+        size: iconSize,
       ),
     );
   }
