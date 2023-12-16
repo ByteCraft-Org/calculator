@@ -12,7 +12,7 @@ class CustomButtonWithText extends StatelessWidget {
     super.key,
     required this.onTap,
     required this.buttontext,
-    this.textColor = primaryColor,
+    required this.textColor,
     this.fontWeight = FontWeight.bold,
     this.fontSize = 30,
   });
@@ -53,7 +53,7 @@ class CustomButtonWithIcon extends StatelessWidget {
     super.key,
     required this.onTap,
     required this.icon,
-    this.iconColor = Colors.orange,
+    required this.iconColor,
     this.bgColor = transparentColor,
     this.iconSize = 25,
   });
