@@ -1,5 +1,5 @@
+import 'package:calculator/pages/calculator_page/page_parts/button_part.dart';
 import 'package:calculator/utils/values/colors.dart';
-import 'package:calculator/utils/values/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorPage extends StatelessWidget {
@@ -12,8 +12,7 @@ class CalculatorPage extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: <Widget>[
-          SizedBox(// * : Display Segment
-            height: screenHeight(context) * 0.45,
+          Expanded(// * : Display Segment
             child: Container(
               color: Colors.blue,
               child: const Center(
@@ -21,18 +20,15 @@ class CalculatorPage extends StatelessWidget {
               ),
             ),
           ),
-          Container(// * : Separator Line
-            height: 1,
+          const SizedBox(height: 5,),
+          Divider(// * : Divider Line
+          thickness: 3,
             color: Theme.of(context).primaryColor.withOpacity(0.6),
           ),
-          SizedBox(// * : Button Segment
-            height: screenHeight(context) * 0.45,
-            child: Container(
-              color: Colors.green,
-              child: const Center(
-                child: Text("Button Part"),
-              ),
-            ),
+          const SizedBox(height: 5,),
+          const Align(// * : Button Segment
+            alignment: Alignment.bottomCenter,
+            child: ButtonPart(),
           ),
         ],
       ),
