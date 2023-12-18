@@ -1,5 +1,3 @@
-import 'package:calculator/pages/calculator_page/page_parts/theme_dialog.dart';
-import 'package:calculator/utils/values/colors.dart';
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,10 +13,12 @@ class ButtonPart extends StatefulWidget {
   State<ButtonPart> createState() => _ButtonPartState();
 }
 
-class _ButtonPartState extends State<ButtonPart> {  
+class _ButtonPartState extends State<ButtonPart> {
+  bool isExpanded = false;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
       child: Wrap(
         runSpacing: 5,
         children: [
@@ -55,17 +55,17 @@ class _ButtonPartState extends State<ButtonPart> {
               CustomButtonWithText(
                 onTap: (){},
                 buttontext: "7",
-                textColor: primaryColor,
+                textColor: Theme.of(context).colorScheme.secondary,
               ),
               CustomButtonWithText(
                 onTap: (){},
                 buttontext: "8",
-                textColor: primaryColor,
+                textColor: Theme.of(context).colorScheme.secondary,
               ),
               CustomButtonWithText(
                 onTap: (){},
                 buttontext: "9",
-                textColor: primaryColor,
+                textColor: Theme.of(context).colorScheme.secondary,
               ),
               CustomButtonWithIcon(
                 onTap: (){},
@@ -80,17 +80,17 @@ class _ButtonPartState extends State<ButtonPart> {
               CustomButtonWithText(
                 onTap: (){},
                 buttontext: "4",
-                textColor: primaryColor,
+                textColor: Theme.of(context).colorScheme.secondary,
               ),
               CustomButtonWithText(
                 onTap: (){},
                 buttontext: "5",
-                textColor: primaryColor,
+                textColor: Theme.of(context).colorScheme.secondary,
               ),
               CustomButtonWithText(
                 onTap: (){},
                 buttontext: "6",
-                textColor: primaryColor,
+                textColor: Theme.of(context).colorScheme.secondary,
               ),
               CustomButtonWithIcon(
                 onTap: (){},
@@ -105,17 +105,17 @@ class _ButtonPartState extends State<ButtonPart> {
               CustomButtonWithText(
                 onTap: (){},
                 buttontext: "1",
-                textColor: primaryColor,
+                textColor: Theme.of(context).colorScheme.secondary,
               ),
               CustomButtonWithText(
                 onTap: (){},
                 buttontext: "2",
-                textColor: primaryColor,
+                textColor: Theme.of(context).colorScheme.secondary,
               ),
               CustomButtonWithText(
                 onTap: (){},
                 buttontext: "3",
-                textColor: primaryColor,
+                textColor: Theme.of(context).colorScheme.secondary,
               ),
               CustomButtonWithIcon(
                 onTap: (){},
@@ -129,16 +129,16 @@ class _ButtonPartState extends State<ButtonPart> {
             children: [
               CustomButtonWithIcon(
               onTap: () {
-                ThemeDialog.setAccentColor(context, widget.changeAccentColor);
+                setState(() => isExpanded = !isExpanded);
               },
-                icon: Icons.color_lens,
+                icon: isExpanded ? FontAwesomeIcons.minimize : FontAwesomeIcons.maximize,
                 iconColor: Theme.of(context).colorScheme.secondary,
                 iconSize: 25,
               ),
               CustomButtonWithText(
                 onTap: (){},
                 buttontext: "0",
-                textColor: primaryColor,
+                textColor: Theme.of(context).colorScheme.secondary,
               ),
               CustomButtonWithIcon(
                 onTap: (){},
@@ -149,7 +149,7 @@ class _ButtonPartState extends State<ButtonPart> {
               CustomButtonWithIcon(
                 onTap: (){},
                 icon: FontAwesomeIcons.equals,
-                iconColor: primaryColor,
+                iconColor: Theme.of(context).primaryColor,
                 bgColor: Theme.of(context).colorScheme.secondary,
               )
             ],

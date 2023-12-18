@@ -1,4 +1,3 @@
-import 'package:calculator/utils/values/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomButtonWithText extends StatelessWidget {
@@ -22,13 +21,13 @@ class CustomButtonWithText extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => onTap(),
       style: const ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(transparentColor),
-        overlayColor: MaterialStatePropertyAll(secondaryColor),
+        backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+        overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
         shape: MaterialStatePropertyAll(
           CircleBorder(),
         ),
         minimumSize: MaterialStatePropertyAll(
-          Size(70, 70)
+          Size(65, 65)
         )
       ),
       child: Text(
@@ -54,7 +53,7 @@ class CustomButtonWithIcon extends StatelessWidget {
     required this.onTap,
     required this.icon,
     required this.iconColor,
-    this.bgColor = transparentColor,
+    this.bgColor = Colors.transparent,
     this.iconSize = 25,
   });
 
@@ -64,12 +63,12 @@ class CustomButtonWithIcon extends StatelessWidget {
       onPressed: () => onTap(),
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(bgColor),
-        overlayColor: const MaterialStatePropertyAll(secondaryColor),
+        overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
         shape: const MaterialStatePropertyAll(
           CircleBorder(),
         ),
         minimumSize: const MaterialStatePropertyAll(
-          Size(70, 70)
+          Size(65, 65)
         )
       ),
       child: Icon(

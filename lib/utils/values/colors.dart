@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
-const Color bgColor = Color(0xFF000000);
-const Color primaryColor = Color(0xFFFFFFFF);
-const Color secondaryColor = Color(0xFF646464);
-const Color transparentColor = Color(0x00000000);
-const Color themeDialogBgColor = Color(0xFF212121);
+const Color secondary = Color(0xFF9E9E9E);
 
 final List<Color> colorList = [
     const Color(0xff65ffa0),

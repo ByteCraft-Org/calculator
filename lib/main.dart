@@ -43,10 +43,10 @@ class _MainAppState extends State<MainApp> {
       title: "Calculator",
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: bgColor,
-        primaryColor: primaryColor,
+        scaffoldBackgroundColor: const Color(0xFF000000),
+        primaryColor: const Color(0xFFFFFFFF),        
         colorScheme: ThemeData.dark().colorScheme.copyWith(
-          secondary: accentColor,
+          secondary: const Color(0xff65ffa0),
         ),
       ),
       home: HomePage(changeAccentColor: changeAccentColor),
