@@ -46,7 +46,8 @@ class _MainAppState extends State<MainApp> {
         scaffoldBackgroundColor: const Color(0xFF000000),
         primaryColor: const Color(0xFFFFFFFF),        
         colorScheme: ThemeData.dark().colorScheme.copyWith(
-          secondary: const Color(0xff65ffa0),
+          //secondary: const Color(0xff65ffa0),
+          secondary: Colors.orange,
         ),
       ),
       home: HomePage(changeAccentColor: changeAccentColor),
