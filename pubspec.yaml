@@ -29,6 +29,4 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
   assets:
-  - assets/svg/xPower2.svg
-  - assets/svg/factorial.svg
   - assets/svg/squareRoot.svg

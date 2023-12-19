@@ -6,7 +6,7 @@ class CustomButtonWithText extends StatelessWidget {
   final String buttontext;
   final Color textColor;
   final FontWeight fontWeight;
-  final double btnSize, fontSize;
+  final double fontSize;
 
   const CustomButtonWithText({
     super.key,
@@ -14,7 +14,6 @@ class CustomButtonWithText extends StatelessWidget {
     required this.buttontext,
     required this.textColor,
     this.fontWeight = FontWeight.bold,
-    this.btnSize = 65,
     this.fontSize = 30,
   });
 
@@ -22,14 +21,14 @@ class CustomButtonWithText extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => onTap(),
-      style: ButtonStyle(
-        backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
-        overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
-        shape: const MaterialStatePropertyAll(
+      style: const ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+        overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
+        shape: MaterialStatePropertyAll(
           CircleBorder(),
         ),
         minimumSize: MaterialStatePropertyAll(
-          Size(btnSize, btnSize)
+          Size(60,60)
         )
       ),
       child: Text(
@@ -48,7 +47,7 @@ class CustomButtonWithIcon extends StatelessWidget {
   final Function() onTap;
   final IconData icon;
   final Color iconColor, bgColor;
-  final double btnSize, iconSize;
+  final double iconSize;
 
   const CustomButtonWithIcon({
     super.key,
@@ -56,7 +55,6 @@ class CustomButtonWithIcon extends StatelessWidget {
     required this.icon,
     required this.iconColor,
     this.bgColor = Colors.transparent,
-    this.btnSize = 65,
     this.iconSize = 25,
   });
 
@@ -70,8 +68,8 @@ class CustomButtonWithIcon extends StatelessWidget {
         shape: const MaterialStatePropertyAll(
           CircleBorder(),
         ),
-        minimumSize: MaterialStatePropertyAll(
-          Size(btnSize, btnSize)
+        minimumSize: const MaterialStatePropertyAll(
+          Size(60, 60)
         )
       ),
       child: Icon(
@@ -109,7 +107,7 @@ class SvgButton extends StatelessWidget {
           CircleBorder(),
         ),
         minimumSize: const MaterialStatePropertyAll(
-          Size(65, 65)
+          Size(60, 60)
         )
       ),
       child: SvgPicture.asset(
@@ -125,7 +123,6 @@ class CustomButtonWrap extends StatelessWidget {
   final Function() onTap;
   final Widget childern1, childern2, childern3;
   final Color bgColor;
-  final double btnSize;
 
   const CustomButtonWrap({
     super.key,
@@ -134,7 +131,6 @@ class CustomButtonWrap extends StatelessWidget {
     required this.childern2,
     required this.childern3,
     this.bgColor = Colors.transparent,
-    this.btnSize = 65
   });
 
   @override
@@ -147,8 +143,8 @@ class CustomButtonWrap extends StatelessWidget {
         shape: const MaterialStatePropertyAll(
           CircleBorder(),
         ),
-        minimumSize: MaterialStatePropertyAll(
-          Size(btnSize, btnSize)
+        minimumSize: const MaterialStatePropertyAll(
+          Size(60, 60)
         )
       ),
       child: Wrap(
