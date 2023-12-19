@@ -50,7 +50,7 @@ class _MainAppState extends State<MainApp> {
           secondary: Colors.orange,
         ),
       ),
-      home: HomePage(changeAccentColor: changeAccentColor),
+      home: const HomePage(),
     );
   }
 }

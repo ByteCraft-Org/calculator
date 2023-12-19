@@ -3,11 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ButtonPart extends StatefulWidget {
-	final Function(Color) changeAccentColor;
-  const ButtonPart({
-		super.key,
-		required this.changeAccentColor
-	});
+  const ButtonPart({super.key});
 
   @override
   State<ButtonPart> createState() => _ButtonPartState();
@@ -290,20 +286,17 @@ class _ButtonPartState extends State<ButtonPart> {
       ],
     );
 
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Wrap(
-        runSpacing: 5,
-        children: [
-          if(isExpanded)
-            row1,
-          row2,
-          row3,
-          row4,
-          row5,
-          row6
-        ]
-      ),
+    return Wrap(
+      runSpacing: 5,
+      children: [
+        if(isExpanded)
+          row1,
+        row2,
+        row3,
+        row4,
+        row5,
+        row6
+      ]
     );
   }
 }
