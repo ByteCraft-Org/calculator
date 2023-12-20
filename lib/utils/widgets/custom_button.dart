@@ -157,3 +157,47 @@ class CustomButtonWrap extends StatelessWidget {
     );
   }
 }
+
+class ConverterTabButton extends StatelessWidget {
+  final Function() onTap;
+  final IconData icon;
+  final String label;
+
+  const ConverterTabButton({
+    super.key,
+    required this.onTap,
+    required this.icon,
+    required this.label
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => onTap(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        child: Wrap(
+          direction: Axis.vertical,
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          runAlignment: WrapAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 30,
+              color: Colors.grey,
+            ),
+            const SizedBox(height: 15),
+            Text(
+              label,
+              style: const TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.bold
+              ),
+            )
+          ],
+        ),
+      )
+    );
+  }
+}
