@@ -1,15 +1,7 @@
-import 'package:ant_icons/ant_icons.dart';
 import 'package:calculator/pages/calculator_page/calculator_page.dart';
 import 'package:calculator/pages/converter_page/converter_page.dart';
-import 'package:evil_icons_flutter/evil_icons_flutter.dart';
-import 'package:feather_icons/feather_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:heroicons/heroicons.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:mdi/mdi.dart';
-import 'package:unicons/unicons.dart';
+import 'package:flutter_svg/svg.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -47,24 +39,27 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     IconButton(
                       onPressed: () => moveToPage(0),
-                      icon: Icon(
-                        (pageSelected==0) ? Icons.calculate_rounded : Icons.calculate_outlined
+                      icon: SvgPicture.asset(
+                        (pageSelected==0) ? "assets/svg/calculatorFilled.svg" : "assets/svg/calculatorOutlined.svg",
+                        height: 35,
                       ),
                       color: (pageSelected==0) ? Theme.of(context).colorScheme.secondary : Colors.grey,
                       iconSize: 35,
                     ),
                     IconButton(
                       onPressed: () => moveToPage(1),
-                      icon: Icon(
-                        (pageSelected==1) ? Icons.dashboard_rounded : Icons.dashboard_outlined
+                      icon: SvgPicture.asset(
+                        (pageSelected==1) ? "assets/svg/converterFilled.svg" : "assets/svg/converterOutlined.svg",
+                        height: 35,
                       ),
                       color: (pageSelected==1) ? Theme.of(context).colorScheme.secondary : Colors.grey,
                       iconSize: 35,
                     ),
                     IconButton(
                       onPressed: () => moveToPage(2),
-                      icon: Icon(
-                        (pageSelected==2) ? FontAwesomeIcons.solidMoneyBill1 : FontAwesomeIcons.moneyBill1
+                      icon: SvgPicture.asset(
+                        (pageSelected==2) ? "assets/svg/currencyFilled.svg" : "assets/svg/currencyOutlined.svg",
+                        height: 40,
                       ),
                       color: (pageSelected==2) ? Theme.of(context).colorScheme.secondary : Colors.grey,
                       iconSize: 35,
@@ -75,6 +70,7 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: PageView(
                   controller: pageController,
+                  onPageChanged: (page) => setState(() => pageSelected = page),
                   children: const [
                     CalculatorPage(),
                     ConverterPage(),

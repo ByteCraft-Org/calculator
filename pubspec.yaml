@@ -7,13 +7,19 @@ environment:
   sdk: '>=3.2.3 <4.0.0'
 
 dependencies:
+  ant_icons: ^2.0.0-nullsafety.0
+  evil_icons_flutter: ^0.5.0
+  feather_icons: ^1.2.0
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.9
   font_awesome_flutter: ^10.6.0
+  heroicons: ^0.9.0
   line_awesome_flutter: ^2.0.0
+  mdi: ^5.0.0-nullsafety.0
   rename: ^3.0.1
   shared_preferences: ^2.2.2
+  unicons: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -30,3 +36,9 @@ flutter:
   uses-material-design: true
   assets:
   - assets/svg/squareRoot.svg
+  - assets/svg/calculatorFilled.svg
+  - assets/svg/calculatorOutlined.svg
+  - assets/svg/converterFilled.svg
+  - assets/svg/converterOutlined.svg
+  - assets/svg/currencyOutlined.svg
+  - assets/svg/currencyFilled.svg
