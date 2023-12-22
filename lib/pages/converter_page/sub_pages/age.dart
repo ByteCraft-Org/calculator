@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class AgePage extends StatefulWidget {
   const AgePage({super.key});
@@ -11,8 +12,6 @@ class AgePage extends StatefulWidget {
 }
 
 class _AgePageState extends State<AgePage> {
-  AgeCalci age = AgeCalci();
-
   DateTime today = DateTime.now();
   int date = DateTime.now().day;
   int month = DateTime.now().month;
@@ -291,32 +290,43 @@ class _AgePageState extends State<AgePage> {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 1,
             blurRadius: 0,
-            offset: Offset(0, 0),
+            offset: Offset(0, 0), // changes position of shadow
           ),
         ],
       ),
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              Expanded(
                 child: _ageContainer(),
               ),
+              Container(
+                width: 1,
+                height: 150,
+                color: Colors.grey
+              ),
+              Expanded(
+                child: _nextBirthdayContainer(),
+              ),
             ],
-          )
+          ),
         ],
       )
     );
   }
 
   Widget _ageContainer() {
+    AgeCalci age = AgeCalci();
+
     return Column(// * : Age Container
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "Age",
           style: TextStyle(
+            color: Colors.white,
             fontSize: 40,
           ),
         ),
@@ -335,7 +345,9 @@ class _AgePageState extends State<AgePage> {
             Text(
               "years",
               style: TextStyle(
-                fontSize: 20
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold
               ),
             )
           ],
@@ -343,6 +355,47 @@ class _AgePageState extends State<AgePage> {
         Text(
           "${age.getAgeInMonths(dob)} months | ${age.getAgeInDays(dob)} days",
           style: TextStyle(
+            color: Colors.white,
+            fontSize: 15
+          ),
+        )
+      ],
+    );
+  }
+  
+  Widget _nextBirthdayContainer() {
+    NextBirthdayCalci nextBirthday = NextBirthdayCalci();
+
+    return Column(// * : Next Birthday Container
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          "Next Birthday",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.orange
+          ),
+        ),
+        SizedBox(height: 10,),
+        SvgPicture.asset(
+          "assets/svg/cake.svg",
+          height: 50,
+        ),
+        SizedBox(height: 10,),
+        Text(
+          nextBirthday.getWeekDay(dob),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold
+          ),
+        ),
+        SizedBox(height: 10,),
+        Text(
+          "${nextBirthday.getMonthsLeft(dob)} months | ${nextBirthday.getDaysLeft(dob)} days",
+          style: TextStyle(
+            color: Colors.white,
             fontSize: 15
           ),
         )
@@ -377,5 +430,38 @@ class AgeCalci{
       days = today.day - birthDate.day;
     }
     return days;
+  }
+}
+
+class NextBirthdayCalci{
+  DateTime today = DateTime.now();
+
+  String getWeekDay(DateTime birthDate) {
+    DateTime newBirthday = DateTime(DateTime.now().year + 1, birthDate.month, birthDate.day);
+    List<String> weekNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    return weekNames[newBirthday.weekday - 1];
+  }
+
+  int getMonthsLeft(DateTime birthDate) {
+    DateTime now = DateTime.now();
+    DateTime nextBirthday = DateTime(now.year, birthDate.month, birthDate.day);
+    if (now.isAfter(nextBirthday)) {
+      nextBirthday = DateTime(now.year + 1, birthDate.month, birthDate.day);
+    }
+    int monthsLeft = (nextBirthday.year - now.year) * 12 + (nextBirthday.month - now.month);
+    return monthsLeft;
+  }
+
+  int getDaysLeft(DateTime birthDate) {
+    DateTime now = DateTime.now();
+    DateTime nextBirthday = DateTime(now.year, birthDate.month, birthDate.day);
+
+    if (now.isAfter(nextBirthday)) {
+      nextBirthday = DateTime(now.year + 1, birthDate.month, birthDate.day);
+    }
+
+    int daysLeft = nextBirthday.difference(now).inDays;
+
+    return daysLeft;
   }
 }
