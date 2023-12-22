@@ -90,7 +90,7 @@ class _AgePageState extends State<AgePage> {
                           fontSize: 18
                         ),
                       ),
-                      const Icon(Icons.keyboard_arrow_down)
+                      const Icon(Icons.arrow_drop_down)
                     ],
                   )
                 ),

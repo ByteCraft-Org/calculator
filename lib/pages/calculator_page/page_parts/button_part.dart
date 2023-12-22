@@ -119,13 +119,12 @@ class _ButtonPartState extends State<ButtonPart> {
       ],
     );
 
-    Row row3 = Row(// * : 7, 8, 9, Multiply
+    Row row3 = Row(// * : Factorial, 7, 8, 9, Multiply
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         if(isExpanded)
           CustomButtonWithText(// * : Factorial
             onTap: (){},
-            
             buttontext: "n!",
             textColor: Colors.grey,
             fontSize: 20,
