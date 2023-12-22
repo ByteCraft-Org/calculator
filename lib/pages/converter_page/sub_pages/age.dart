@@ -107,7 +107,7 @@ class _AgePageState extends State<AgePage> {
 
   void _showBottomDialog(BuildContext context) {
     showModalBottomSheet(
-      backgroundColor: Colors.black38,
+      backgroundColor: Colors.grey[900],
       elevation: 1,
       useSafeArea: false,
       context: context,
@@ -280,7 +280,7 @@ class _AgePageState extends State<AgePage> {
   Widget _ageCard(context){
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(25),
       decoration: BoxDecoration(
         color: Color(0xFF232426),
         border: Border.all(),
@@ -304,7 +304,7 @@ class _AgePageState extends State<AgePage> {
               ),
               Container(
                 width: 1,
-                height: 150,
+                height: 160,
                 color: Colors.grey
               ),
               Expanded(
@@ -312,6 +312,14 @@ class _AgePageState extends State<AgePage> {
               ),
             ],
           ),
+          SizedBox(height: 15),
+          Container(
+            width: double.infinity,
+            height: 1,
+            color: Colors.grey
+          ),
+          SizedBox(height: 15),
+          _summaryContainer()
         ],
       )
     );
@@ -402,6 +410,149 @@ class _AgePageState extends State<AgePage> {
       ],
     );
   }
+
+  Widget _summaryContainer() {
+    SummaryCalci summary = SummaryCalci();
+
+    return Column(
+      children: [
+        Center(
+          child: Text(
+            "Summary",
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Colors.orange
+            ),
+          )
+        ),
+        SizedBox(height: 20,),
+        Row(// * : Years, Months, Weeks
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(// * : Years
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Years",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      "${summary.getAgeInYears(dob)}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(// * : Months
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Months",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      "${summary.getAgeInMonths(dob)}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(// * : Weeks
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Weeks",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      "${summary.getAgeInWeeks(dob)}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ]
+        ),
+        SizedBox(height: 15,),
+        Row(// * : Days, Hours
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(// * : Days
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Days",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      "${summary.getAgeInDays(dob)}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 35,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(// * : Hours
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Hours",
+                      overflow: TextOverflow.fade,
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      "${summary.getAgeInHours(dob)}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 35,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ]
+        ),
+      ],
+    );
+  }
 }
 
 class AgeCalci{
@@ -463,5 +614,51 @@ class NextBirthdayCalci{
     int daysLeft = nextBirthday.difference(now).inDays;
 
     return daysLeft;
+  }
+}
+
+class SummaryCalci{
+  DateTime today = DateTime.now();
+
+  int getAgeInYears(DateTime birthDate) {
+    return today.year - birthDate.year;
+  }
+
+  int getAgeInWeeks(DateTime birthDate) {
+    DateTime now = DateTime.now();
+    Duration difference = now.difference(birthDate);
+    int ageInWeeks = (difference.inDays / 7).floor();
+    return ageInWeeks;
+  }
+
+  int getAgeInMonths(DateTime birthDate) {
+    DateTime now = DateTime.now();
+    int ageInMonths = (now.year - birthDate.year) * 12 + now.month - birthDate.month;
+    if (now.day < birthDate.day) {
+      ageInMonths--;
+    }
+
+    return ageInMonths;
+  }
+
+  int getAgeInDays(DateTime birthDate) {
+    DateTime now = DateTime.now();
+    Duration difference = now.difference(birthDate);
+    int ageInDays = difference.inDays;
+    return ageInDays;
+  }
+
+  int getAgeInHours(DateTime birthDate) {
+    DateTime now = DateTime.now();
+    Duration difference = now.difference(birthDate);
+    int ageInHours = difference.inHours;
+    return ageInHours;
+  }
+
+  int getAgeInMinutes(DateTime birthDate) {
+    DateTime now = DateTime.now();
+    Duration difference = now.difference(birthDate);
+    int ageInMinutes = difference.inMinutes;
+    return ageInMinutes;
   }
 }
