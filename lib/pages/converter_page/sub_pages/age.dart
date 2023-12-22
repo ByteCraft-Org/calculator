@@ -11,6 +11,9 @@ class AgePage extends StatefulWidget {
 }
 
 class _AgePageState extends State<AgePage> {
+  AgeCalci age = AgeCalci();
+
+  DateTime today = DateTime.now();
   int date = DateTime.now().day;
   int month = DateTime.now().month;
   String monthString = _getMonthName(DateTime.now().month);
@@ -85,7 +88,7 @@ class _AgePageState extends State<AgePage> {
                 GestureDetector(
                   onTap: () => _showBottomDialog(context),
                   child: Text(
-                    "${DateTime.now().day.toString().padLeft(2, '0')} ${_getMonthName(DateTime.now().month)} ${DateTime.now().year.toString()}",
+                    "${today.day.toString().padLeft(2, '0')} ${_getMonthName(today.month)} ${today.year.toString()}",
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -95,7 +98,8 @@ class _AgePageState extends State<AgePage> {
                 ),
               ]
             ),
-            SizedBox(height: 25,)
+            SizedBox(height: 25,),
+            _ageCard(context) // * : Age Card
           ],
         )
       )
@@ -159,7 +163,7 @@ class _AgePageState extends State<AgePage> {
                     ),
                     _buildCupertinoPicker(// * : Year
                       minValue: 1950,
-                      maxValue: DateTime.now().year,
+                      maxValue: today.year,
                       value: year,
                       onChanged: (value) {
                         setState(() => localYear = (value + 1950));
@@ -255,6 +259,9 @@ class _AgePageState extends State<AgePage> {
         itemExtent: 50,
         useMagnifier: false,
         onSelectedItemChanged: onChanged,
+        diameterRatio: 1,
+        looping: false,
+        scrollController: FixedExtentScrollController(initialItem: value - minValue),
         children: List.generate(
           maxValue - minValue + 1,
           (index) => Center(
@@ -267,11 +274,108 @@ class _AgePageState extends State<AgePage> {
             ),
           ),
         ),
-        diameterRatio: 1,
-        looping: false,
-        scrollController: FixedExtentScrollController(initialItem: value - minValue),
       ),
     );
   }
 
+  Widget _ageCard(context){
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Color(0xFF232426),
+        border: Border.all(),
+        borderRadius: BorderRadius.circular(25),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 0,
+            offset: Offset(0, 0),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _ageContainer(),
+              ),
+            ],
+          )
+        ],
+      )
+    );
+  }
+
+  Widget _ageContainer() {
+    return Column(// * : Age Container
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Age",
+          style: TextStyle(
+            fontSize: 40,
+          ),
+        ),
+        Row(// * : Age in years
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Text(
+                "${age.getAgeInYears(dob)}",
+                style: TextStyle(
+                  fontSize: 65,
+                  color: Colors.orange
+                ),
+              ),
+            ),
+            Text(
+              "years",
+              style: TextStyle(
+                fontSize: 20
+              ),
+            )
+          ],
+        ),
+        Text(
+          "${age.getAgeInMonths(dob)} months | ${age.getAgeInDays(dob)} days",
+          style: TextStyle(
+            fontSize: 15
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class AgeCalci{
+  DateTime today = DateTime.now();
+  
+  int getAgeInYears(DateTime birthDate) {
+    return today.year - birthDate.year;
+  }
+
+  int getAgeInMonths(DateTime birthDate) {
+    int months = today.month - birthDate.month;
+    if (today.day < birthDate.day) {
+      months--;
+    }
+    if (months < 0) {
+      months += 12;
+    }
+    return months;
+  }
+
+  int getAgeInDays(DateTime birthDate) {
+    int days = 0;
+    if (today.day < birthDate.day) {
+      days = birthDate.day - today.day;
+    } else {
+      days = today.day - birthDate.day;
+    }
+    return days;
+  }
 }
