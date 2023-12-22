@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,16 +13,15 @@ class AgePage extends StatefulWidget {
 
 class _AgePageState extends State<AgePage> {
   DateTime today = DateTime.now();
-  int date = DateTime.now().day;
-  int month = DateTime.now().month;
-  String monthString = _getMonthName(DateTime.now().month);
-  int year = DateTime.now().year;
+  int date = Random().nextInt(28) + 1;
+  int month = Random().nextInt(12) + 1;
+  late String monthString;
+  late int year;
 
-  DateTime dob = DateTime.now();
+  int todayYear = DateTime.now().year;
+  int minYear = DateTime.now().year - 75;
 
-  int ageYears = 0;
-  int ageMonths = 0;
-  int ageDays = 0;
+  late DateTime dob;
 
   static List<String> monthNames = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
@@ -28,6 +29,29 @@ class _AgePageState extends State<AgePage> {
 
   static String _getMonthName(int month) {
     return monthNames[month - 1];
+  }
+
+
+  int daysInMonths() {
+    switch (month) {
+      case 2:
+        return (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) ? 29 : 28; // Leap year check
+      case 4:
+      case 6:
+      case 9:
+      case 11:
+        return 30;
+      default:
+        return 31;
+    }
+  }
+
+  @override
+  void initState() {
+    monthString = _getMonthName(month);
+    year = minYear + Random().nextInt(todayYear - minYear + 1);
+    dob = DateTime(year, month, date);
+    super.initState();
   }
 
   @override
@@ -141,7 +165,7 @@ class _AgePageState extends State<AgePage> {
                   children: [
                     _buildCupertinoPicker(// * : Day
                       minValue: 1,
-                      maxValue: 30,
+                      maxValue: daysInMonths(),
                       value: localDate,
                       onChanged: (value) {
                         setState(() => localDate = value+1);
@@ -149,21 +173,25 @@ class _AgePageState extends State<AgePage> {
                     ),
                     _buildCupertinoPicker(// * : Month
                       minValue: 1,
-                      maxValue: 12,
+                      maxValue: (year == today.year) ? today.month : 12,
                       value: monthNames.indexOf(monthString) + 1,
                       onChanged: (value) {
                         setState(() {
                           localMonth = _getMonthName(value+1);
                           month = value+1;
+                          daysInMonths();
                         });
                       },
                     ),
                     _buildCupertinoPicker(// * : Year
-                      minValue: 1950,
+                      minValue: today.year - 75,
                       maxValue: today.year,
                       value: year,
                       onChanged: (value) {
-                        setState(() => localYear = (value + 1950));
+                        setState(() {
+                          localYear = (value + 1950);
+                          daysInMonths();
+                        });
                       },
                     ),
                   ],
@@ -368,7 +396,7 @@ class _AgePageState extends State<AgePage> {
       ],
     );
   }
-  
+
   Widget _nextBirthdayContainer() {
     NextBirthdayCalci nextBirthday = NextBirthdayCalci();
 
@@ -383,12 +411,12 @@ class _AgePageState extends State<AgePage> {
             color: Colors.orange
           ),
         ),
-        const SizedBox(height: 10,),
+        const SizedBox(height: 12,),
         SvgPicture.asset(
           "assets/svg/cake.svg",
           height: 50,
         ),
-        const SizedBox(height: 10,),
+        const SizedBox(height: 12,),
         Text(
           nextBirthday.getWeekDay(dob),
           style: const TextStyle(
@@ -397,7 +425,7 @@ class _AgePageState extends State<AgePage> {
             fontWeight: FontWeight.bold
           ),
         ),
-        const SizedBox(height: 10,),
+        const SizedBox(height: 12,),
         Text(
           "${nextBirthday.getMonthsLeft(dob)} months | ${nextBirthday.getDaysLeft(dob)} days",
           style: const TextStyle(
@@ -515,7 +543,7 @@ class _AgePageState extends State<AgePage> {
                       "${summary.getAgeInDays(dob)}",
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 35,
+                        fontSize: 24,
                       ),
                     ),
                   ],
@@ -539,7 +567,31 @@ class _AgePageState extends State<AgePage> {
                       "${summary.getAgeInHours(dob)}",
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 35,
+                        fontSize: 24,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(// * : Minutes
+              child: Center(
+                child: Column(
+                  children: [
+                    const Text(
+                      "Minutes",
+                      overflow: TextOverflow.fade,
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      "${summary.getAgeInMinutes(dob)}",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
                       ),
                     ),
                   ],
