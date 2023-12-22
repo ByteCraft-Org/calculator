@@ -44,9 +44,11 @@ class _MainAppState extends State<MainApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color(0xFF000000),
-        primaryColor: const Color(0xFFFFFFFF),        
+        primaryColor: const Color(0xFFFFFFFF),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black
+        ),
         colorScheme: ThemeData.dark().colorScheme.copyWith(
-          //secondary: const Color(0xff65ffa0),
           secondary: Colors.orange,
         ),
       ),

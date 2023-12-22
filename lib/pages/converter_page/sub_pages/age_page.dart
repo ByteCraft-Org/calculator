@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -37,10 +35,10 @@ class _AgePageState extends State<AgePage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back),
         ),
-        title: Text("Age"),
+        title: const Text("Age"),
         centerTitle: true,
       ),
       body: Padding(
@@ -74,7 +72,7 @@ class _AgePageState extends State<AgePage> {
                 ),
               ]
             ),
-            SizedBox(height: 25,),
+            const SizedBox(height: 25,),
             Row(// * : Today's Date
               children: [
                 const Text(
@@ -97,7 +95,7 @@ class _AgePageState extends State<AgePage> {
                 ),
               ]
             ),
-            SizedBox(height: 25,),
+            const SizedBox(height: 25,),
             _ageCard(context) // * : Age Card
           ],
         )
@@ -124,7 +122,7 @@ class _AgePageState extends State<AgePage> {
               Container(// * : Bottom Sheet Heading
                 width: double.infinity,
                 alignment: Alignment.center,
-                child: Text(
+                child: const Text(
                   "Date of Birth",
                   style: TextStyle(
                     color: Colors.white,
@@ -186,11 +184,11 @@ class _AgePageState extends State<AgePage> {
                                 borderRadius: BorderRadius.circular(30)
                               )
                             ),
-                            padding: MaterialStatePropertyAll(
+                            padding: const MaterialStatePropertyAll(
                               EdgeInsets.all(12)
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             "Cancel",
                             style: TextStyle(
                               color: Colors.white,
@@ -218,11 +216,11 @@ class _AgePageState extends State<AgePage> {
                                 borderRadius: BorderRadius.circular(30)
                               )
                             ),
-                            padding: MaterialStatePropertyAll(
+                            padding: const MaterialStatePropertyAll(
                               EdgeInsets.all(12)
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             "OK",
                             style: TextStyle(
                               color: Colors.white,
@@ -251,7 +249,7 @@ class _AgePageState extends State<AgePage> {
     return Container(
       width: 100,
       height: 150,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.transparent,
       ),
       child: CupertinoPicker(
@@ -266,7 +264,7 @@ class _AgePageState extends State<AgePage> {
           (index) => Center(
             child: Text(
               (minValue + index).toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
               ),
@@ -280,9 +278,9 @@ class _AgePageState extends State<AgePage> {
   Widget _ageCard(context){
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(25),
+      padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Color(0xFF232426),
+        color: const Color(0xFF232426),
         border: Border.all(),
         borderRadius: BorderRadius.circular(25),
         boxShadow: [
@@ -290,7 +288,7 @@ class _AgePageState extends State<AgePage> {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 1,
             blurRadius: 0,
-            offset: Offset(0, 0), // changes position of shadow
+            offset: const Offset(0, 0), // changes position of shadow
           ),
         ],
       ),
@@ -312,13 +310,13 @@ class _AgePageState extends State<AgePage> {
               ),
             ],
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Container(
             width: double.infinity,
             height: 1,
             color: Colors.grey
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           _summaryContainer()
         ],
       )
@@ -331,7 +329,7 @@ class _AgePageState extends State<AgePage> {
     return Column(// * : Age Container
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Age",
           style: TextStyle(
             color: Colors.white,
@@ -344,13 +342,13 @@ class _AgePageState extends State<AgePage> {
               padding: const EdgeInsets.only(right: 10),
               child: Text(
                 "${age.getAgeInYears(dob)}",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 65,
                   color: Colors.orange
                 ),
               ),
             ),
-            Text(
+            const Text(
               "years",
               style: TextStyle(
                 color: Colors.white,
@@ -362,7 +360,7 @@ class _AgePageState extends State<AgePage> {
         ),
         Text(
           "${age.getAgeInMonths(dob)} months | ${age.getAgeInDays(dob)} days",
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 15
           ),
@@ -377,7 +375,7 @@ class _AgePageState extends State<AgePage> {
     return Column(// * : Next Birthday Container
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           "Next Birthday",
           style: TextStyle(
             fontSize: 20,
@@ -385,24 +383,24 @@ class _AgePageState extends State<AgePage> {
             color: Colors.orange
           ),
         ),
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         SvgPicture.asset(
           "assets/svg/cake.svg",
           height: 50,
         ),
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         Text(
           nextBirthday.getWeekDay(dob),
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 20,
             fontWeight: FontWeight.bold
           ),
         ),
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         Text(
           "${nextBirthday.getMonthsLeft(dob)} months | ${nextBirthday.getDaysLeft(dob)} days",
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 15
           ),
@@ -416,7 +414,7 @@ class _AgePageState extends State<AgePage> {
 
     return Column(
       children: [
-        Center(
+        const Center(
           child: Text(
             "Summary",
             style: TextStyle(
@@ -426,7 +424,7 @@ class _AgePageState extends State<AgePage> {
             ),
           )
         ),
-        SizedBox(height: 20,),
+        const SizedBox(height: 20,),
         Row(// * : Years, Months, Weeks
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -434,7 +432,7 @@ class _AgePageState extends State<AgePage> {
               child: Center(
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       "Years",
                       style: TextStyle(
                         color: Colors.white,
@@ -443,7 +441,7 @@ class _AgePageState extends State<AgePage> {
                     ),
                     Text(
                       "${summary.getAgeInYears(dob)}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 40,
                       ),
@@ -456,7 +454,7 @@ class _AgePageState extends State<AgePage> {
               child: Center(
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       "Months",
                       style: TextStyle(
                         color: Colors.white,
@@ -465,7 +463,7 @@ class _AgePageState extends State<AgePage> {
                     ),
                     Text(
                       "${summary.getAgeInMonths(dob)}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 40,
                       ),
@@ -478,7 +476,7 @@ class _AgePageState extends State<AgePage> {
               child: Center(
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       "Weeks",
                       style: TextStyle(
                         color: Colors.white,
@@ -487,7 +485,7 @@ class _AgePageState extends State<AgePage> {
                     ),
                     Text(
                       "${summary.getAgeInWeeks(dob)}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 40,
                       ),
@@ -498,7 +496,7 @@ class _AgePageState extends State<AgePage> {
             ),
           ]
         ),
-        SizedBox(height: 15,),
+        const SizedBox(height: 15,),
         Row(// * : Days, Hours
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -506,7 +504,7 @@ class _AgePageState extends State<AgePage> {
               child: Center(
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       "Days",
                       style: TextStyle(
                         color: Colors.white,
@@ -515,7 +513,7 @@ class _AgePageState extends State<AgePage> {
                     ),
                     Text(
                       "${summary.getAgeInDays(dob)}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 35,
                       ),
@@ -528,7 +526,7 @@ class _AgePageState extends State<AgePage> {
               child: Center(
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       "Hours",
                       overflow: TextOverflow.fade,
                       maxLines: 1,
@@ -539,7 +537,7 @@ class _AgePageState extends State<AgePage> {
                     ),
                     Text(
                       "${summary.getAgeInHours(dob)}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 35,
                       ),
