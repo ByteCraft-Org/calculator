@@ -206,7 +206,7 @@ class _AgePageState extends State<AgePage> {
                         child: ElevatedButton(
                           onPressed: () => Navigator.pop(context),
                           style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(Colors.grey[700]),
+                            backgroundColor: MaterialStatePropertyAll(Colors.grey[800]),
                             shape: MaterialStatePropertyAll(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30)
