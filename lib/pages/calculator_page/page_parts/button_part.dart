@@ -18,7 +18,6 @@ class _ButtonPartState extends State<ButtonPart> {
       children: [
         CustomButtonWrap(// * : Exponent
           onTap: (){},
-          
           childern1: const Padding(
             padding: EdgeInsets.only(top: 5),
             child: Text(
@@ -45,7 +44,6 @@ class _ButtonPartState extends State<ButtonPart> {
         ),
         CustomButtonWithText(// * : mod
           onTap: (){},
-          
           buttontext: "|X|",
           textColor: Colors.grey,
           fontSize: 20,
@@ -53,7 +51,6 @@ class _ButtonPartState extends State<ButtonPart> {
         ),
         CustomButtonWithText(// * : Open Bracket
           onTap: (){},
-          
           buttontext: "(",
           textColor: Colors.grey,
           fontSize: 20,
@@ -61,7 +58,6 @@ class _ButtonPartState extends State<ButtonPart> {
         ),
         CustomButtonWithText(// * : Close Bracket
           onTap: (){},
-          
           buttontext: ")",
           textColor: Colors.grey,
           fontSize: 20,
@@ -69,7 +65,6 @@ class _ButtonPartState extends State<ButtonPart> {
         ),
         CustomButtonWithText(// * : Modulus
           onTap: (){},
-          
           buttontext: "mod",
           textColor: Colors.grey,
           fontSize: 18,
@@ -89,7 +84,6 @@ class _ButtonPartState extends State<ButtonPart> {
           ),
         CustomButtonWithText(// * : Clear
           onTap: (){},
-            
           buttontext: "C",
           textColor: Theme.of(context).colorScheme.secondary,
           fontSize: isExpanded ? 25 : 30,
@@ -97,21 +91,18 @@ class _ButtonPartState extends State<ButtonPart> {
         ),
         CustomButtonWithIcon(// * : Backspace
           onTap: (){},
-            
           icon: Icons.backspace,
           iconColor: Theme.of(context).colorScheme.secondary,
           iconSize: isExpanded ? 25 : 30,
         ),
         CustomButtonWithIcon(// * : Percent
           onTap: (){},
-            
           icon: FontAwesomeIcons.percent,
           iconColor: Theme.of(context).colorScheme.secondary,
           iconSize: isExpanded ? 25 : 30,
         ),
         CustomButtonWithIcon(// * : Divide
           onTap: (){},
-            
           icon: FontAwesomeIcons.divide,
           iconColor: Theme.of(context).colorScheme.secondary,
           iconSize: isExpanded ? 25 : 30,
@@ -124,35 +115,30 @@ class _ButtonPartState extends State<ButtonPart> {
       children: [
         if(isExpanded)
           CustomButtonWithText(// * : Factorial
-            onTap: (){},
-            buttontext: "n!",
+            onTap: (){},buttontext: "n!",
             textColor: Colors.grey,
             fontSize: 20,
           ),
         CustomButtonWithText(// * : Seven
           onTap: (){},
-            
           buttontext: "7",
           textColor: Theme.of(context).primaryColor,
           fontSize: isExpanded ? 25 : 30,
         ),
         CustomButtonWithText(// * : Eight
           onTap: (){},
-            
           buttontext: "8",
           textColor: Theme.of(context).primaryColor,
           fontSize: isExpanded ? 25 : 30,
         ),
         CustomButtonWithText(// * : Nine
           onTap: (){},
-            
           buttontext: "9",
           textColor: Theme.of(context).primaryColor,
           fontSize: isExpanded ? 25 : 30,
         ),
         CustomButtonWithIcon(// * : Multiply
           onTap: (){},
-            
           icon: FontAwesomeIcons.xmark,
           iconColor: Theme.of(context).colorScheme.secondary,
           iconSize: isExpanded ? 25 : 30,
@@ -172,21 +158,18 @@ class _ButtonPartState extends State<ButtonPart> {
           ),
         CustomButtonWithText(// * : Four
           onTap: (){},
-            
           buttontext: "4",
           textColor: Theme.of(context).primaryColor,
           fontSize: isExpanded ? 25 : 30,
         ),
         CustomButtonWithText(// * : Five
           onTap: (){},
-            
           buttontext: "5",
           textColor: Theme.of(context).primaryColor,
           fontSize: isExpanded ? 25 : 30,
         ),
         CustomButtonWithText(// * : Six
           onTap: (){},
-            
           buttontext: "6",
           textColor: Theme.of(context).primaryColor,
           fontSize: isExpanded ? 25 : 30,
@@ -213,28 +196,24 @@ class _ButtonPartState extends State<ButtonPart> {
           ),
         CustomButtonWithText(// * : One
           onTap: (){},
-            
           buttontext: "1",
           textColor: Theme.of(context).primaryColor,
           fontSize: isExpanded ? 25 : 30,
         ),
         CustomButtonWithText(// * : Two
           onTap: (){},
-            
           buttontext: "2",
           textColor: Theme.of(context).primaryColor,
           fontSize: isExpanded ? 25 : 30,
         ),
         CustomButtonWithText(// * : Three
           onTap: (){},
-            
           buttontext: "3",
           textColor: Theme.of(context).primaryColor,
           fontSize: isExpanded ? 25 : 30,
         ),
         CustomButtonWithIcon(// * : Add
           onTap: (){},
-            
           icon: FontAwesomeIcons.plus,
           iconColor: Theme.of(context).colorScheme.secondary,
           iconSize: isExpanded ? 25 : 30,
@@ -255,14 +234,12 @@ class _ButtonPartState extends State<ButtonPart> {
         ),
         CustomButtonWithIcon(// * : Decimal
           onTap: (){},
-            
           icon: const IconData(46),
           iconColor: Theme.of(context).primaryColor,
           iconSize: isExpanded ? 25 : 30,
         ),
         CustomButtonWithText(// * : Zero
           onTap: (){},
-            
           buttontext: "0",
           textColor: Theme.of(context).primaryColor,
           fontSize: isExpanded ? 25 : 30,
@@ -276,7 +253,6 @@ class _ButtonPartState extends State<ButtonPart> {
           ),
         CustomButtonWithIcon(// * : Equals
           onTap: (){},
-            
           icon: FontAwesomeIcons.equals,
           iconColor: Theme.of(context).primaryColor,
           bgColor: Theme.of(context).colorScheme.secondary,

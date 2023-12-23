@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class AreaPage extends StatefulWidget {
   AreaPage({super.key});
@@ -51,14 +53,16 @@ class _AreaPageState extends State<AreaPage> {
               flex: 2,
               child: _secondUnitBox(context),
             ),
-            Expanded(
-              flex: 1,
-              child: Container()
+            const SizedBox(height: 5,),
+            Divider(// * : Divider Line
+            thickness: 2,
+              color: Theme.of(context).primaryColor.withOpacity(0.3),
             ),
-            Expanded(
-              flex: 12,
-              child: Container()
-            )
+            const SizedBox(height: 5,),
+            Align(// * : Button Segment
+              alignment: Alignment.bottomCenter,
+              child: _buttonBox(context)
+            ),
           ],
         ),
       ),
@@ -67,92 +71,92 @@ class _AreaPageState extends State<AreaPage> {
 
   Widget _firstUnitBox(BuildContext context) {
     return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GestureDetector(// * : First Unit Selector
+          onTap: () {
+            setState(() => isFirstDDSelected = true);
+            _showBottomDialog(context, btn: 1);
+          },
+          child: RichText(
+            text: TextSpan(
               children: [
-                GestureDetector(// * : First Unit Selector
-                  onTap: () {
-                    setState(() => isFirstDDSelected = true);
-                    _showBottomDialog(context, btn: 1);
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: firstUnitBtnDD.endsWith("2")
-                          ? firstUnitBtnDD.substring(0, firstUnitBtnDD.length - 1)
-                          : firstUnitBtnDD,
-                          style: TextStyle(
-                            color: isFirstDDSelected ? Colors.orange : Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
-                          ),
-                        ),
-                        if(firstUnitBtnDD.endsWith("2"))
-                          WidgetSpan(
-                            child: Transform.translate(
-                              offset: Offset(0, -3),
-                              child: Text(
-                                "2",
-                                style: TextStyle(
-                                  color: isFirstDDSelected ? Colors.orange : Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  textBaseline: TextBaseline.alphabetic,
-                                ),
-                              ),
-                            ),
-                          ),
-                        WidgetSpan(
-                          alignment: PlaceholderAlignment.middle,
-                          child: Icon(
-                            Icons.arrow_drop_down,
-                            color: isFirstDDSelected ? Colors.orange : Colors.white,
-                          )
-                        )
-                      ],
-                    ),
+                TextSpan(
+                  text: firstUnitBtnDD.endsWith("2")
+                  ? firstUnitBtnDD.substring(0, firstUnitBtnDD.length - 1)
+                  : firstUnitBtnDD,
+                  style: TextStyle(
+                    color: isFirstDDSelected ? Colors.orange : Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
                   ),
                 ),
-                Expanded(// * : First Unit Text Box
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() => isFirstTextSelected = true);
-                      setState(() => isSecondTextSelected = false);
-                    },
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              "12345",
-                              maxLines: 1,
-                              style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                color: isFirstTextSelected ? Colors.orange : Colors.white,
-                              ),
-                            ),
-                          ),
-                          Container(// * : Unit Display
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              unitNameLists[firstSelectedItem],
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                          )
-                        ],
+                if(firstUnitBtnDD.endsWith("2"))
+                  WidgetSpan(
+                    child: Transform.translate(
+                      offset: Offset(0, -3),
+                      child: Text(
+                        "2",
+                        style: TextStyle(
+                          color: isFirstDDSelected ? Colors.orange : Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          textBaseline: TextBaseline.alphabetic,
+                        ),
                       ),
                     ),
                   ),
-                ),
+                WidgetSpan(
+                  alignment: PlaceholderAlignment.middle,
+                  child: Icon(
+                    Icons.arrow_drop_down,
+                    color: isFirstDDSelected ? Colors.orange : Colors.white,
+                  )
+                )
               ],
-            );
+            ),
+          ),
+        ),
+        Expanded(// * : First Unit Text Box
+          child: GestureDetector(
+            onTap: () {
+              setState(() => isFirstTextSelected = true);
+              setState(() => isSecondTextSelected = false);
+            },
+            child: Container(
+              color: Colors.transparent,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      "12345",
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: isFirstTextSelected ? Colors.orange : Colors.white,
+                      ),
+                    ),
+                  ),
+                  Container(// * : Unit Display
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      unitNameLists[firstSelectedItem],
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _secondUnitBox(BuildContext context) {
@@ -382,5 +386,162 @@ class _AreaPageState extends State<AreaPage> {
         isSecondDDSelected = false;
       });
     });
+  }
+
+  Widget _buttonBox(BuildContext context) {
+    Wrap col1 = Wrap(
+      direction: Axis.vertical,
+      alignment: WrapAlignment.spaceEvenly,
+      spacing: 30,
+      children: [
+        CustomButtonWithText(// * : Seven
+          onTap: (){},
+          buttontext: "7",
+          textColor: Theme.of(context).primaryColor,
+          fontSize: 30,
+        ),
+        CustomButtonWithText(// * : Four
+          onTap: (){},
+          buttontext: "4",
+          textColor: Theme.of(context).primaryColor,
+          fontSize: 30,
+        ),
+        CustomButtonWithText(// * : One
+          onTap: (){},
+          buttontext: "1",
+          textColor: Theme.of(context).primaryColor,
+          fontSize: 30,
+        ),
+        SizedBox(
+          width: 60,
+          height: 60,
+        )
+      ],
+    );
+
+    Wrap col2 = Wrap(
+      direction: Axis.vertical,
+      alignment: WrapAlignment.spaceEvenly,
+      spacing: 30,
+      children: [
+        CustomButtonWithText(// * : Eight
+          onTap: (){},
+          buttontext: "8",
+          textColor: Theme.of(context).primaryColor,
+          fontSize: 30,
+        ),
+        CustomButtonWithText(// * : Five
+          onTap: (){},
+          buttontext: "5",
+          textColor: Theme.of(context).primaryColor,
+          fontSize: 30,
+        ),
+        CustomButtonWithText(// * : Two
+          onTap: (){},
+          buttontext: "2",
+          textColor: Theme.of(context).primaryColor,
+          fontSize: 30,
+        ),
+        CustomButtonWithText(// * : Zero
+          onTap: (){},
+          buttontext: "0",
+          textColor: Theme.of(context).primaryColor,
+          fontSize: 30,
+        ),
+      ],
+    );
+
+    Wrap col3 = Wrap(
+      direction: Axis.vertical,
+      alignment: WrapAlignment.spaceEvenly,
+      spacing: 30,
+      children: [
+        CustomButtonWithText(// * : Nine
+          onTap: (){},
+          buttontext: "9",
+          textColor: Theme.of(context).primaryColor,
+          fontSize: 30,
+        ),
+        CustomButtonWithText(// * : Six
+          onTap: (){},
+          buttontext: "6",
+          textColor: Theme.of(context).primaryColor,
+          fontSize: 30,
+        ),
+        CustomButtonWithText(// * : Three
+          onTap: (){},
+          buttontext: "3",
+          textColor: Theme.of(context).primaryColor,
+          fontSize: 30,
+        ),
+        CustomButtonWithText(// * : Decimal
+          onTap: (){},
+          buttontext: ".",
+          textColor: Theme.of(context).primaryColor,
+          fontSize: 30,
+        ),
+      ],
+    );
+
+    Wrap col4 = Wrap(
+      direction: Axis.vertical,
+      alignment: WrapAlignment.spaceEvenly,
+      spacing: 30,
+      children: [
+        ElevatedButton(
+          onPressed: () {},
+          style: ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
+            overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
+            shape: MaterialStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50)
+              )
+            ),
+            minimumSize: MaterialStatePropertyAll(
+              Size(60,140)
+            )
+          ),
+          child: Text(
+            "AC",
+            style: TextStyle(
+              color: Colors.orange,
+              fontSize: 30,
+              fontWeight: FontWeight.bold
+            ),
+          )
+        ),
+        ElevatedButton(
+          onPressed: () {},
+          style: ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
+            overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
+            shape: MaterialStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50)
+              )
+            ),
+            minimumSize: MaterialStatePropertyAll(
+              Size(40,140)
+            )
+          ),
+          child: Icon(
+            LineAwesomeIcons.backspace,
+            color: Colors.orange,
+            size: 35,
+          ),
+        ),
+      ],
+    );
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        col1,
+        col2,
+        col3,
+        col4
+      ],
+    );
   }
 }
