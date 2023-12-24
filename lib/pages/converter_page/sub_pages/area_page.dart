@@ -1,12 +1,10 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:calculator/utils/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class AreaPage extends StatefulWidget {
-  AreaPage({super.key});
+  const AreaPage({super.key});
 
   @override
   State<AreaPage> createState() => _AreaPageState();
@@ -40,9 +38,9 @@ class _AreaPageState extends State<AreaPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
-        title: Text("Area"),
+        title: const Text("Area"),
         centerTitle: true,
       ),
       body: Padding(
@@ -103,7 +101,7 @@ class _AreaPageState extends State<AreaPage> {
                 if(firstUnitBtnDD.endsWith("2"))
                   WidgetSpan(
                     child: Transform.translate(
-                      offset: Offset(0, -3),
+                      offset: const Offset(0, -3),
                       child: Text(
                         "2",
                         style: TextStyle(
@@ -152,7 +150,7 @@ class _AreaPageState extends State<AreaPage> {
                     alignment: Alignment.centerRight,
                     child: Text(
                       unitNameLists[firstSelectedItem],
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.grey,
                       ),
                     ),
@@ -192,7 +190,7 @@ class _AreaPageState extends State<AreaPage> {
                   if(secondUnitBtnDD.endsWith("2"))
                     WidgetSpan(
                       child: Transform.translate(
-                        offset: Offset(0, -3),
+                        offset: const Offset(0, -3),
                         child: Text(
                           "2",
                           style: TextStyle(
@@ -241,7 +239,7 @@ class _AreaPageState extends State<AreaPage> {
                       alignment: Alignment.centerRight,
                       child: Text(
                         unitNameLists[secondSelectedItem],
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.grey,
                         ),
                       ),
@@ -263,7 +261,7 @@ class _AreaPageState extends State<AreaPage> {
       context: context,
       builder: (BuildContext bc) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: Wrap(
             runSpacing: 10,
             spacing: 10,
@@ -271,7 +269,7 @@ class _AreaPageState extends State<AreaPage> {
               Container(// * : Bottom Sheet Heading
                 width: double.infinity,
                 alignment: Alignment.center,
-                child: Text(
+                child: const Text(
                   "Select unit",
                   style: TextStyle(
                     color: Colors.white,
@@ -281,7 +279,7 @@ class _AreaPageState extends State<AreaPage> {
               ),
               Container(// * : Unit Container
                 height: 300,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   borderRadius: BorderRadius.circular(10),
@@ -296,17 +294,17 @@ class _AreaPageState extends State<AreaPage> {
                               children: [
                                 TextSpan(
                                   text: unitNameLists[index],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
                                   ),
                                 ),
-                                WidgetSpan(child: SizedBox(width: 10,)),
+                                const WidgetSpan(child: SizedBox(width: 10,)),
                                 TextSpan(
                                   text: unitSymbolLists[index].endsWith("2")
                                   ? unitSymbolLists[index].substring(0, unitSymbolLists[index].length - 1)
                                   : unitSymbolLists[index],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold
@@ -315,8 +313,8 @@ class _AreaPageState extends State<AreaPage> {
                                 if(unitSymbolLists[index].endsWith("2"))
                                   WidgetSpan(
                                     child: Transform.translate(
-                                      offset: Offset(0, -3),
-                                      child: Text(
+                                      offset: const Offset(0, -3),
+                                      child: const Text(
                                         "2",
                                         style: TextStyle(
                                           color: Colors.grey,
@@ -350,7 +348,7 @@ class _AreaPageState extends State<AreaPage> {
                 ),
               ),
               Padding(// * : Cancel button
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -368,11 +366,11 @@ class _AreaPageState extends State<AreaPage> {
                           borderRadius: BorderRadius.circular(30)
                         )
                       ),
-                      padding: MaterialStatePropertyAll(
+                      padding: const MaterialStatePropertyAll(
                         EdgeInsets.all(12)
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Cancel",
                       style: TextStyle(
                         color: Colors.white,
@@ -419,7 +417,7 @@ class _AreaPageState extends State<AreaPage> {
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
-        SizedBox(
+        const SizedBox(
           width: 60,
           height: 60,
         )
@@ -499,17 +497,17 @@ class _AreaPageState extends State<AreaPage> {
           onPressed: () => setState(() => _areaLogics._onAllClearPressed()),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
-            overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
+            overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
             shape: MaterialStatePropertyAll(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50)
               )
             ),
-            minimumSize: MaterialStatePropertyAll(
+            minimumSize: const MaterialStatePropertyAll(
               Size(60,140)
             )
           ),
-          child: Text(
+          child: const Text(
             "AC",
             style: TextStyle(
               color: Colors.orange,
@@ -525,17 +523,17 @@ class _AreaPageState extends State<AreaPage> {
           }),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
-            overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
+            overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
             shape: MaterialStatePropertyAll(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50)
               )
             ),
-            minimumSize: MaterialStatePropertyAll(
+            minimumSize: const MaterialStatePropertyAll(
               Size(40,140)
             )
           ),
-          child: Icon(
+          child: const Icon(
             LineAwesomeIcons.backspace,
             color: Colors.orange,
             size: 35,

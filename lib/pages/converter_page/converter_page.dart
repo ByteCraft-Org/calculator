@@ -1,4 +1,5 @@
 import 'package:calculator/pages/converter_page/sub_pages/age_page.dart';
+import 'package:calculator/pages/converter_page/sub_pages/area_page.dart';
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,7 +30,10 @@ class ConverterPage extends StatelessWidget {
           label: "Age",
         ),
         ConverterTabButton(
-          onTap: () => {},
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AreaPage())
+          ),
           icon: FontAwesomeIcons.chartArea,
           label: "Area",
         ),
