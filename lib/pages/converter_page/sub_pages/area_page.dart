@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:calculator/utils/widgets/custom_button.dart';
+import 'package:calculator/utils/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
@@ -29,7 +30,7 @@ class _AreaPageState extends State<AreaPage> {
 
   void _onButtonPressed(String btnText, bool firstBox, int firstUnit, int secondUnit){
     setState(() {
-      _areaLogics._onButtonPressed(btnText, firstBox, firstUnit, secondUnit);
+      _areaLogics._onButtonPressed(context, btnText, firstBox, firstUnit, secondUnit);
     });
   }
 
@@ -559,13 +560,21 @@ class AreaLogics {
   String firstBoxText = "0";
   String secondBoxText = "0";
 
-  void _onButtonPressed(String buttonText, bool isFirstBox, int firstUnit, int secondUnit) {
+  void _onButtonPressed(BuildContext context, String buttonText, bool isFirstBox, int firstUnit, int secondUnit) {
     if (isFirstBox) {
-      firstBoxText = _updateText(firstBoxText, buttonText);
+      firstBoxText = _updateText(context, firstBoxText, buttonText);
     } else {
-      secondBoxText = _updateText(secondBoxText, buttonText);
+      secondBoxText = _updateText(context, secondBoxText, buttonText);
     }
     _convertUnit(isFirstBox, firstUnit, secondUnit);
+  }
+
+  String _updateText(BuildContext context, String currentText, String newText) {
+    if(currentText.length == 10) {
+      customSnackbar(context: context, message: "Max characters reached");
+      return currentText;
+    }
+    return (currentText == "0") ? newText : currentText + newText;
   }
 
   void _onAllClearPressed() {
@@ -579,13 +588,6 @@ class AreaLogics {
     } else {
       secondBoxText = _removeLastCharacter(secondBoxText);
     }
-  }
-
-  String _updateText(String currentText, String newText) {
-    if(currentText.length == 10) {
-      return currentText;
-    }
-    return (currentText == "0") ? newText : currentText + newText;
   }
 
   String _removeLastCharacter(String text) {
