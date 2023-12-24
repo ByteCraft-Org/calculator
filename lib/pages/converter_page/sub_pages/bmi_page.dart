@@ -1,12 +1,10 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:calculator/utils/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class BmiPage extends StatefulWidget {
-  BmiPage({super.key});
+  const BmiPage({super.key});
 
   @override
   State<BmiPage> createState() => _BmiPageState();
@@ -42,41 +40,35 @@ class _BmiPageState extends State<BmiPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
-        title: Text("Area"),
+        title: const Text("Area"),
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Expanded(// * : Weight Unit box
-              flex: 2,
-              child: _weightUnitBox(context),
+              flex: 2, child: _weightUnitBox(context),
             ),
             Expanded(
-              flex: 1,
-              child: Divider(color: Colors.grey.withOpacity(0.5),)
+              flex: 1, child: Divider(color: Colors.grey.withOpacity(0.5),)
             ),
             Expanded(// * : Height Unit box
-              flex: 2,
-              child: _heightUnitBox(context),
+              flex: 2, child: _heightUnitBox(context),
             ),
-            SizedBox(height: 5,),
+            const SizedBox(height: 5,),
             Divider(// * : Divider Line
-            thickness: 2,
-              color: Theme.of(context).primaryColor.withOpacity(0.3),
+              thickness: 2, color: Theme.of(context).primaryColor.withOpacity(0.3),
             ),
-            SizedBox(height: 5,),
+            const SizedBox(height: 5,),
             (!showBMI)
             ? Align(// * : Button Segment
-              alignment: Alignment.bottomCenter,
-              child: _buttonBox(context),
+              alignment: Alignment.bottomCenter, child: _buttonBox(context),
             )
             : Expanded(
-              flex: 8,
-              child: _bmiBox()
+              flex: 8, child: _bmiBox()
             )
           ],
         ),
@@ -104,8 +96,7 @@ class _BmiPageState extends State<BmiPage> {
                 "Weight",
                 style: TextStyle(
                   color: isWeightDDSelected ? Colors.orange : Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold
+                  fontSize: 20, fontWeight: FontWeight.bold
                 ),
               ),
               Icon(
@@ -134,8 +125,7 @@ class _BmiPageState extends State<BmiPage> {
                       _bmiLogics.weight,
                       maxLines: 1,
                       style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 40, fontWeight: FontWeight.bold,
                         color: isWeightTextSelected ? Colors.orange : Colors.white,
                       ),
                     ),
@@ -144,9 +134,7 @@ class _BmiPageState extends State<BmiPage> {
                     alignment: Alignment.centerRight,
                     child: Text(
                       weightLists[weightItem],
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
+                      style: const TextStyle(color: Colors.grey),
                     ),
                   )
                 ],
@@ -178,8 +166,7 @@ class _BmiPageState extends State<BmiPage> {
                   "Height",
                   style: TextStyle(
                     color: isheightDDSelected ? Colors.orange : Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
+                    fontSize: 20, fontWeight: FontWeight.bold
                   ),
                 ),
                 Icon(
@@ -208,8 +195,7 @@ class _BmiPageState extends State<BmiPage> {
                         _bmiLogics.height,
                         maxLines: 1,
                         style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 40, fontWeight: FontWeight.bold,
                           color: isWeightTextSelected ? Colors.white : Colors.orange,
                         ),
                       ),
@@ -218,9 +204,7 @@ class _BmiPageState extends State<BmiPage> {
                       alignment: Alignment.centerRight,
                       child: Text(
                         heightLists[heightItem],
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     )
                   ],
@@ -240,27 +224,23 @@ class _BmiPageState extends State<BmiPage> {
       context: context,
       builder: (BuildContext bc) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: Wrap(
-            runSpacing: 10,
-            spacing: 10,
+            runSpacing: 10, spacing: 10,
             children: [
               Container(// * : Bottom Sheet Heading
                 width: double.infinity,
                 alignment: Alignment.center,
-                child: Text(
+                child: const Text(
                   "Select unit",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold
+                  style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold
                   ),
                 ),
               ),
               Wrap(
                 children: [
                   Container(// * : Unit Container
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
                       color: Colors.transparent,
                       borderRadius: BorderRadius.circular(10),
@@ -272,10 +252,7 @@ class _BmiPageState extends State<BmiPage> {
                             ListTile(
                               title: Text(
                                 items[index],
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
+                                style: const TextStyle(color: Colors.white, fontSize: 16),
                               ),
                               onTap: () {
                                 setState(() {
@@ -299,7 +276,7 @@ class _BmiPageState extends State<BmiPage> {
                 ]
               ),
               Padding(// * : Cancel button
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -313,15 +290,11 @@ class _BmiPageState extends State<BmiPage> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.grey[800]),
                       shape: MaterialStatePropertyAll(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(30),),
                       ),
-                      padding: MaterialStatePropertyAll(
-                        EdgeInsets.all(12),
-                      ),
+                      padding: const MaterialStatePropertyAll(EdgeInsets.all(12)),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Cancel",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
@@ -344,95 +317,64 @@ class _BmiPageState extends State<BmiPage> {
 
   Widget _buttonBox(BuildContext context) {
     Widget col1 = Wrap(
-      direction: Axis.vertical,
-      alignment: WrapAlignment.spaceBetween,
-      spacing: 45,
+      direction: Axis.vertical, alignment: WrapAlignment.spaceBetween, spacing: 45,
       children: [
         CustomButtonWithText(// * : Seven
           onTap: () => _onButtonPressed("7", isWeightTextSelected, weightItem, heightItem),
-          buttontext: "7",
-          textColor: Theme.of(context).primaryColor,
-          fontSize: 30,
+          buttontext: "7", textColor: Theme.of(context).primaryColor, fontSize: 30
         ),
         CustomButtonWithText(// * : Four
           onTap: () => _onButtonPressed("4", isWeightTextSelected, weightItem, heightItem),
-          buttontext: "4",
-          textColor: Theme.of(context).primaryColor,
-          fontSize: 30,
+          buttontext: "4", textColor: Theme.of(context).primaryColor, fontSize: 30,
         ),
         CustomButtonWithText(// * : One
           onTap: () => _onButtonPressed("1", isWeightTextSelected, weightItem, heightItem),
-          buttontext: "1",
-          textColor: Theme.of(context).primaryColor,
-          fontSize: 30,
+          buttontext: "1", textColor: Theme.of(context).primaryColor, fontSize: 30,
         ),
-        SizedBox(
-          width: 60,
-          height: 60,
-        )
+        const SizedBox(width: 60, height: 60)
       ],
     );
 
     Wrap col2 = Wrap(
-      direction: Axis.vertical,
-      alignment: WrapAlignment.spaceEvenly,
-      spacing: 45,
+      direction: Axis.vertical, alignment: WrapAlignment.spaceEvenly, spacing: 45,
       children: [
         CustomButtonWithText(// * : Eight
           onTap: () => _onButtonPressed("8", isWeightTextSelected, weightItem, heightItem),
-          buttontext: "8",
-          textColor: Theme.of(context).primaryColor,
-          fontSize: 30,
+          buttontext: "8", textColor: Theme.of(context).primaryColor, fontSize: 30,
         ),
         CustomButtonWithText(// * : Five
           onTap: () => _onButtonPressed("5", isWeightTextSelected, weightItem, heightItem),
-          buttontext: "5",
-          textColor: Theme.of(context).primaryColor,
-          fontSize: 30,
+          buttontext: "5", textColor: Theme.of(context).primaryColor, fontSize: 30,
         ),
         CustomButtonWithText(// * : Two
           onTap: () => _onButtonPressed("2", isWeightTextSelected, weightItem, heightItem),
-          buttontext: "2",
-          textColor: Theme.of(context).primaryColor,
-          fontSize: 30,
+          buttontext: "2", textColor: Theme.of(context).primaryColor, fontSize: 30,
         ),
         CustomButtonWithText(// * : Zero
           onTap: () => _onButtonPressed("0", isWeightTextSelected, weightItem, heightItem),
-          buttontext: "0",
-          textColor: Theme.of(context).primaryColor,
-          fontSize: 30,
+          buttontext: "0", textColor: Theme.of(context).primaryColor, fontSize: 30,
         ),
       ],
     );
 
     Wrap col3 = Wrap(
-      direction: Axis.vertical,
-      alignment: WrapAlignment.spaceEvenly,
-      spacing: 45,
+      direction: Axis.vertical, alignment: WrapAlignment.spaceEvenly, spacing: 45,
       children: [
         CustomButtonWithText(// * : Nine
           onTap: () => _onButtonPressed("9", isWeightTextSelected, weightItem, heightItem),
-          buttontext: "9",
-          textColor: Theme.of(context).primaryColor,
-          fontSize: 30,
+          buttontext: "9", textColor: Theme.of(context).primaryColor, fontSize: 30,
         ),
         CustomButtonWithText(// * : Six
           onTap: () => _onButtonPressed("6", isWeightTextSelected, weightItem, heightItem),
-          buttontext: "6",
-          textColor: Theme.of(context).primaryColor,
-          fontSize: 30,
+          buttontext: "6", textColor: Theme.of(context).primaryColor, fontSize: 30,
         ),
         CustomButtonWithText(// * : Three
           onTap: () => _onButtonPressed("3", isWeightTextSelected, weightItem, heightItem),
-          buttontext: "3",
-          textColor: Theme.of(context).primaryColor,
-          fontSize: 30,
+          buttontext: "3", textColor: Theme.of(context).primaryColor, fontSize: 30,
         ),
         CustomButtonWithText(// * : Decimal
           onTap: () => _onButtonPressed(".", isWeightTextSelected, weightItem, heightItem),
-          buttontext: ".",
-          textColor: Theme.of(context).primaryColor,
-          fontSize: 30,
+          buttontext: ".", textColor: Theme.of(context).primaryColor, fontSize: 30,
         ),
       ],
     );
@@ -446,46 +388,32 @@ class _BmiPageState extends State<BmiPage> {
           onPressed: () => setState(() => _bmiLogics._onAllClearPressed()),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
-            overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
+            overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
             shape: MaterialStatePropertyAll(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50)
-              )
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))
             ),
-            minimumSize: MaterialStatePropertyAll(
-              Size(90,120)
-            )
+            minimumSize: const MaterialStatePropertyAll(Size(90,120))
           ),
-          child: Text(
+          child: const Text(
             "AC",
-            style: TextStyle(
-              color: Colors.orange,
-              fontSize: 30,
-              fontWeight: FontWeight.bold
-            ),
+            style: TextStyle(color: Colors.orange, fontSize: 30, fontWeight: FontWeight.bold),
           )
         ),
         ElevatedButton(
           onPressed: () => setState(() {
             _bmiLogics._onBackSpacePressed(isWeightTextSelected);
-            //TODO_areaLogics._convertUnit(isWeightTextSelected, weightItem, heightItem);
           }),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
-            overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
+            overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
             shape: MaterialStatePropertyAll(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50)
-              )
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))
             ),
-            minimumSize: MaterialStatePropertyAll(
-              Size(90,120)
-            )
+            minimumSize: const MaterialStatePropertyAll(Size(90,120))
           ),
-          child: Icon(
+          child: const Icon(
             LineAwesomeIcons.backspace,
-            color: Colors.orange,
-            size: 35,
+            color: Colors.orange, size: 35,
           ),
         ),
         ElevatedButton(
@@ -495,23 +423,15 @@ class _BmiPageState extends State<BmiPage> {
           }),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
-            overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
+            overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
             shape: MaterialStatePropertyAll(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50)
-              )
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))
             ),
-            minimumSize: MaterialStatePropertyAll(
-              Size(90,120)
-            )
+            minimumSize: const MaterialStatePropertyAll(Size(90,120))
           ),
-          child: Text(
+          child: const Text(
             "GO",
-            style: TextStyle(
-              color: Colors.orange,
-              fontSize: 30,
-              fontWeight: FontWeight.bold
-            ),
+            style: TextStyle(color: Colors.orange, fontSize: 30, fontWeight: FontWeight.bold),
           )
         ),
       ],
@@ -519,12 +439,7 @@ class _BmiPageState extends State<BmiPage> {
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        col1,
-        col2,
-        col3,
-        col4
-      ],
+      children: [col1, col2, col3, col4],
     );
   }
 
@@ -532,7 +447,7 @@ class _BmiPageState extends State<BmiPage> {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Container(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: Colors.grey.shade800,
           border: Border.all(),
@@ -548,21 +463,13 @@ class _BmiPageState extends State<BmiPage> {
               children: [
                 Text(
                   _bmiLogics.bmi,
-                  style: TextStyle(
-                    color: Colors.orange,
-                    fontSize: 75,
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: const TextStyle(color: Colors.orange, fontSize: 75, fontWeight: FontWeight.bold),
                 ),
                 Column(
                   children: [
-                    Text(
+                    const Text(
                       "BMI",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       (() {
@@ -579,11 +486,11 @@ class _BmiPageState extends State<BmiPage> {
                         color: (() {
                           double bmiValue = double.tryParse(_bmiLogics.bmi) ?? 0;
                           if (bmiValue < 18.5) {
-                            return Color(0xff508fe5);
+                            return const Color(0xff508fe5);
                           } else if (bmiValue >= 25) {
-                            return Color(0xffe65167);
+                            return const Color(0xffe65167);
                           } else {
-                            return Color(0xff15b26a);
+                            return const Color(0xff15b26a);
                           }
                         })(),
                         fontSize: 15,
@@ -594,107 +501,60 @@ class _BmiPageState extends State<BmiPage> {
                 )
               ],
             ),
-            Divider(
-              thickness: 5,
-              color: Colors.grey,
-            ),
-            SizedBox(height: 15,),
-            Text(
+            const Divider(thickness: 5, color: Colors.grey),
+            const SizedBox(height: 15,),
+            const Text(
               "Information",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 15,),
-            Row(
+            const SizedBox(height: 15,),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
                   "Underweight",
-                  style: TextStyle(
-                    color: Color(0xff508fe5),
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(color: Color(0xff508fe5), fontSize: 15, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "Normal",
-                  style: TextStyle(
-                    color: Color(0xff5bb901),
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(color: Color(0xff5bb901), fontSize: 15, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "Overweight",
-                  style: TextStyle(
-                    color: Color(0xffe65167),
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(color: Color(0xffe65167), fontSize: 15, fontWeight: FontWeight.bold),
                 )
               ],
             ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  height: 5,
-                  width: 90,
-                  color: Color(0xff508fe5),
-                ),
-                Container(
-                  height: 5,
-                  width: 90,
-                  color: Color(0xff5bb901),
-                ),
-                Container(
-                  height: 5,
-                  width: 90,
-                  color: Color(0xffe65167),
-                ),
+                Container(height: 5, width: 90, color: const Color(0xff508fe5)),
+                Container(height: 5, width: 90, color: const Color(0xff5bb901)),
+                Container(height: 5, width: 90, color: const Color(0xffe65167)),
               ],
             ),
-            SizedBox(height: 10,),
-            Row(
+            const SizedBox(height: 10,),
+            const Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "16.0",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "18.5",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "25.0",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "40.0",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ],
             ),

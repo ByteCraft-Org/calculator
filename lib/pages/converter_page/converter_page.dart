@@ -1,5 +1,6 @@
 import 'package:calculator/pages/converter_page/sub_pages/age_page.dart';
 import 'package:calculator/pages/converter_page/sub_pages/area_page.dart';
+import 'package:calculator/pages/converter_page/sub_pages/bmi_page.dart';
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,13 +39,16 @@ class ConverterPage extends StatelessWidget {
           label: "Area",
         ),
         ConverterTabButton(
-          onTap: () => {},
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const BmiPage())
+          ),
           icon: LineAwesomeIcons.weight,
           label: "BMI",
         ),
         ConverterTabButton(
           onTap: () => {},
-          icon: IconData(0x3386),
+          icon: const IconData(0x3386),
           label: "Data",
         ),
         ConverterTabButton(
@@ -69,7 +73,7 @@ class ConverterPage extends StatelessWidget {
         ),
         ConverterTabButton(
           onTap: () => {},
-          icon: IconData(0x24F5),
+          icon: const IconData(0x24F5),
           label: "Numeral System",
         ),
         ConverterTabButton(
@@ -84,7 +88,7 @@ class ConverterPage extends StatelessWidget {
         ),
         ConverterTabButton(
           onTap: () => {},
-          icon: IconData(0x23F1),
+          icon: const IconData(0x23F1),
           label: "Time",
         ),
         ConverterTabButton(
