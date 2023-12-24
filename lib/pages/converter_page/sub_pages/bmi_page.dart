@@ -1,18 +1,22 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:calculator/utils/widgets/custom_button.dart';
+import 'package:calculator/utils/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class BmiPage extends StatefulWidget {
-  BmiPage({Key? key}) : super(key: key);
+  BmiPage({super.key});
 
   @override
   State<BmiPage> createState() => _BmiPageState();
 }
 
 class _BmiPageState extends State<BmiPage> {
+  final BmiLogics _bmiLogics = BmiLogics();
+
   List<String> weightLists = ["Kilograms", "Pounds"];
+
   List<String> heightLists = ["Centimeters", "Meters", "Feet", "Inches"];
 
   bool isWeightTextSelected = true;
@@ -23,6 +27,12 @@ class _BmiPageState extends State<BmiPage> {
   int heightItem = 1;
   String heightUnitBtnDD = "Meters";
   bool isheightDDSelected = false;
+
+  void _onButtonPressed(String btnText, bool isWeight, int weightUnit, int height){
+    setState(() {
+      _bmiLogics._onButtonPressed(context, btnText, isWeight);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,25 +49,25 @@ class _BmiPageState extends State<BmiPage> {
         padding: EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Expanded(
+            Expanded(// * : Weight Unit box
               flex: 2,
               child: _weightUnitBox(context),
             ),
             Expanded(
               flex: 1,
-              child: Divider(color: Colors.grey.withOpacity(0.5)),
+              child: Divider(color: Colors.grey.withOpacity(0.5),)
             ),
-            Expanded(
+            Expanded(// * : Height Unit box
               flex: 2,
               child: _heightUnitBox(context),
             ),
             SizedBox(height: 5,),
-            Divider(
-              thickness: 2,
+            Divider(// * : Divider Line
+            thickness: 2,
               color: Theme.of(context).primaryColor.withOpacity(0.3),
             ),
             SizedBox(height: 5,),
-            Align(
+            Align(// * : Button Segment
               alignment: Alignment.bottomCenter,
               child: _buttonBox(context),
             ),
@@ -69,10 +79,10 @@ class _BmiPageState extends State<BmiPage> {
 
   Widget _weightUnitBox(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GestureDetector(
+        GestureDetector(// * : Weight Unit Selector
           onTap: () {
             setState(() => isWeightDDSelected = true);
             _showBottomDialog(context, items: weightLists);
@@ -84,7 +94,7 @@ class _BmiPageState extends State<BmiPage> {
                 style: TextStyle(
                   color: isWeightDDSelected ? Colors.orange : Colors.white,
                   fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.bold
                 ),
               ),
               Icon(
@@ -92,9 +102,9 @@ class _BmiPageState extends State<BmiPage> {
                 color: isWeightDDSelected ? Colors.orange : Colors.white,
               )
             ],
-          ),
+          )
         ),
-        Expanded(
+        Expanded(// * : Weight Unit Text Box
           child: GestureDetector(
             onTap: () {
               setState(() => isWeightTextSelected = true);
@@ -107,7 +117,7 @@ class _BmiPageState extends State<BmiPage> {
                   Container(
                     alignment: Alignment.bottomRight,
                     child: Text(
-                      "0",
+                      _bmiLogics.weight,
                       maxLines: 1,
                       style: TextStyle(
                         fontSize: 40,
@@ -116,7 +126,7 @@ class _BmiPageState extends State<BmiPage> {
                       ),
                     ),
                   ),
-                  Container(
+                  Container(// * : Unit Display
                     alignment: Alignment.centerRight,
                     child: Text(
                       weightLists[weightItem],
@@ -138,67 +148,67 @@ class _BmiPageState extends State<BmiPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        GestureDetector(
-          onTap: () {
-            setState(() => isheightDDSelected = true);
-            _showBottomDialog(context, items: heightLists);
-          },
-          child: Row(
-            children: [
-              Text(
-                "Height",
-                style: TextStyle(
-                  color: isheightDDSelected ? Colors.orange : Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Icon(
-                Icons.arrow_drop_down,
-                color: isheightDDSelected ? Colors.orange : Colors.white,
-              )
-            ],
-          ),
-        ),
-        Expanded(
-          child: GestureDetector(
+        children: [
+          GestureDetector(// * : Weight Unit Selector
             onTap: () {
-              setState(() => isWeightTextSelected = false);
+              setState(() => isheightDDSelected = true);
+              _showBottomDialog(context, items: heightLists);
             },
-            child: Container(
-              color: Colors.transparent,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      "0",
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: isWeightTextSelected ? Colors.white : Colors.orange,
-                      ),
-                    ),
+            child: Row(
+              children: [
+                Text(
+                  "Height",
+                  style: TextStyle(
+                    color: isheightDDSelected ? Colors.orange : Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
                   ),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      heightLists[heightItem],
-                      style: TextStyle(
-                        color: Colors.grey,
+                ),
+                Icon(
+                  Icons.arrow_drop_down,
+                  color: isheightDDSelected ? Colors.orange : Colors.white,
+                )
+              ],
+            ),
+          ),
+          Expanded(// * : Height Unit Text Box
+            child: GestureDetector(
+              onTap: () {
+                setState(() => isWeightTextSelected = false);
+              },
+              child: Container(
+                color: Colors.transparent,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      child: Text(
+                        _bmiLogics.height,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: isWeightTextSelected ? Colors.white : Colors.orange,
+                        ),
                       ),
                     ),
-                  )
-                ],
+                    Container(// * : Unit Display
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        heightLists[heightItem],
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
   }
 
   void _showBottomDialog(BuildContext context, {required List<String> items}) {
@@ -214,7 +224,7 @@ class _BmiPageState extends State<BmiPage> {
             runSpacing: 10,
             spacing: 10,
             children: [
-              Container(
+              Container(// * : Bottom Sheet Heading
                 width: double.infinity,
                 alignment: Alignment.center,
                 child: Text(
@@ -222,13 +232,13 @@ class _BmiPageState extends State<BmiPage> {
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.bold
                   ),
                 ),
               ),
               Wrap(
                 children: [
-                  Container(
+                  Container(// * : Unit Container
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
                       color: Colors.transparent,
@@ -267,7 +277,7 @@ class _BmiPageState extends State<BmiPage> {
                   ),
                 ]
               ),
-              Padding(
+              Padding(// * : Cancel button
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: SizedBox(
                   width: double.infinity,
@@ -306,6 +316,8 @@ class _BmiPageState extends State<BmiPage> {
         isWeightDDSelected = false;
         isheightDDSelected = false;
       });
+      // TODO: Add any necessary logic after closing the bottom sheet
+      // _areaLogics._convertUnit(isWeightTextSelected, weightItem, heightItem);
     });
   }
 
@@ -315,20 +327,20 @@ class _BmiPageState extends State<BmiPage> {
       alignment: WrapAlignment.spaceEvenly,
       spacing: 30,
       children: [
-        CustomButtonWithText(
-          onTap: () => _onButtonPressed("7", isWeightTextSelected),
+        CustomButtonWithText(// * : Seven
+          onTap: () => _onButtonPressed("7", isWeightTextSelected, weightItem, heightItem),
           buttontext: "7",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
-        CustomButtonWithText(
-          onTap: () => _onButtonPressed("4", isWeightTextSelected),
+        CustomButtonWithText(// * : Four
+          onTap: () => _onButtonPressed("4", isWeightTextSelected, weightItem, heightItem),
           buttontext: "4",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
-        CustomButtonWithText(
-          onTap: () => _onButtonPressed("1", isWeightTextSelected),
+        CustomButtonWithText(// * : One
+          onTap: () => _onButtonPressed("1", isWeightTextSelected, weightItem, heightItem),
           buttontext: "1",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
@@ -345,26 +357,26 @@ class _BmiPageState extends State<BmiPage> {
       alignment: WrapAlignment.spaceEvenly,
       spacing: 30,
       children: [
-        CustomButtonWithText(
-          onTap: () => _onButtonPressed("8", isWeightTextSelected),
+        CustomButtonWithText(// * : Eight
+          onTap: () => _onButtonPressed("8", isWeightTextSelected, weightItem, heightItem),
           buttontext: "8",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
-        CustomButtonWithText(
-          onTap: () => _onButtonPressed("5", isWeightTextSelected),
+        CustomButtonWithText(// * : Five
+          onTap: () => _onButtonPressed("5", isWeightTextSelected, weightItem, heightItem),
           buttontext: "5",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
-        CustomButtonWithText(
-          onTap: () => _onButtonPressed("2", isWeightTextSelected),
+        CustomButtonWithText(// * : Two
+          onTap: () => _onButtonPressed("2", isWeightTextSelected, weightItem, heightItem),
           buttontext: "2",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
-        CustomButtonWithText(
-          onTap: () => _onButtonPressed("0", isWeightTextSelected),
+        CustomButtonWithText(// * : Zero
+          onTap: () => _onButtonPressed("0", isWeightTextSelected, weightItem, heightItem),
           buttontext: "0",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
@@ -377,26 +389,26 @@ class _BmiPageState extends State<BmiPage> {
       alignment: WrapAlignment.spaceEvenly,
       spacing: 30,
       children: [
-        CustomButtonWithText(
-          onTap: () => _onButtonPressed("9", isWeightTextSelected),
+        CustomButtonWithText(// * : Nine
+          onTap: () => _onButtonPressed("9", isWeightTextSelected, weightItem, heightItem),
           buttontext: "9",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
-        CustomButtonWithText(
-          onTap: () => _onButtonPressed("6", isWeightTextSelected),
+        CustomButtonWithText(// * : Six
+          onTap: () => _onButtonPressed("6", isWeightTextSelected, weightItem, heightItem),
           buttontext: "6",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
-        CustomButtonWithText(
-          onTap: () => _onButtonPressed("3", isWeightTextSelected),
+        CustomButtonWithText(// * : Three
+          onTap: () => _onButtonPressed("3", isWeightTextSelected, weightItem, heightItem),
           buttontext: "3",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
-        CustomButtonWithText(
-          onTap: () => _onButtonPressed(".", isWeightTextSelected),
+        CustomButtonWithText(// * : Decimal
+          onTap: () => _onButtonPressed(".", isWeightTextSelected, weightItem, heightItem),
           buttontext: ".",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
@@ -410,7 +422,7 @@ class _BmiPageState extends State<BmiPage> {
       spacing: 30,
       children: [
         ElevatedButton(
-          onPressed: () => setState(() => _onAllClearPressed()),
+          onPressed: () => setState(() => _bmiLogics._onAllClearPressed()),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
             overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
@@ -431,7 +443,10 @@ class _BmiPageState extends State<BmiPage> {
           )
         ),
         ElevatedButton(
-          onPressed: () => setState(() => _onBackSpacePressed()),
+          onPressed: () => setState(() {
+            _bmiLogics._onBackSpacePressed(isWeightTextSelected);
+            //TODO_areaLogics._convertUnit(isWeightTextSelected, weightItem, heightItem);
+          }),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
             overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
@@ -449,7 +464,7 @@ class _BmiPageState extends State<BmiPage> {
           ),
         ),
         ElevatedButton(
-          onPressed: () => setState(() => _onAllClearPressed()),
+          onPressed: () => setState(() => _bmiLogics._calculateBmi(weightItem, heightItem)),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
             overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
@@ -482,16 +497,78 @@ class _BmiPageState extends State<BmiPage> {
       ],
     );
   }
+}
 
-  void _onButtonPressed(String buttonText, bool isWeight) {
-    // Add your logic here for button press
+class BmiLogics {
+  String weight = "0";
+  String height = "0";
+  String bmi = "";
+
+  void _onButtonPressed(BuildContext context, String buttonText, bool isWeight) {
+    if (isWeight) {
+      weight = _updateText(context, weight, buttonText);
+    } else {
+      height = _updateText(context, height, buttonText);
+    }
+  }
+
+  String _updateText(BuildContext context, String currentText, String newText) {
+    if(currentText.length == 10) {
+      customSnackbar(context: context, message: "Max characters reached");
+      return currentText;
+    }
+    return (currentText == "0") ? newText : currentText + newText;
   }
 
   void _onAllClearPressed() {
-    // Add your logic here for all clear button press
+    weight = "0";
+    height = "0";
   }
 
-  void _onBackSpacePressed() {
-    // Add your logic here for backspace button press
+  void _onBackSpacePressed(bool isWeight) {
+    if (isWeight) {
+      weight = _removeLastCharacter(weight);
+    } else {
+      height = _removeLastCharacter(height);
+    }
+  }
+
+  String _removeLastCharacter(String text) {
+    return (text.length > 1) ? text.substring(0, text.length - 1) : "0";
+  }
+
+  double _convertWeightUnit(int weightUnit) {
+    double weightInput = double.parse(weight);
+    double weightFinal = 0;
+
+    switch(weightUnit){
+      case 0: weightFinal = weightInput; break; // Kilograms to Kilograms
+      case 1: weightFinal = weightInput / 2.20462; break;  // Pounds to Kilograms
+    }
+
+    return weightFinal;
+  }
+
+  double _convertHeightUnit(int heightUnit) {
+    double heightInput = double.parse(height);
+    double heightFinal = 0;
+
+    switch(heightUnit){
+      case 0: heightFinal = heightInput / 100; break; // Centimeters to Meters
+      case 1: heightFinal = heightInput; break; // Meters to Meters
+      case 2: heightFinal = heightInput / 3.28084; break; // Feet to Meters
+      case 3: heightFinal = heightInput * 0.0254; break; // Inches to Meters
+    }
+
+    return heightFinal;
+  }
+
+  void _calculateBmi(int weightUnit, int heightUnit) {
+    double weightValue = _convertWeightUnit(weightUnit);
+    double heightValue = _convertHeightUnit(heightUnit);
+    double bmiValue = 0;
+
+    bmiValue = weightValue / (heightValue * heightValue);
+    bmi = bmiValue.toStringAsFixed(2);
   }
 }
