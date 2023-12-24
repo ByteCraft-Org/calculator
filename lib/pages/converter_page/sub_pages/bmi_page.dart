@@ -19,6 +19,8 @@ class _BmiPageState extends State<BmiPage> {
 
   List<String> heightLists = ["Centimeters", "Meters", "Feet", "Inches"];
 
+  bool showBMI = false;
+
   bool isWeightTextSelected = true;
   int weightItem = 0;
   String weightUnitBtnDD = "Kilograms";
@@ -67,10 +69,15 @@ class _BmiPageState extends State<BmiPage> {
               color: Theme.of(context).primaryColor.withOpacity(0.3),
             ),
             SizedBox(height: 5,),
-            Align(// * : Button Segment
+            (!showBMI)
+            ? Align(// * : Button Segment
               alignment: Alignment.bottomCenter,
               child: _buttonBox(context),
-            ),
+            )
+            : Expanded(
+              flex: 8,
+              child: _bmiBox()
+            )
           ],
         ),
       ),
@@ -84,7 +91,11 @@ class _BmiPageState extends State<BmiPage> {
       children: [
         GestureDetector(// * : Weight Unit Selector
           onTap: () {
-            setState(() => isWeightDDSelected = true);
+            setState(() {
+              isWeightDDSelected = true;
+              isWeightTextSelected = true;
+              showBMI = false;
+            });
             _showBottomDialog(context, items: weightLists);
           },
           child: Row(
@@ -107,7 +118,10 @@ class _BmiPageState extends State<BmiPage> {
         Expanded(// * : Weight Unit Text Box
           child: GestureDetector(
             onTap: () {
-              setState(() => isWeightTextSelected = true);
+              setState(() {
+                isWeightTextSelected = true;
+                showBMI = false;
+              });
             },
             child: Container(
               color: Colors.transparent,
@@ -151,7 +165,11 @@ class _BmiPageState extends State<BmiPage> {
         children: [
           GestureDetector(// * : Weight Unit Selector
             onTap: () {
-              setState(() => isheightDDSelected = true);
+              setState(() {
+                isheightDDSelected = true;
+                isWeightTextSelected = false;
+                showBMI = false;
+              });
               _showBottomDialog(context, items: heightLists);
             },
             child: Row(
@@ -174,7 +192,10 @@ class _BmiPageState extends State<BmiPage> {
           Expanded(// * : Height Unit Text Box
             child: GestureDetector(
               onTap: () {
-                setState(() => isWeightTextSelected = false);
+                setState(() {
+                  isWeightTextSelected = false;
+                  showBMI = false;
+                });
               },
               child: Container(
                 color: Colors.transparent,
@@ -322,10 +343,10 @@ class _BmiPageState extends State<BmiPage> {
   }
 
   Widget _buttonBox(BuildContext context) {
-    Wrap col1 = Wrap(
+    Widget col1 = Wrap(
       direction: Axis.vertical,
-      alignment: WrapAlignment.spaceEvenly,
-      spacing: 30,
+      alignment: WrapAlignment.spaceBetween,
+      spacing: 45,
       children: [
         CustomButtonWithText(// * : Seven
           onTap: () => _onButtonPressed("7", isWeightTextSelected, weightItem, heightItem),
@@ -355,7 +376,7 @@ class _BmiPageState extends State<BmiPage> {
     Wrap col2 = Wrap(
       direction: Axis.vertical,
       alignment: WrapAlignment.spaceEvenly,
-      spacing: 30,
+      spacing: 45,
       children: [
         CustomButtonWithText(// * : Eight
           onTap: () => _onButtonPressed("8", isWeightTextSelected, weightItem, heightItem),
@@ -387,7 +408,7 @@ class _BmiPageState extends State<BmiPage> {
     Wrap col3 = Wrap(
       direction: Axis.vertical,
       alignment: WrapAlignment.spaceEvenly,
-      spacing: 30,
+      spacing: 45,
       children: [
         CustomButtonWithText(// * : Nine
           onTap: () => _onButtonPressed("9", isWeightTextSelected, weightItem, heightItem),
@@ -419,7 +440,7 @@ class _BmiPageState extends State<BmiPage> {
     Wrap col4 = Wrap(
       direction: Axis.vertical,
       alignment: WrapAlignment.spaceEvenly,
-      spacing: 30,
+      spacing: 20,
       children: [
         ElevatedButton(
           onPressed: () => setState(() => _bmiLogics._onAllClearPressed()),
@@ -427,10 +448,12 @@ class _BmiPageState extends State<BmiPage> {
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
             overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
             shape: MaterialStatePropertyAll(
-              CircleBorder()
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50)
+              )
             ),
             minimumSize: MaterialStatePropertyAll(
-              Size(90,100)
+              Size(90,120)
             )
           ),
           child: Text(
@@ -451,10 +474,12 @@ class _BmiPageState extends State<BmiPage> {
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
             overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
             shape: MaterialStatePropertyAll(
-              CircleBorder()
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50)
+              )
             ),
             minimumSize: MaterialStatePropertyAll(
-              Size(90,100)
+              Size(90,120)
             )
           ),
           child: Icon(
@@ -464,15 +489,20 @@ class _BmiPageState extends State<BmiPage> {
           ),
         ),
         ElevatedButton(
-          onPressed: () => setState(() => _bmiLogics._calculateBmi(weightItem, heightItem)),
+          onPressed: () => setState(() {
+            showBMI = true;
+            _bmiLogics._calculateBmi(weightItem, heightItem);
+          }),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
             overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
             shape: MaterialStatePropertyAll(
-              CircleBorder()
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50)
+              )
             ),
             minimumSize: MaterialStatePropertyAll(
-              Size(90,100)
+              Size(90,120)
             )
           ),
           child: Text(
@@ -497,6 +527,182 @@ class _BmiPageState extends State<BmiPage> {
       ],
     );
   }
+
+  Widget _bmiBox() {
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Container(
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade800,
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(30)
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  _bmiLogics.bmi,
+                  style: TextStyle(
+                    color: Colors.orange,
+                    fontSize: 75,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "BMI",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Text(
+                      (() {
+                        double bmiValue = double.tryParse(_bmiLogics.bmi) ?? 0;
+                        if (bmiValue < 18.5) {
+                          return "Underweight";
+                        } else if (bmiValue >= 25) {
+                          return "Overweight";
+                        } else {
+                          return "Normal";
+                        }
+                      })(),
+                      style: TextStyle(
+                        color: (() {
+                          double bmiValue = double.tryParse(_bmiLogics.bmi) ?? 0;
+                          if (bmiValue < 18.5) {
+                            return Color(0xff508fe5);
+                          } else if (bmiValue >= 25) {
+                            return Color(0xffe65167);
+                          } else {
+                            return Color(0xff15b26a);
+                          }
+                        })(),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+            Divider(
+              thickness: 5,
+              color: Colors.grey,
+            ),
+            SizedBox(height: 15,),
+            Text(
+              "Information",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            SizedBox(height: 15,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  "Underweight",
+                  style: TextStyle(
+                    color: Color(0xff508fe5),
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                Text(
+                  "Normal",
+                  style: TextStyle(
+                    color: Color(0xff5bb901),
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                Text(
+                  "Overweight",
+                  style: TextStyle(
+                    color: Color(0xffe65167),
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold
+                  ),
+                )
+              ],
+            ),
+            SizedBox(height: 10,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 5,
+                  width: 90,
+                  color: Color(0xff508fe5),
+                ),
+                Container(
+                  height: 5,
+                  width: 90,
+                  color: Color(0xff5bb901),
+                ),
+                Container(
+                  height: 5,
+                  width: 90,
+                  color: Color(0xffe65167),
+                ),
+              ],
+            ),
+            SizedBox(height: 10,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "16.0",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                Text(
+                  "18.5",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                Text(
+                  "25.0",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                Text(
+                  "40.0",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class BmiLogics {
@@ -513,7 +719,7 @@ class BmiLogics {
   }
 
   String _updateText(BuildContext context, String currentText, String newText) {
-    if(currentText.length == 10) {
+    if(currentText.length == 6) {
       customSnackbar(context: context, message: "Max characters reached");
       return currentText;
     }
