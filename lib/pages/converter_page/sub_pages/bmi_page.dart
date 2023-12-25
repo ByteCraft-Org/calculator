@@ -1,5 +1,6 @@
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:calculator/utils/widgets/custom_snackbar.dart';
+import 'package:calculator/utils/widgets/custom_unitboxes.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
@@ -42,7 +43,7 @@ class _BmiPageState extends State<BmiPage> {
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text("Area"),
+        title: const Text("BMI"),
         centerTitle: true,
       ),
       body: Padding(
@@ -76,144 +77,82 @@ class _BmiPageState extends State<BmiPage> {
     );
   }
 
-  Widget _weightUnitBox(BuildContext context) {
-    return Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        GestureDetector(// * : Weight Unit Selector
-          onTap: () {
-            setState(() {
-              isWeightDDSelected = true;
-              isWeightTextSelected = true;
-              showBMI = false;
-            });
-            _showBottomDialog(context, items: weightLists);
-          },
-          child: Row(
-            children: [
-              Text(
-                "Weight",
-                style: TextStyle(
-                  color: isWeightDDSelected ? Colors.orange : Colors.white,
-                  fontSize: 20, fontWeight: FontWeight.bold
-                ),
-              ),
-              Icon(
-                Icons.arrow_drop_down,
-                color: isWeightDDSelected ? Colors.orange : Colors.white,
-              )
-            ],
-          )
-        ),
-        Expanded(// * : Weight Unit Text Box
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                isWeightTextSelected = true;
-                showBMI = false;
-              });
-            },
-            child: Container(
-              color: Colors.transparent,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      _bmiLogics.weight,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 40, fontWeight: FontWeight.bold,
-                        color: isWeightTextSelected ? Colors.orange : Colors.white,
-                      ),
-                    ),
-                  ),
-                  Container(// * : Unit Display
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      weightLists[weightItem],
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-                  )
-                ],
-              ),
+  CustomUnitBoxes _weightUnitBox(BuildContext context) {
+    return CustomUnitBoxes(
+      onTapDropDown: () {
+        setState(() {
+          isWeightDDSelected = true;
+          isWeightTextSelected = true;
+          showBMI = false;
+        });
+        _showBottomDialog(context, items: weightLists);
+      },
+      dropDownDisplay: Row(
+        children: [
+          Text(
+            "Weight",
+            style: TextStyle(
+              color: isWeightDDSelected ? Colors.orange : Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-      ],
+          Icon(
+            Icons.arrow_drop_down,
+            color: isWeightDDSelected ? Colors.orange : Colors.white,
+          )
+        ],
+      ),
+      onTapBox: () {
+        setState(() {
+          isWeightTextSelected = true;
+          showBMI = false;
+        });
+      },
+      value: _bmiLogics.weight,
+      isThisBoxSelected: isWeightTextSelected,
+      unitLists: weightLists,
+      selectedItem: weightItem,
     );
   }
 
-  Widget _heightUnitBox(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+  CustomUnitBoxes _heightUnitBox(BuildContext context) {
+    return CustomUnitBoxes(
+      onTapDropDown: () {
+        setState(() {
+          isheightDDSelected = true;
+          isWeightTextSelected = false;
+          showBMI = false;
+        });
+        _showBottomDialog(context, items: heightLists);
+      },
+      dropDownDisplay: Row(
         children: [
-          GestureDetector(// * : Weight Unit Selector
-            onTap: () {
-              setState(() {
-                isheightDDSelected = true;
-                isWeightTextSelected = false;
-                showBMI = false;
-              });
-              _showBottomDialog(context, items: heightLists);
-            },
-            child: Row(
-              children: [
-                Text(
-                  "Height",
-                  style: TextStyle(
-                    color: isheightDDSelected ? Colors.orange : Colors.white,
-                    fontSize: 20, fontWeight: FontWeight.bold
-                  ),
-                ),
-                Icon(
-                  Icons.arrow_drop_down,
-                  color: isheightDDSelected ? Colors.orange : Colors.white,
-                )
-              ],
+          Text(
+            "Height",
+            style: TextStyle(
+              color: isheightDDSelected ? Colors.orange : Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          Expanded(// * : Height Unit Text Box
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  isWeightTextSelected = false;
-                  showBMI = false;
-                });
-              },
-              child: Container(
-                color: Colors.transparent,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      alignment: Alignment.bottomRight,
-                      child: Text(
-                        _bmiLogics.height,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontSize: 40, fontWeight: FontWeight.bold,
-                          color: isWeightTextSelected ? Colors.white : Colors.orange,
-                        ),
-                      ),
-                    ),
-                    Container(// * : Unit Display
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        heightLists[heightItem],
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
+          Icon(
+            Icons.arrow_drop_down,
+            color: isheightDDSelected ? Colors.orange : Colors.white,
+          )
         ],
-      );
+      ),
+      onTapBox: () {
+        setState(() {
+          isWeightTextSelected = false;
+          showBMI = false;
+        });
+      },
+      value: _bmiLogics.height,
+      isThisBoxSelected: !isWeightTextSelected,
+      unitLists: heightLists,
+      selectedItem: heightItem,
+    );
   }
 
   void _showBottomDialog(BuildContext context, {required List<String> items}) {
