@@ -4,32 +4,39 @@ import 'package:calculator/utils/widgets/custom_unitboxes.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
-class AreaPage extends StatefulWidget {
-  const AreaPage({super.key});
+class LengthPage extends StatefulWidget {
+  const LengthPage({super.key});
 
   @override
-  State<AreaPage> createState() => _AreaPageState();
+  State<LengthPage> createState() => _LengthPageState();
 }
 
-class _AreaPageState extends State<AreaPage> {
-  final AreaLogics _areaLogics = AreaLogics();
+class _LengthPageState extends State<LengthPage> {
+  final LengthLogics _lengthLogics = LengthLogics();
 
-  List<String> unitNameLists = ["Square kilometer", "Hectare", "Are", "Square meter", "Square decimeter", "Square centimeter","Square millimeter","Square micron", "Acre", "Square mile", "Square yard", "Square foot", "Square inch", "Square rod", "Qing", "Mu", "Square chi", "Square cun", "Square kilometer"];
+  List<String> unitNameLists = ["Kilometer", "Meter", "Decimeter", "Centimeter", "Millimeter", "Micrometer", "Nanometer"];
 
-  List<String> unitSymbolLists = ["km2", "ha", "a", "m2", "dm2", "cm2", "mm2", "μm2", "ac", "mile2", "yd2", "ft2", "in2", "rd2", "qing", "mu", "chi2", "cun2", "gongli2"];
+  List<String> unitSymbolLists = ['b', 'B', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
-  bool isFirstTextSelected = true;
-  int firstSelectedItem = 0;
-  String firstUnitBtnDD = "km2";
+  bool isFirstBoxSelected = true;
+  int firstSelectedItem = 2;
+  late String firstUnitBtnDD;
   bool isFirstDDSelected = false;
 
   int secondSelectedItem = 3;
-  String secondUnitBtnDD = "m2";
+  late String secondUnitBtnDD;
   bool isSecondDDSelected = false;
+
+  @override
+  void initState() {
+    firstUnitBtnDD = unitSymbolLists[firstSelectedItem];
+    secondUnitBtnDD = unitSymbolLists[secondSelectedItem];
+    super.initState();
+  }
 
   void _onButtonPressed(String btnText, bool firstBox, int firstUnit, int secondUnit){
     setState(() {
-      _areaLogics._onButtonPressed(context, btnText, firstBox, firstUnit, secondUnit);
+      _lengthLogics._onButtonPressed(context, btnText, firstBox, firstUnit, secondUnit);
     });
   }
 
@@ -41,7 +48,7 @@ class _AreaPageState extends State<AreaPage> {
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text("Area"),
+        title: const Text("Length"),
         centerTitle: true,
       ),
       body: Padding(
@@ -89,7 +96,7 @@ class _AreaPageState extends State<AreaPage> {
             style: TextStyle(
               color: isFirstDDSelected ? Colors.orange : Colors.white,
               fontSize: 20,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.bold
             ),
           ),
           Icon(
@@ -99,31 +106,27 @@ class _AreaPageState extends State<AreaPage> {
         ],
       ),
       onTapBox: () {
-        setState(() => isFirstTextSelected = true);
+        setState(() => isFirstBoxSelected = true);
       },
       valueText: Text(
-        _areaLogics.firstBoxText,
+        _lengthLogics.firstBoxText,
         maxLines: 1,
         style: TextStyle(
           fontSize: 40,
           fontWeight: FontWeight.bold,
-          color: isFirstTextSelected ? Colors.orange : Colors.white,
+          color: isFirstBoxSelected ? Colors.orange : Colors.white,
         ),
       ),
-      isThisBoxSelected: isFirstTextSelected,
+      isThisBoxSelected: isFirstBoxSelected,
       unitLists: unitNameLists,
       selectedItem: firstSelectedItem,
     );
   }
 
-
   CustomUnitBoxes _secondUnitBox(BuildContext context) {
     return CustomUnitBoxes(
       onTapDropDown: () {
-        setState(() {
-          isSecondDDSelected = true;
-          isFirstDDSelected = false;
-        });
+        setState(() => isSecondDDSelected = true);
         _showBottomDialog(context, btn: 2);
       },
       dropDownDisplay: Row(
@@ -133,7 +136,7 @@ class _AreaPageState extends State<AreaPage> {
             style: TextStyle(
               color: isSecondDDSelected ? Colors.orange : Colors.white,
               fontSize: 20,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.bold
             ),
           ),
           Icon(
@@ -143,18 +146,18 @@ class _AreaPageState extends State<AreaPage> {
         ],
       ),
       onTapBox: () {
-        setState(() => isFirstTextSelected = false);
+        setState(() => isFirstBoxSelected = false);
       },
       valueText: Text(
-        _areaLogics.secondBoxText,
+        _lengthLogics.firstBoxText,
         maxLines: 1,
         style: TextStyle(
           fontSize: 40,
           fontWeight: FontWeight.bold,
-          color: !isFirstTextSelected ? Colors.orange : Colors.white,
+          color: !isFirstBoxSelected ? Colors.orange : Colors.white,
         ),
       ),
-      isThisBoxSelected: !isFirstTextSelected,
+      isThisBoxSelected: !isFirstBoxSelected,
       unitLists: unitNameLists,
       selectedItem: secondSelectedItem,
     );
@@ -194,7 +197,7 @@ class _AreaPageState extends State<AreaPage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      for (int index = 0; index < unitNameLists.length - 1; index++)
+                      for (int index = 0; index < unitNameLists.length; index++)
                         ListTile(
                           title: RichText(
                             text: TextSpan(
@@ -296,7 +299,7 @@ class _AreaPageState extends State<AreaPage> {
         isFirstDDSelected = false;
         isSecondDDSelected = false;
       });
-      setState(() => _areaLogics._convertUnit(isFirstTextSelected, firstSelectedItem, secondSelectedItem));
+      setState(() => _lengthLogics._convertUnit(isFirstBoxSelected, firstSelectedItem, secondSelectedItem));
     });
   }
 
@@ -307,19 +310,19 @@ class _AreaPageState extends State<AreaPage> {
       spacing: 30,
       children: [
         CustomButtonWithText(// * : Seven
-          onTap: () => _onButtonPressed("7", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("7", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "7",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Four
-          onTap: () => _onButtonPressed("4", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("4", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "4",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : One
-          onTap: () => _onButtonPressed("1", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("1", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "1",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
@@ -337,25 +340,25 @@ class _AreaPageState extends State<AreaPage> {
       spacing: 30,
       children: [
         CustomButtonWithText(// * : Eight
-          onTap: () => _onButtonPressed("8", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("8", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "8",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Five
-          onTap: () => _onButtonPressed("5", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("5", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "5",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Two
-          onTap: () => _onButtonPressed("2", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("2", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "2",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Zero
-          onTap: () => _onButtonPressed("0", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("0", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "0",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
@@ -369,25 +372,25 @@ class _AreaPageState extends State<AreaPage> {
       spacing: 30,
       children: [
         CustomButtonWithText(// * : Nine
-          onTap: () => _onButtonPressed("9", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("9", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "9",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Six
-          onTap: () => _onButtonPressed("6", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("6", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "6",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Three
-          onTap: () => _onButtonPressed("3", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("3", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "3",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Decimal
-          onTap: () => _onButtonPressed(".", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed(".", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: ".",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
@@ -401,7 +404,7 @@ class _AreaPageState extends State<AreaPage> {
       spacing: 30,
       children: [
         ElevatedButton(
-          onPressed: () => setState(() => _areaLogics._onAllClearPressed()),
+          onPressed: () => setState(() => _lengthLogics._onAllClearPressed()),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
             overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
@@ -425,8 +428,8 @@ class _AreaPageState extends State<AreaPage> {
         ),
         ElevatedButton(
           onPressed: () => setState(() {
-            _areaLogics._onBackSpacePressed(isFirstTextSelected);
-            _areaLogics._convertUnit(isFirstTextSelected, firstSelectedItem, secondSelectedItem);
+            _lengthLogics._onBackSpacePressed(isFirstBoxSelected);
+            _lengthLogics._convertUnit(isFirstBoxSelected, firstSelectedItem, secondSelectedItem);
           }),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
@@ -461,7 +464,7 @@ class _AreaPageState extends State<AreaPage> {
   }
 }
 
-class AreaLogics {
+class LengthLogics {
   String firstBoxText = "0";
   String secondBoxText = "0";
 
@@ -504,57 +507,37 @@ class AreaLogics {
     int fromUnit = isFirstBox ? firstUnit : secondUnit;
     int toUnit = isFirstBox ? secondUnit : firstUnit;
 
-    double intermediateValue = 0;
+    // Convert to Gigabytes
+    double intermediateValue = inputValue;
 
     switch (fromUnit) {
-      case 0: intermediateValue = inputValue * 1000000; break;    // Square kilometer to square meter
-      case 1: intermediateValue = inputValue * 10000; break;       // Hectare to square meter
-      case 2: intermediateValue = inputValue * 100; break;         // Are to square meter
-      case 3: intermediateValue = inputValue; break;                // Square Meter (already in square meters)
-      case 4: intermediateValue = inputValue * 100; break;         // Square Decimeter to square meter
-      case 5: intermediateValue = inputValue * 10000; break;       // Square Centimeter to square meter
-      case 6: intermediateValue = inputValue * 1000000; break;     // Square Millimeter to square meter
-      case 7: intermediateValue = inputValue * 1000000000000; break;// Square Micron to square meter
-      case 8: intermediateValue = inputValue / 4046.856; break;    // Acre to square meter
-      case 9: intermediateValue = inputValue / 2589988.110336; break;// Square Mile to square meter
-      case 10: intermediateValue = inputValue * 1.19599; break;    // Square Yard to square meter
-      case 11: intermediateValue = inputValue * 10.7639; break;    // Square Foot to square meter
-      case 12: intermediateValue = inputValue * 1550.0031; break;  // Square Inch to square meter
-      case 13: intermediateValue = inputValue / 25.2929; break;    // Square Rod to square meter
-      case 14: intermediateValue = inputValue / 150000; break;     // Qing to square meter
-      case 15: intermediateValue = inputValue / 666.6666666667; break;// Mu to square meter
-      case 16: intermediateValue = inputValue / 0.06; break;      // Square Chi to square meter
-      case 17: intermediateValue = inputValue / 0.0006; break;    // Square Cun to square meter
-      case 18: intermediateValue = inputValue * 1000000; break;    // Square Kilometer (repeated) to square meter
+      case 0: intermediateValue /= 8 * 1024 * 1024 * 1024; break;       // Bit to Gigabyte
+      case 1: intermediateValue /= 1024 * 1024 * 1024; break;           // Byte to Gigabyte
+      case 2: intermediateValue /= 1024 * 1024; break;                          // Kilobyte to Gigabyte
+      case 3: intermediateValue /= 1024; break;                             // Megabyte to Gigabyte
+      case 4: intermediateValue *= 1; break;                          // Gigabyte to Gigabyte
+      case 5: intermediateValue *= 1024; break;                   // Terabyte to Gigabyte
+      case 6: intermediateValue *= 1024 * 1024; break;            // Petabyte to Gigabyte
     }
 
+    // Convert from Gigabytes to the target unit
     double finalValue = 0;
 
     switch (toUnit) {
-      case 0: finalValue = intermediateValue / 1000000; break;    // Square meter to square kilometer
-      case 1: finalValue = intermediateValue / 10000; break;       // Square meter to hectare
-      case 2: finalValue = intermediateValue / 100; break;         // Square meter to are
-      case 3: finalValue = intermediateValue; break;                // Square Meter (already in square meters)
-      case 4: finalValue = intermediateValue / 100; break;         // Square meter to square decimeter
-      case 5: finalValue = intermediateValue / 10000; break;       // Square meter to square centimeter
-      case 6: finalValue = intermediateValue / 1000000; break;     // Square meter to square millimeter
-      case 7: finalValue = intermediateValue / 1000000000000; break;// Square meter to square micron
-      case 8: finalValue = intermediateValue * 4046.856; break;    // Square meter to acre
-      case 9: finalValue = intermediateValue * 2589988.110336; break;// Square meter to square mile
-      case 10: finalValue = intermediateValue / 1.19599; break;    // Square meter to square yard
-      case 11: finalValue = intermediateValue / 10.7639; break;    // Square meter to square foot
-      case 12: finalValue = intermediateValue / 1550.0031; break;  // Square meter to square inch
-      case 13: finalValue = intermediateValue * 25.2929; break;    // Square meter to square rod
-      case 14: finalValue = intermediateValue * 150000; break;     // Square meter to qing
-      case 15: finalValue = intermediateValue * 666.6666666667; break;// Square meter to mu
-      case 16: finalValue = intermediateValue * 0.06; break;      // Square meter to square chi
-      case 17: finalValue = intermediateValue * 0.0006; break;    // Square meter to square cun
-      case 18: finalValue = intermediateValue / 1000000; break;    // Square meter to square kilometer (repeated)
+      case 0: finalValue = intermediateValue * 8 * 1024 * 1024 * 1024; break;       // Gigabyte to Bit
+      case 1: finalValue = intermediateValue * 1024 * 1024 * 1024; break;           // Gigabyte to Byte
+      case 2: finalValue = intermediateValue * 1024 * 1024; break;                          // Gigabyte to Kilobyte
+      case 3: finalValue = intermediateValue * 1024; break;                             // Gigabyte to Megabyte
+      case 4: finalValue = intermediateValue / 1; break;                          // Gigabyte to Gigabyte
+      case 5: finalValue = intermediateValue / 1024; break;                  // Gigabyte to Terabyte
+      case 6: finalValue = intermediateValue / (1024 * 1024); break;         // Gigabyte to Petabyte
     }
 
     String resultText = (finalValue == finalValue.toInt()) ? finalValue.toInt().toString() : finalValue.toString();
     if (resultText.length > 12) {
-      resultText = double.parse(resultText).toStringAsExponential();
+      double valueAsDouble = double.parse(resultText);
+      int exponent = valueAsDouble.toInt().toString().length - 1;
+      resultText = '10^$exponent';
     }
 
     if (isFirstBox) {

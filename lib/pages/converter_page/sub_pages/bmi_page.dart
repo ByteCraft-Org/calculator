@@ -109,7 +109,15 @@ class _BmiPageState extends State<BmiPage> {
           showBMI = false;
         });
       },
-      value: _bmiLogics.weight,
+      valueText: Text(
+        _bmiLogics.weight,
+        maxLines: 1,
+        style: TextStyle(
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+          color: isWeightTextSelected ? Colors.orange : Colors.white,
+        ),
+      ),
       isThisBoxSelected: isWeightTextSelected,
       unitLists: weightLists,
       selectedItem: weightItem,
@@ -148,7 +156,15 @@ class _BmiPageState extends State<BmiPage> {
           showBMI = false;
         });
       },
-      value: _bmiLogics.height,
+      valueText: Text(
+        _bmiLogics.height,
+        maxLines: 1,
+        style: TextStyle(
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+          color: !isWeightTextSelected ? Colors.orange : Colors.white,
+        ),
+      ),
       isThisBoxSelected: !isWeightTextSelected,
       unitLists: heightLists,
       selectedItem: heightItem,

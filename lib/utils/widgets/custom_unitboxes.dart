@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomUnitBoxes extends StatefulWidget {
   final Function onTapDropDown, onTapBox;
   final Widget dropDownDisplay;
-  final String value;
+  final Widget valueText;
   final bool isThisBoxSelected;
   final List<String> unitLists;
   final int selectedItem;
@@ -13,7 +13,7 @@ class CustomUnitBoxes extends StatefulWidget {
     required this.onTapDropDown,
     required this.dropDownDisplay,
     required this.onTapBox,
-    required this.value,
+    required this.valueText,
     required this.isThisBoxSelected,
     required this.unitLists,
     required this.selectedItem,
@@ -44,15 +44,7 @@ class _CustomUnitBoxesState extends State<CustomUnitBoxes> {
                 children: [
                   Container(
                     alignment: Alignment.bottomRight,
-                    child: Text(
-                      widget.value,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: widget.isThisBoxSelected ? Colors.orange : Colors.white,
-                      ),
-                    ),
+                    child: widget.valueText
                   ),
                   Container(// * : Unit Display
                     alignment: Alignment.centerRight,

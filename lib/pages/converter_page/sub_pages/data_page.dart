@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:calculator/utils/widgets/custom_snackbar.dart';
 import 'package:calculator/utils/widgets/custom_unitboxes.dart';
@@ -48,7 +50,7 @@ class _DataPageState extends State<DataPage> {
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text("Area"),
+        title: const Text("Data"),
         centerTitle: true,
       ),
       body: Padding(
@@ -108,7 +110,15 @@ class _DataPageState extends State<DataPage> {
       onTapBox: () {
         setState(() => isFirstBoxSelected = true);
       },
-      value: _dataLogics.firstBoxText,
+      valueText: Text(
+        _dataLogics.firstBoxText,
+        maxLines: 1,
+        style: TextStyle(
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+          color: isFirstBoxSelected ? Colors.orange : Colors.white,
+        ),
+      ),
       isThisBoxSelected: isFirstBoxSelected,
       unitLists: unitNameLists,
       selectedItem: firstSelectedItem,
@@ -140,7 +150,15 @@ class _DataPageState extends State<DataPage> {
       onTapBox: () {
         setState(() => isFirstBoxSelected = false);
       },
-      value: _dataLogics.secondBoxText,
+      valueText: Text(
+        _dataLogics.secondBoxText,
+        maxLines: 1,
+        style: TextStyle(
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+          color: !isFirstBoxSelected ? Colors.orange : Colors.white,
+        ),
+      ),
       isThisBoxSelected: !isFirstBoxSelected,
       unitLists: unitNameLists,
       selectedItem: secondSelectedItem,
@@ -517,15 +535,25 @@ class DataLogics {
       case 6: finalValue = intermediateValue / (1024 * 1024); break;         // Gigabyte to Petabyte
     }
 
-    String resultText = (finalValue == finalValue.toInt()) ? finalValue.toInt().toString() : finalValue.toString();
-    if (resultText.length > 12) {
-      resultText = double.parse(resultText).toStringAsExponential();
-    }
+    finalValue = (finalValue == finalValue.toInt()) ? double.parse(finalValue.toInt().toString()) : finalValue;
+    String resultText = formatScientificNotation(finalValue);
 
     if (isFirstBox) {
       secondBoxText = resultText;
     } else {
       firstBoxText = resultText;
     }
+  }
+
+  String formatScientificNotation(double value) {
+    String resultText = value.toString();
+    
+    if (resultText.length > 12) {
+      double coefficient = value / pow(10, (log(value.abs()) / ln10).floor());
+      int exponent = (log(value.abs()) / ln10).floor();
+      resultText = '${coefficient.toStringAsFixed(6)}*10^$exponent';
+    }
+
+    return resultText;
   }
 }
