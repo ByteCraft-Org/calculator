@@ -115,7 +115,7 @@ class _DataPageState extends State<DataPage> {
     );
   }
 
-CustomUnitBoxes _secondUnitBox(BuildContext context) {
+  CustomUnitBoxes _secondUnitBox(BuildContext context) {
     return CustomUnitBoxes(
       onTapDropDown: () {
         setState(() => isSecondDDSelected = true);
