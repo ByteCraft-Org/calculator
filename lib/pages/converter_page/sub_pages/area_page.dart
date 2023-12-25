@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:calculator/utils/widgets/custom_snackbar.dart';
 import 'package:calculator/utils/widgets/custom_unitboxes.dart';
@@ -18,7 +20,7 @@ class _AreaPageState extends State<AreaPage> {
 
   List<String> unitSymbolLists = ["km2", "ha", "a", "m2", "dm2", "cm2", "mm2", "μm2", "ac", "mile2", "yd2", "ft2", "in2", "rd2", "qing", "mu", "chi2", "cun2", "gongli2"];
 
-  bool isFirstTextSelected = true;
+  bool isFirstBoxSelected = true;
   int firstSelectedItem = 0;
   String firstUnitBtnDD = "km2";
   bool isFirstDDSelected = false;
@@ -99,7 +101,7 @@ class _AreaPageState extends State<AreaPage> {
         ],
       ),
       onTapBox: () {
-        setState(() => isFirstTextSelected = true);
+        setState(() => isFirstBoxSelected = true);
       },
       valueText: Text(
         _areaLogics.firstBoxText,
@@ -107,10 +109,10 @@ class _AreaPageState extends State<AreaPage> {
         style: TextStyle(
           fontSize: 40,
           fontWeight: FontWeight.bold,
-          color: isFirstTextSelected ? Colors.orange : Colors.white,
+          color: isFirstBoxSelected ? Colors.orange : Colors.white,
         ),
       ),
-      isThisBoxSelected: isFirstTextSelected,
+      isThisBoxSelected: isFirstBoxSelected,
       unitLists: unitNameLists,
       selectedItem: firstSelectedItem,
     );
@@ -143,18 +145,63 @@ class _AreaPageState extends State<AreaPage> {
         ],
       ),
       onTapBox: () {
-        setState(() => isFirstTextSelected = false);
+        setState(() => isFirstBoxSelected = false);
       },
-      valueText: Text(
-        _areaLogics.secondBoxText,
+      valueText: (_areaLogics.firstExponent.isEmpty)
+      ? Text(
+        _areaLogics.firstBoxText,
         maxLines: 1,
         style: TextStyle(
           fontSize: 40,
           fontWeight: FontWeight.bold,
-          color: !isFirstTextSelected ? Colors.orange : Colors.white,
+          color: isFirstBoxSelected ? Colors.orange : Colors.white,
+        ),
+      )
+      : RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: _areaLogics.firstBoxText,
+              style: TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.bold,
+                color: isFirstBoxSelected ? Colors.orange : Colors.white,
+              ),
+            ),
+            TextSpan(
+              text: "×",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
+              ),
+            ),
+            TextSpan(
+              text: "10",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
+              ),
+            ),
+            WidgetSpan(
+              child: Transform.translate(
+                offset: const Offset(0, -3),
+                child: Text(
+                  _areaLogics.firstExponent,
+                  style: TextStyle(
+                    color: isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    textBaseline: TextBaseline.alphabetic,
+                  ),
+                ),
+              ),
+            ),
+          ]
         ),
       ),
-      isThisBoxSelected: !isFirstTextSelected,
+      isThisBoxSelected: !isFirstBoxSelected,
       unitLists: unitNameLists,
       selectedItem: secondSelectedItem,
     );
@@ -296,7 +343,7 @@ class _AreaPageState extends State<AreaPage> {
         isFirstDDSelected = false;
         isSecondDDSelected = false;
       });
-      setState(() => _areaLogics._convertUnit(isFirstTextSelected, firstSelectedItem, secondSelectedItem));
+      setState(() => _areaLogics._convertUnit(isFirstBoxSelected, firstSelectedItem, secondSelectedItem));
     });
   }
 
@@ -307,19 +354,19 @@ class _AreaPageState extends State<AreaPage> {
       spacing: 30,
       children: [
         CustomButtonWithText(// * : Seven
-          onTap: () => _onButtonPressed("7", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("7", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "7",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Four
-          onTap: () => _onButtonPressed("4", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("4", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "4",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : One
-          onTap: () => _onButtonPressed("1", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("1", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "1",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
@@ -337,25 +384,25 @@ class _AreaPageState extends State<AreaPage> {
       spacing: 30,
       children: [
         CustomButtonWithText(// * : Eight
-          onTap: () => _onButtonPressed("8", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("8", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "8",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Five
-          onTap: () => _onButtonPressed("5", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("5", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "5",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Two
-          onTap: () => _onButtonPressed("2", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("2", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "2",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Zero
-          onTap: () => _onButtonPressed("0", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("0", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "0",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
@@ -369,25 +416,25 @@ class _AreaPageState extends State<AreaPage> {
       spacing: 30,
       children: [
         CustomButtonWithText(// * : Nine
-          onTap: () => _onButtonPressed("9", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("9", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "9",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Six
-          onTap: () => _onButtonPressed("6", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("6", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "6",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Three
-          onTap: () => _onButtonPressed("3", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed("3", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: "3",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Decimal
-          onTap: () => _onButtonPressed(".", isFirstTextSelected, firstSelectedItem, secondSelectedItem),
+          onTap: () => _onButtonPressed(".", isFirstBoxSelected, firstSelectedItem, secondSelectedItem),
           buttontext: ".",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
@@ -425,8 +472,8 @@ class _AreaPageState extends State<AreaPage> {
         ),
         ElevatedButton(
           onPressed: () => setState(() {
-            _areaLogics._onBackSpacePressed(isFirstTextSelected);
-            _areaLogics._convertUnit(isFirstTextSelected, firstSelectedItem, secondSelectedItem);
+            _areaLogics._onBackSpacePressed(isFirstBoxSelected);
+            _areaLogics._convertUnit(isFirstBoxSelected, firstSelectedItem, secondSelectedItem);
           }),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
@@ -464,6 +511,8 @@ class _AreaPageState extends State<AreaPage> {
 class AreaLogics {
   String firstBoxText = "0";
   String secondBoxText = "0";
+  String firstExponent = "";
+  String secondExponent = "";
 
   void _onButtonPressed(BuildContext context, String buttonText, bool isFirstBox, int firstUnit, int secondUnit) {
     if (isFirstBox) {
@@ -485,6 +534,8 @@ class AreaLogics {
   void _onAllClearPressed() {
     firstBoxText = "0";
     secondBoxText = "0";
+    firstExponent = "";
+    secondExponent = "";
   }
 
   void _onBackSpacePressed(bool isFirstBox) {
@@ -552,15 +603,31 @@ class AreaLogics {
       case 18: finalValue = intermediateValue / 1000000; break;    // Square meter to square kilometer (repeated)
     }
 
-    String resultText = (finalValue == finalValue.toInt()) ? finalValue.toInt().toString() : finalValue.toString();
-    if (resultText.length > 12) {
-      resultText = double.parse(resultText).toStringAsExponential();
-    }
+    finalValue = (finalValue == finalValue.toInt()) ? double.parse(finalValue.toInt().toString()) : finalValue;
+    String resultText = formatScientificNotation(finalValue, isFirstBox);
 
     if (isFirstBox) {
       secondBoxText = resultText;
     } else {
       firstBoxText = resultText;
     }
+  }
+
+  String formatScientificNotation(double value, bool isFirstBox) {
+    String resultText = value.toString();
+    
+    if (resultText.length > 8) {
+      double coefficient = value / pow(10, (log(value.abs()) / ln10).floor());
+      int exp = (log(value.abs()) / ln10).floor();
+      resultText = coefficient.toStringAsFixed(8);
+      
+      if (isFirstBox) {
+        secondExponent = exp.toString();
+      } else {
+        firstExponent = exp.toString();
+      }
+    }
+
+    return resultText;
   }
 }
