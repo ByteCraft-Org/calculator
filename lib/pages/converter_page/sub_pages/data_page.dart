@@ -110,13 +110,58 @@ class _DataPageState extends State<DataPage> {
       onTapBox: () {
         setState(() => isFirstBoxSelected = true);
       },
-      valueText: Text(
+      valueText: (_dataLogics.firstExponent.isEmpty)
+      ? Text(
         _dataLogics.firstBoxText,
         maxLines: 1,
         style: TextStyle(
           fontSize: 40,
           fontWeight: FontWeight.bold,
           color: isFirstBoxSelected ? Colors.orange : Colors.white,
+        ),
+      )
+      : RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: _dataLogics.firstBoxText,
+              style: TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.bold,
+                color: isFirstBoxSelected ? Colors.orange : Colors.white,
+              ),
+            ),
+            TextSpan(
+              text: "×",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
+              ),
+            ),
+            TextSpan(
+              text: "10",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
+              ),
+            ),
+            WidgetSpan(
+              child: Transform.translate(
+                offset: const Offset(0, -3),
+                child: Text(
+                  _dataLogics.firstExponent,
+                  style: TextStyle(
+                    color: isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    textBaseline: TextBaseline.alphabetic,
+                  ),
+                ),
+              ),
+            ),
+          ]
         ),
       ),
       isThisBoxSelected: isFirstBoxSelected,
@@ -150,13 +195,58 @@ class _DataPageState extends State<DataPage> {
       onTapBox: () {
         setState(() => isFirstBoxSelected = false);
       },
-      valueText: Text(
+      valueText: (_dataLogics.secondExponent.isEmpty)
+      ? Text(
         _dataLogics.secondBoxText,
         maxLines: 1,
         style: TextStyle(
           fontSize: 40,
           fontWeight: FontWeight.bold,
           color: !isFirstBoxSelected ? Colors.orange : Colors.white,
+        ),
+      )
+      : RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: _dataLogics.secondBoxText,
+              style: TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.bold,
+                color: !isFirstBoxSelected ? Colors.orange : Colors.white,
+              ),
+            ),
+            TextSpan(
+              text: "×",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: !isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
+              ),
+            ),
+            TextSpan(
+              text: "10",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: !isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
+              ),
+            ),
+            WidgetSpan(
+              child: Transform.translate(
+                offset: const Offset(0, -3),
+                child: Text(
+                  _dataLogics.secondExponent,
+                  style: TextStyle(
+                    color: !isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    textBaseline: TextBaseline.alphabetic,
+                  ),
+                ),
+              ),
+            ),
+          ]
         ),
       ),
       isThisBoxSelected: !isFirstBoxSelected,
@@ -469,6 +559,8 @@ class _DataPageState extends State<DataPage> {
 class DataLogics {
   String firstBoxText = "0";
   String secondBoxText = "0";
+  String firstExponent = "";
+  String secondExponent = "";
 
   void _onButtonPressed(BuildContext context, String buttonText, bool isFirstBox, int firstUnit, int secondUnit) {
     if (isFirstBox) {
@@ -480,7 +572,7 @@ class DataLogics {
   }
 
   String _updateText(BuildContext context, String currentText, String newText) {
-    if(currentText.length == 10) {
+    if(currentText.length == 6) {
       customSnackbar(context: context, message: "Max characters reached");
       return currentText;
     }
@@ -490,6 +582,8 @@ class DataLogics {
   void _onAllClearPressed() {
     firstBoxText = "0";
     secondBoxText = "0";
+    firstExponent = "";
+    secondExponent = "";
   }
 
   void _onBackSpacePressed(bool isFirstBox) {
@@ -536,7 +630,7 @@ class DataLogics {
     }
 
     finalValue = (finalValue == finalValue.toInt()) ? double.parse(finalValue.toInt().toString()) : finalValue;
-    String resultText = formatScientificNotation(finalValue);
+    String resultText = formatScientificNotation(finalValue, isFirstBox);
 
     if (isFirstBox) {
       secondBoxText = resultText;
@@ -545,13 +639,19 @@ class DataLogics {
     }
   }
 
-  String formatScientificNotation(double value) {
+  String formatScientificNotation(double value, bool isFirstBox) {
     String resultText = value.toString();
     
-    if (resultText.length > 12) {
+    if (resultText.length > 8) {
       double coefficient = value / pow(10, (log(value.abs()) / ln10).floor());
-      int exponent = (log(value.abs()) / ln10).floor();
-      resultText = '${coefficient.toStringAsFixed(6)}*10^$exponent';
+      int exp = (log(value.abs()) / ln10).floor();
+      resultText = coefficient.toStringAsFixed(8);
+      
+      if (isFirstBox) {
+        secondExponent = exp.toString();
+      } else {
+        firstExponent = exp.toString();
+      }
     }
 
     return resultText;
