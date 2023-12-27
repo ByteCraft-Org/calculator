@@ -201,3 +201,54 @@ class ConverterTabButton extends StatelessWidget {
     );
   }
 }
+
+class CustomConverterButton extends StatelessWidget {
+  final Function() onPressed;
+  final String? text;
+  final IconData? icon;
+  final bool showGoButton;
+
+  const CustomConverterButton({
+    super.key,
+    required this.onPressed,
+    this.text = "?",
+    this.icon,
+    this.showGoButton = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    double buttonHeight = 180;
+    if(showGoButton) {buttonHeight = 120;}
+
+    return ElevatedButton(
+      onPressed: () => onPressed(),
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(Colors.grey.shade600.withOpacity(0.2)),
+        overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
+        shape: MaterialStatePropertyAll(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+        ),
+        minimumSize: MaterialStatePropertyAll(
+          Size(60, buttonHeight),
+        ),
+      ),
+      child: icon != null
+          ? Icon(
+              icon,
+              color: Colors.orange,
+              size: 35,
+            )
+          : Text(
+              text!,
+              style: const TextStyle(
+                color: Colors.orange,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+    );
+  }
+}
