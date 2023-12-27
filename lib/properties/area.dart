@@ -14,7 +14,7 @@ enum AREA {
 }
 
 class AreaConverter {
-  static List<String> areaName = ["Square Meters", "Square Centimeters", "Square Inches", "Square Feet", "Square Feet Us", "Square Miles", "Square Yard", "Square Millimeters", "Square Kilometers", "Hectares", "Acres", "Are"];
+  static List<String> areaName = ["Square Meters", "Square Centimeters", "Square Inches", "Square Feet", "Square Miles", "Square Yard", "Square Millimeters", "Square Kilometers", "Hectares", "Acres", "Are"];
   static List<String> areaSymbols = ["m²", "cm²", "in²", "ft²", "mi²", "yd²", "mm²", "km²", "ha", "ac", "a"];
 
   static const _toSquareMeters = {
