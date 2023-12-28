@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum VOLUME {
   cubicMeters,
   liters,
@@ -26,7 +28,7 @@ enum VOLUME {
   centiliters,
 }
 
-class VolumeConverter {
+class VolumeConverter implements Converter<int> {
   static List<String> volumeName = ["Cubic Meters", "Liters", "Imperial Gallons", "Us Gallons", "Imperial Pints", "Us Pints", "Milliliters", "Tablespoons Us", "Australian Tablespoons", "Cups", "Cubic Centimeters", "Cubic Feet", "Cubic Inches", "Cubic Millimeters", "Imperial Fluid Ounces", "Us Fluid Ounces", "Imperial Gill", "Us Gill", "Us Quarts", "Femtoliters", "Picoliters", "Nanoliters", "Microliters", "Deciliters", "Centiliters"];
   static List<String> volumeSymbols = ["m³", "L", "imp gal", "US gal", "imp pt", "US pt", "mL", "tbsp (US)", "tbsp (Australian)", "cups", "cm³", "ft³", "in³", "mm³", "imp fl oz", "US fl oz", "imp gill", "US gill", "US qt", "fL", "pL", "nL", "µL", "dL", "cL"];
 
@@ -90,7 +92,8 @@ class VolumeConverter {
     return VOLUME.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getVolumeEnum(from);
     var toEnum = getVolumeEnum(to);
 

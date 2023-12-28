@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum DENSITY {
   gramsPerLiter,
   gramsPerCubicCentimeter,
@@ -19,7 +21,7 @@ enum DENSITY {
   picogramsPerMilliliter
 }
 
-class DensityConverter {
+class DensityConverter implements Converter<int> {
   static List<String> densityName = ["Grams Per Liter", "Grams Per Cubic Centimeter", "Grams Per Milliliter", "Grams Per Deciliter", "Kilograms Per Liter", "Kilograms Per Cubic Meter", "Milligrams Per Liter", "Milligrams Per Deciliter", "Milligrams Per Milliliter", "Milligrams Per Cubic Meter", "Milligrams Per Cubic Centimeter", "Micrograms Per Liter", "Micrograms Per Deciliter", "Micrograms Per Milliliter", "Nanograms Per Liter", "Nanograms Per Milliliter", "Picograms Per Liter", "Picograms Per Milliliter"];
   static List<String> densitySymbols = ["g/l", "g/cm³", "g/ml", "g/dl", "kg/l", "kg/m³", "mg/l", "mg/dl", "mg/ml", "mg/m³", "mg/cm³", "µg/l", "µg/dl", "µg/ml", "ng/l", "ng/ml", "pg/l", "pg/ml"];
 
@@ -69,7 +71,8 @@ class DensityConverter {
     return DENSITY.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getDensityEnum(from);
     var toEnum = getDensityEnum(to);
 

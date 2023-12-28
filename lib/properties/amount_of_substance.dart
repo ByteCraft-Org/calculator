@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum AMOUNT_OF_SUBSTANCE {
   moles,
   millimoles,
@@ -7,7 +9,7 @@ enum AMOUNT_OF_SUBSTANCE {
   femtomoles,
 }
 
-class AmountOfSubstanceConverter {
+class AmountOfSubstanceConverter implements Converter<int> {
   static List<String> amountOfSubstanceName = ["Moles", "Millimoles", "Micromoles", "Nanomoles", "Picomoles", "Femtomoles"];
   static List<String> amountOfSubstanceSymbols = ["mol", "mmol", "µmol", "nmol", "pmol", "fmol"];
 
@@ -33,7 +35,8 @@ class AmountOfSubstanceConverter {
     return AMOUNT_OF_SUBSTANCE.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getAmountOfSubstanceEnum(from);
     var toEnum = getAmountOfSubstanceEnum(to);
 

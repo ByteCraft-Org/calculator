@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum TIME {
   seconds,
   deciseconds,
@@ -16,7 +18,7 @@ enum TIME {
   millennium,
 }
 
-class TimeConverter {
+class TimeConverter implements Converter<int> {
   static List<String> timeName = ["Seconds", "Deciseconds", "Centiseconds", "Milliseconds", "Microseconds", "Nanoseconds", "Minutes", "Hours", "Days", "Weeks", "Years365", "Lustrum", "Decades", "Centuries", "Millennium"];
   static List<String> timeSymbols = ["s", "ds", "cs", "ms", "µs", "ns", "min", "hr", "days", "weeks", "years", "lustrum", "decades", "centuries", "millennium"];
 
@@ -60,7 +62,8 @@ class TimeConverter {
     return TIME.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getTimeEnum(from);
     var toEnum = getTimeEnum(to);
 

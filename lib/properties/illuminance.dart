@@ -1,9 +1,11 @@
+import 'package:calculator/properties/converter.dart';
+
 enum ILLUMINANCE {
   lux,
   footCandle,
 }
 
-class IlluminanceConverter {
+class IlluminanceConverter implements Converter<int> {
   static List<String> illuminanceName = ["Lux", "Foot Candle"];
   static List<String> illuminanceSymbols = ["lx", "fc"];
 
@@ -21,7 +23,8 @@ class IlluminanceConverter {
     return ILLUMINANCE.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getIlluminanceEnum(from);
     var toEnum = getIlluminanceEnum(to);
 

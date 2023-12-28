@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum DIGITAL_DATA {
   bit,
   nibble,
@@ -28,7 +30,7 @@ enum DIGITAL_DATA {
   exbibyte,
 }
 
-class DigitalDataConverter {
+class DigitalDataConverter implements Converter<int> {
   static List<String> digitalDataName = ["Bit", "Nibble", "Kilobit", "Megabit", "Gigabit", "Terabit", "Petabit", "Exabit", "Kibibit", "Mebibit", "Gibibit", "Tebibit", "Pebibit", "Exbibit", "Byte", "Kilobyte", "Megabyte", "Gigabyte", "Terabyte", "Petabyte", "Exabyte", "Kibibyte", "Mebibyte", "Gibibyte", "Tebibyte", "Pebibyte", "Exbibyte"];
   static List<String> digitalDataSymbols = ["b", "Nibble", "kb", "Mb", "Gb", "Tb", "Pb", "Eb", "Kibit", "Mibit", "Gibit", "Tibit", "Pibit", "Eibit", "B", "kB", "MB", "GB", "TB", "PB", "EB", "KiB", "MiB", "GiB", "TiB", "PiB", "Eibyte"];
 
@@ -96,7 +98,8 @@ class DigitalDataConverter {
     return DIGITAL_DATA.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getDigitalDataEnum(from);
     var toEnum = getDigitalDataEnum(to);
 

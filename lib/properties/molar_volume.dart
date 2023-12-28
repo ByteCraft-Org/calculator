@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum MOLAR_VOLUME {
   molesPerLiter,
   molesPerMilliliter,
@@ -16,7 +18,7 @@ enum MOLAR_VOLUME {
   femtomolesPerMilliliter,
 }
 
-class MolarVolumeConverter {
+class MolarVolumeConverter implements Converter<int> {
   static List<String> molarVolumeName = ["Moles Per Liter", "Moles Per Milliliter", "Moles Per Cubic Meter", "Millimoles Per Liter", "Millimoles Per Deciliter", "Micromoles Per Liter", "Micromoles Per Deciliter", "Micromoles Per Milliliter", "Nanomoles Per Liter", "Nanomoles Per Deciliter", "Nanomoles Per Milliliter", "Picomoles Per Liter", "Picomoles Per Deciliter", "Picomoles Per Milliliter", "Femtomoles Per Milliliter"];
   static List<String> molarVolumeSymbols = ["mol/l", "mol/ml", "mol/m³", "mmol/l", "mmol/dl", "µmol/l", "µmol/dl", "µmol/ml", "nmol/l", "nmol/dl", "nl/ml", "pmol/l", "pmol/dl", "pmol/ml", "fmol/ml"];
 
@@ -60,7 +62,7 @@ class MolarVolumeConverter {
     return MOLAR_VOLUME.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  double convert(double value, int from, int to) {
     var fromEnum = getMolarVolumeEnum(from);
     var toEnum = getMolarVolumeEnum(to);
 

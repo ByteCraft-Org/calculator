@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum SPEED {
   metersPerSecond,
   kilometersPerHour,
@@ -7,7 +9,7 @@ enum SPEED {
   minutesPerKilometer,
 }
 
-class SpeedConverter {
+class SpeedConverter implements Converter<int> {
   static List<String> speedName = ["Meters Per Second", "Kilometers Per Hour", "Miles Per Hour", "Knots", "Feets Per Second", "Minutes Per Kilometer"];
   static List<String> speedSymbols = ["m/s", "km/h", "mi/h", "kts", "ft/s", "min/km"];
 
@@ -33,7 +35,8 @@ class SpeedConverter {
     return SPEED.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getSpeedEnum(from);
     var toEnum = getSpeedEnum(to);
 

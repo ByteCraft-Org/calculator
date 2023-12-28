@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum TORQUE {
   newtonMeter,
   dyneMeter,
@@ -6,7 +8,7 @@ enum TORQUE {
   poundalMeter,
 }
 
-class TorqueConverter {
+class TorqueConverter implements Converter<int> {
   static List<String> torqueName = ["Newton Meter", "Dyne Meter", "Pound Force Feet", "Kilogram Force Meter", "Poundal Meter"];
   static List<String> torqueSymbols = ["N·m", "dyn·m", "lbf·ft", "kgf·m", "pdl·m"];
 
@@ -30,7 +32,8 @@ class TorqueConverter {
     return TORQUE.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getTorqueEnum(from);
     var toEnum = getTorqueEnum(to);
 

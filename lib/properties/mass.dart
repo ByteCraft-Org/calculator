@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum MASS {
   grams,
   ettograms,
@@ -19,7 +21,7 @@ enum MASS {
   stones,
 }
 
-class MassConverter {
+class MassConverter implements Converter<int> {
   static List<String> massName = ["Grams", "Ettograms", "Kilograms", "Pounds", "Ounces", "Quintals", "Tons", "Milligrams", "Femtograms", "Picograms", "Nanograms", "Micrograms", "Decigrams", "Uma", "Carats", "Centigrams", "Pennyweights", "Troy Ounces", "Stones"];
   static List<String> massSymbols = ["g", "hg", "kg", "lb", "oz", "q", "t", "mg", "fg", "pg", "ng", "µg", "dg", "u", "ct", "cg", "dwt", "oz t", "st."];
 
@@ -69,7 +71,8 @@ class MassConverter {
     return MASS.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getMassEnum(from);
     var toEnum = getMassEnum(to);
 

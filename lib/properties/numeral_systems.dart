@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum NUMERAL_SYSTEMS {
   decimal,
   hexadecimal,
@@ -5,50 +7,44 @@ enum NUMERAL_SYSTEMS {
   binary,
 }
 
-class NumeralConverter {
+class NumeralSystemsConverter implements Converter<int> {
   static List<String> numeralSystemsName = ["Decimal", "Hexadecimal", "Octal", "Binary"];
   static List<String> numeralSystemsSymbols = ["₁₀", "₁₆", "₈", "₂"];
-
 
   static const _binaryBase = 2;
   static const _octalBase = 8;
   static const _hexadecimalBase = 16;
 
-  static String convert(String value, NUMERAL_SYSTEMS from, NUMERAL_SYSTEMS to) {
-    int decimalValue;
+  @override
+  double convert(double value, int from, int to) {
+    int decimalValue = 0;
 
     switch (from) {
-      case NUMERAL_SYSTEMS.decimal:
-        decimalValue = int.parse(value);
+      case 0: // NUMERAL_SYSTEMS.decimal
+        decimalValue = int.parse(value.toString());
         break;
-      case NUMERAL_SYSTEMS.binary:
-        decimalValue = int.parse(value, radix: _binaryBase);
+      case 1: // NUMERAL_SYSTEMS.binary
+        decimalValue = int.parse(value.toString(), radix: _binaryBase);
         break;
-      case NUMERAL_SYSTEMS.octal:
-        decimalValue = int.parse(value, radix: _octalBase);
+      case 2: // NUMERAL_SYSTEMS.octal
+        decimalValue = int.parse(value.toString(), radix: _octalBase);
         break;
-      case NUMERAL_SYSTEMS.hexadecimal:
-        decimalValue = int.parse(value, radix: _hexadecimalBase);
+      case 3: // NUMERAL_SYSTEMS.hexadecimal
+        decimalValue = int.parse(value.toString(), radix: _hexadecimalBase);
         break;
     }
-
-    String result;
 
     switch (to) {
-      case NUMERAL_SYSTEMS.decimal:
-        result = decimalValue.toString();
-        break;
-      case NUMERAL_SYSTEMS.binary:
-        result = decimalValue.toRadixString(_binaryBase);
-        break;
-      case NUMERAL_SYSTEMS.octal:
-        result = decimalValue.toRadixString(_octalBase);
-        break;
-      case NUMERAL_SYSTEMS.hexadecimal:
-        result = decimalValue.toRadixString(_hexadecimalBase);
-        break;
+      case 0: // NUMERAL_SYSTEMS.decimal
+        return decimalValue.toDouble();
+      case 1: // NUMERAL_SYSTEMS.binary
+        return int.parse(decimalValue.toRadixString(_binaryBase)).toDouble();
+      case 2: // NUMERAL_SYSTEMS.octal
+        return int.parse(decimalValue.toRadixString(_octalBase)).toDouble();
+      case 3: // NUMERAL_SYSTEMS.hexadecimal
+        return int.parse(decimalValue.toRadixString(_hexadecimalBase)).toDouble();
+      default:
+        return 0;
     }
-
-    return result;
   }
 }

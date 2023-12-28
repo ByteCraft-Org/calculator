@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum FUEL_CONSUMPTION {
   kilometersPerLiter,
   litersPer100km,
@@ -5,7 +7,7 @@ enum FUEL_CONSUMPTION {
   milesPerImperialGallon,
 }
 
-class FuelConsumptionConverter {
+class FuelConsumptionConverter implements Converter<int> {
   static List<String> fuelConsumptionName = ["Kilometers Per Liter", "Liters Per100km", "Miles Per Us Gallon", "Miles Per Imperial Gallon"];
   static List<String> fuelConsumptionSymbols = ["km/l", "l/100km", "mpg"];
 
@@ -27,7 +29,8 @@ class FuelConsumptionConverter {
     return FUEL_CONSUMPTION.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getFuelConsumptionEnum(from);
     var toEnum = getFuelConsumptionEnum(to);
 

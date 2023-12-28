@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum AREA {
   squareMeters,
   squareCentimeters,
@@ -13,7 +15,7 @@ enum AREA {
   are,
 }
 
-class AreaConverter {
+class AreaConverter implements Converter<int> {
   static List<String> areaName = ["Square Meters", "Square Centimeters", "Square Inches", "Square Feet", "Square Miles", "Square Yard", "Square Millimeters", "Square Kilometers", "Hectares", "Acres", "Are"];
   static List<String> areaSymbols = ["m²", "cm²", "in²", "ft²", "mi²", "yd²", "mm²", "km²", "ha", "ac", "a"];
 
@@ -51,7 +53,8 @@ class AreaConverter {
     return AREA.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getAreaEnum(from);
     var toEnum = getAreaEnum(to);
 

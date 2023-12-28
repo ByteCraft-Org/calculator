@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum ANGLE {
   degree,
   minutes,
@@ -5,7 +7,7 @@ enum ANGLE {
   radians,
 }
 
-class AngleConverter {
+class AngleConverter implements Converter<int> {
   static List<String> angleName = ["Degree", "Minutes", "Seconds", "Radians"];
   static List<String> angleSymbols = ["°", "'", "''", "rad"];
 
@@ -27,7 +29,8 @@ class AngleConverter {
     return ANGLE.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getAngleEnum(from);
     var toEnum = getAngleEnum(to);
 

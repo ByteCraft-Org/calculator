@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum PRESSURE {
   pascal,
   atmosphere,
@@ -9,7 +11,7 @@ enum PRESSURE {
   inchOfMercury,
 }
 
-class PressureConverter {
+class PressureConverter implements Converter<int> {
   static List<String> pressureName = ["Pascal", "Atmosphere", "Bar", "Millibar", "Psi", "Torr", "Hecto Pascal", "Inch Of Mercury"];
   static List<String> pressureSymbols = ["Pa", "atm", "bar", "mbar", "psi", "Torr", "hPa", "inHg"];
 
@@ -40,7 +42,8 @@ class PressureConverter {
     return PRESSURE.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getPressureEnum(from);
     var toEnum = getPressureEnum(to);
 

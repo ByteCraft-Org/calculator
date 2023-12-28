@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum FORCE {
   newton,
   dyne,
@@ -6,7 +8,7 @@ enum FORCE {
   poundal,
 }
 
-class ForceConverter {
+class ForceConverter implements Converter<int> {
   static List<String> forceName = ["Newton", "Dyne", "Pound Force", "Kilogram Force", "Poundal"];
   static List<String> forceSymbols = ["N", "dyn", "lbf", "kgf", "pdl"];
 
@@ -30,7 +32,8 @@ class ForceConverter {
     return FORCE.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getForceEnum(from);
     var toEnum = getForceEnum(to);
 

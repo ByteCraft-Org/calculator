@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum ENERGY {
   joules,
   kilojoules,
@@ -8,7 +10,7 @@ enum ENERGY {
   energyFootPound,
 }
 
-class EnergyConverter {
+class EnergyConverter  implements Converter<int>{
   static List<String> energyName = ["Joules", "Kilojoules", "Calories", "Kilocalories", "Kilowatt Hours", "Electronvolts", "Energy Foot Pound"];
   static List<String> energySymbols = ["J", "kJ", "cal", "kcal", "kWh", "eV", "ft⋅lbf"];
 
@@ -36,7 +38,8 @@ class EnergyConverter {
     return ENERGY.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getEnergyEnum(from);
     var toEnum = getEnergyEnum(to);
 

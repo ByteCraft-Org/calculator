@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum ELECTRIC_CHARGE {
   coulombs,
   milliCoulombs,
@@ -10,7 +12,7 @@ enum ELECTRIC_CHARGE {
   faraday,
 }
 
-class ElectricChargeConverter {
+class ElectricChargeConverter implements Converter<int> {
   static List<String> electricChargeName = ["Coulombs", "Milli Coulombs", "Micro Coulombs", "Nano Coulombs", "Pico Coulombs", "Ampere Hours", "Kiloampere Hours", "Megaampere Hours", "Faraday"];
   static List<String> electricChargeSymbols = [ "C", "mC", "µC", "nC", "pC", "Ah", "kAh", "MAh", "faraday"];
 
@@ -42,7 +44,8 @@ class ElectricChargeConverter {
     return ELECTRIC_CHARGE.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getElectricChargeEnum(from);
     var toEnum = getElectricChargeEnum(to);
 

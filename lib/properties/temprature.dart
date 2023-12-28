@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum TEMPERATURE {
   fahrenheit,
   celsius,
@@ -8,7 +10,7 @@ enum TEMPERATURE {
   rankine,
 }
 
-class TemperatureConverter {
+class TemperatureConverter implements Converter<int> {
   static List<String> temperatureName = ["Fahrenheit", "Celsius", "Kelvin", "Reamur", "Romer", "Delisle", "Rankine"];
   static List<String> temperatureSymbols = ["°F", "°C", "K", "°Re", "°Rø", "°De", "°R"];
 
@@ -36,7 +38,8 @@ class TemperatureConverter {
     return TEMPERATURE.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getTemperatureEnum(from);
     var toEnum = getTemperatureEnum(to);
 

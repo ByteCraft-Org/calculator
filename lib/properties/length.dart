@@ -1,9 +1,12 @@
-// Enum for units
+import 'package:calculator/properties/converter.dart';
+
 enum LENGTH {
   meters, 
   centimeters,
   inches,
   feet,
+  feetUs,
+  nauticalMiles,
   yards,
   miles,
   millimeters,
@@ -17,15 +20,18 @@ enum LENGTH {
   parsec,
   mils
 }
-class LengthConverter {
+
+class LengthConverter implements Converter<int> {
   static List<String> lengthName = ["Meters", "Centimeters", "Inches", "Feet", "Feet Us", "Nautical Miles", "Yards", "Miles", "Millimeters", "Micrometers", "Nanometers", "Angstroms", "Picometers", "Kilometers", "Astronomical Units", "Light Years", "Parsec", "Mils"];
-  static List<String> lengthSymbols = ["m", "cm", "in", "ft", "M", "yd", "mi", "mm", "µm", "nm", "Å", "pm", "km", "au", "ly", "pc", "th"];
+  static List<String> lengthSymbols = ["m", "cm", "in", "ft", "M", "NM", "yd", "mi", "mm", "µm", "nm", "Å", "pm", "km", "au", "ly", "pc", "th"];
 
   static const _toMeters = {
     LENGTH.meters: 1.0,
     LENGTH.centimeters: 0.01,
     LENGTH.inches: 0.0254,
     LENGTH.feet: 0.3048,
+    LENGTH.feetUs: 0.3048,
+    LENGTH.nauticalMiles: 1852,
     LENGTH.yards: 0.9144,
     LENGTH.miles: 1609.344,
     LENGTH.millimeters: 0.001,
@@ -45,6 +51,8 @@ class LengthConverter {
     LENGTH.centimeters: 100,
     LENGTH.inches: 1/0.0254,
     LENGTH.feet: 1/0.3048,
+    LENGTH.feetUs: 1/0.3048,
+    LENGTH.nauticalMiles: 1/1852,
     LENGTH.yards: 1/0.9144,
     LENGTH.miles: 1/1609.344,
     LENGTH.millimeters: 1000,
@@ -63,7 +71,8 @@ class LengthConverter {
     return LENGTH.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = _getLengthEnum(from);
     var toEnum = _getLengthEnum(to);
 

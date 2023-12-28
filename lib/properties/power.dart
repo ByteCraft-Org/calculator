@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum POWER {
   watt,
   milliwatt,
@@ -8,7 +10,7 @@ enum POWER {
   imperialHorsePower,
 }
 
-class PowerConverter {
+class PowerConverter implements Converter<int> {
   static List<String> powerName = ["Watt", "Milliwatt", "Kilowatt", "Megawatt", "Gigawatt", "European Horse Power", "Imperial Horse Power"];
   static List<String> powerSymbols = ["W", "mW", "kW", "MW", "GW", "ehp", "ihp"];
 
@@ -36,7 +38,8 @@ class PowerConverter {
     return POWER.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getPowerEnum(from);
     var toEnum = getPowerEnum(to);
 

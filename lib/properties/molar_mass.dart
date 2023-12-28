@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum MOLAR_MASS {
   gramsPerMole,
   gramsPerMillimole,
@@ -15,7 +17,7 @@ enum MOLAR_MASS {
   kilogramsPerMillimole,
 }
 
-class MolarMassConverter {
+class MolarMassConverter implements Converter<int> {
   static List<String> molarMassName = ["Grams Per Mole", "Grams Per Millimole", "Grams Per Micromole", "Grams Per Nanomole", "Grams Per Picomole", "Grams Per Femtomole", "Milligrams Per Mole", "Milligrams Per Millimole", "Milligrams Per Micromole", "Milligrams Per Nanomole", "Milligrams Per Picomole", "Milligrams Per Femtomole", "Kilograms Per Mole", "Kilograms Per Millimole"];
   static List<String> molarMassSymbols = ["g/mol", "g/mmol", "g/µmol", "g/nmol", "g/pmol", "g/fmol", "mg/mol", "mg/mmol", "kg/mol", "kg/mmol"];
 
@@ -57,7 +59,8 @@ class MolarMassConverter {
     return MOLAR_MASS.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getMolarMassEnum(from);
     var toEnum = getMolarMassEnum(to);
 

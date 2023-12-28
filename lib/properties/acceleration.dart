@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum ACCELERATION {
   metersPerSecondSquared,
   kilometersPerHourSquared,
@@ -8,7 +10,7 @@ enum ACCELERATION {
   standardGravity,
 }
 
-class AccelerationConverter {
+class AccelerationConverter  implements Converter<int> {
   static List<String> accelerationName = ["Meters Per Second Squared", "Kilometers Per Hour Squared", "Miles Per Hour Squared", "Feet Per Second Squared", "Gravity", "Galileo", "Standard Gravity"];
   static List<String> accelerationSymbols = [
     "m/s²", "km/h²", "mi/h²", "ft/s²", "g", "Gal", "standard g"];
@@ -37,7 +39,8 @@ class AccelerationConverter {
     return ACCELERATION.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = _getAccelerationEnum(from);
     var toEnum = _getAccelerationEnum(to);
 

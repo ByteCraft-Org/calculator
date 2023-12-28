@@ -1,3 +1,5 @@
+import 'package:calculator/properties/converter.dart';
+
 enum FREQUENCY {
   hertz,
   kilohertz,
@@ -9,7 +11,7 @@ enum FREQUENCY {
   beatsPerMinute,
 }
 
-class FrequencyConverter {
+class FrequencyConverter implements Converter<int> {
   static List<String> frequencyName = ["Hertz", "Kilohertz", "Megahertz", "Gigahertz", "Terahertz", "Revolutions Per Minute", "Cycles Per Second", "Beats Per Minute"];
   static List<String> frequencySymbols = ["Hz", "kHz", "MHz", "GHz", "THz", "rpm", "cps", "bpm"];
 
@@ -39,7 +41,8 @@ class FrequencyConverter {
     return FREQUENCY.values[index];
   }
 
-  static double convert(double value, int from, int to) {
+  @override
+  double convert(double value, int from, int to) {
     var fromEnum = getFrequencyEnum(from);
     var toEnum = getFrequencyEnum(to);
 
