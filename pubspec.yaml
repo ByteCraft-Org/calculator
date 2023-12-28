@@ -43,3 +43,20 @@ flutter:
   - assets/svg/currencyOutlined.svg
   - assets/svg/currencyFilled.svg
   - assets/svg/cake.svg
+
+  - assets/svg/units/acceleration.svg
+  - assets/svg/units/angle.svg
+  - assets/svg/units/area.svg
+  - assets/svg/units/density.svg
+  - assets/svg/units/digitalData.svg
+  - assets/svg/units/electricCharge.svg
+  - assets/svg/units/energy.svg
+  - assets/svg/units/force.svg
+  - assets/svg/units/frequency.svg
+  - assets/svg/units/fuelConsumption.svg
+  - assets/svg/units/illuminance.svg
+  - assets/svg/units/molarMass.svg
+  - assets/svg/units/molarVolume.svg
+  - assets/svg/units/power.svg
+  - assets/svg/units/pressure.svg
+  - assets/svg/units/torque.svg
