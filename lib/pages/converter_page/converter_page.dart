@@ -1,7 +1,3 @@
-import 'package:calculator/pages/converter_page/sub_pages/age_page.dart';
-import 'package:calculator/pages/converter_page/sub_pages/area_page.dart';
-import 'package:calculator/pages/converter_page/sub_pages/bmi_page.dart';
-import 'package:calculator/pages/converter_page/sub_pages/data_page.dart';
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,36 +20,34 @@ class ConverterPage extends StatelessWidget {
       ),
       children: [
         ConverterTabButton(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AgePage())
-          ),
+          onTap: () {},
           icon: FontAwesomeIcons.cakeCandles,
           label: "Age",
         ),
         ConverterTabButton(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AreaPage())
-          ),
-          icon: FontAwesomeIcons.chartArea,
+          onTap: () {},
+          assetPath: "assets/svg/units/acceleration.svg",
+          label: "Acceleration",
+        ),
+        ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/angle.svg",
+          label: "Angle",
+        ),
+        ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/area.svg",
           label: "Area",
         ),
         ConverterTabButton(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const BmiPage())
-          ),
+          onTap: () {},
           icon: LineAwesomeIcons.weight,
           label: "BMI",
         ),
         ConverterTabButton(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const DataPage())
-          ),
-          icon: const IconData(0x3386),
-          label: "Data",
+          onTap: () {},
+          assetPath: "assets/svg/units/density.svg",
+          label: "Density",
         ),
         ConverterTabButton(
           onTap: () => {},
@@ -61,14 +55,59 @@ class ConverterPage extends StatelessWidget {
           label: "Date",
         ),
         ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/digitalData.svg",
+          label: "Digital Data",
+        ),
+        ConverterTabButton(
           onTap: () => {},
           icon: Icons.discount_rounded,
           label: "Discount",
         ),
         ConverterTabButton(
-          onTap: () => {},
+          onTap: () {},
+          assetPath: "assets/svg/units/electricCharge.svg",
+          label: "Electric Charge",
+        ),
+        ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/energy.svg",
+          label: "Energy",
+        ),
+        ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/force.svg",
+          label: "Force",
+        ),
+        ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/frequency.svg",
+          label: "Frequency",
+        ),
+        ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/fuelConsumption.svg",
+          label: "Fuel Consumption",
+        ),
+        ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/illuminance.svg",
+          label: "Illuminance",
+        ),
+        ConverterTabButton(
+          onTap: () {},
           icon: FontAwesomeIcons.rulerHorizontal,
           label: "Length",
+        ),
+        ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/molarMass.svg",
+          label: "Molar Mass",
+        ),
+        ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/molarVolume.svg",
+          label: "Molar Volume",
         ),
         ConverterTabButton(
           onTap: () => {},
@@ -78,7 +117,17 @@ class ConverterPage extends StatelessWidget {
         ConverterTabButton(
           onTap: () => {},
           icon: const IconData(0x24F5),
-          label: "Numeral System",
+          label: "Numeral Systems",
+        ),
+        ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/power.svg",
+          label: "Power",
+        ),
+        ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/pressure.svg",
+          label: "Pressure",
         ),
         ConverterTabButton(
           onTap: () => {},
@@ -94,6 +143,11 @@ class ConverterPage extends StatelessWidget {
           onTap: () => {},
           icon: const IconData(0x23F1),
           label: "Time",
+        ),
+        ConverterTabButton(
+          onTap: () {},
+          assetPath: "assets/svg/units/torque.svg",
+          label: "Torque",
         ),
         ConverterTabButton(
           onTap: () => {},
