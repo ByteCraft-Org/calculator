@@ -87,37 +87,15 @@ class _BmiPageState extends State<BmiPage> {
         });
         _showBottomDialog(context, items: weightLists);
       },
-      dropDownDisplay: Row(
-        children: [
-          Text(
-            "Weight",
-            style: TextStyle(
-              color: isWeightDDSelected ? Colors.orange : Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Icon(
-            Icons.arrow_drop_down,
-            color: isWeightDDSelected ? Colors.orange : Colors.white,
-          )
-        ],
-      ),
+      dropDownText: "Weight",
+      isThisDDSelected: isWeightDDSelected,
       onTapBox: () {
         setState(() {
           isWeightTextSelected = true;
           showBMI = false;
         });
       },
-      valueText: Text(
-        _bmiLogics.weight,
-        maxLines: 1,
-        style: TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-          color: isWeightTextSelected ? Colors.orange : Colors.white,
-        ),
-      ),
+      valueText: _bmiLogics.weight,
       isThisBoxSelected: isWeightTextSelected,
       unitLists: weightLists,
       selectedItem: weightItem,
@@ -134,37 +112,15 @@ class _BmiPageState extends State<BmiPage> {
         });
         _showBottomDialog(context, items: heightLists);
       },
-      dropDownDisplay: Row(
-        children: [
-          Text(
-            "Height",
-            style: TextStyle(
-              color: isheightDDSelected ? Colors.orange : Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Icon(
-            Icons.arrow_drop_down,
-            color: isheightDDSelected ? Colors.orange : Colors.white,
-          )
-        ],
-      ),
+      dropDownText: "Height",
+      isThisDDSelected: isheightDDSelected,
       onTapBox: () {
         setState(() {
           isWeightTextSelected = false;
           showBMI = false;
         });
       },
-      valueText: Text(
-        _bmiLogics.height,
-        maxLines: 1,
-        style: TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-          color: !isWeightTextSelected ? Colors.orange : Colors.white,
-        ),
-      ),
+      valueText: _bmiLogics.height,
       isThisBoxSelected: !isWeightTextSelected,
       unitLists: heightLists,
       selectedItem: heightItem,
