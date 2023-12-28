@@ -23,13 +23,14 @@ import 'package:calculator/properties/pressure.dart';
 import 'package:calculator/properties/speed.dart';
 import 'package:calculator/properties/temprature.dart';
 import 'package:calculator/properties/time.dart';
-import 'package:calculator/properties/torque.dart';
 import 'package:calculator/properties/volume.dart';
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:calculator/utils/widgets/custom_snackbar.dart';
 import 'package:calculator/utils/widgets/custom_unitboxes.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+
+import '../../properties/torque.dart';
 
 class ImplementationPage extends StatefulWidget {
   final  String unitType;
@@ -121,22 +122,8 @@ class _ImplementationPageState extends State<ImplementationPage> {
         setState(() => isFirstDDSelected = true);
         _showBottomDialog(context, btn: 1);
       },
-      dropDownDisplay: Row(
-        children: [
-          Text(
-            firstUnitBtnDD,
-            style: TextStyle(
-              color: isFirstDDSelected ? Colors.orange : Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold
-            ),
-          ),
-          Icon(
-            Icons.arrow_drop_down,
-            color: isFirstDDSelected ? Colors.orange : Colors.white,
-          )
-        ],
-      ),
+      dropDownText: firstUnitBtnDD,
+      isThisDDSelected: isFirstDDSelected,
       onTapBox: () {
         setState(() {
           isFirstBoxSelected = true;
@@ -146,56 +133,6 @@ class _ImplementationPageState extends State<ImplementationPage> {
       },
       valueText: _logics.firstBoxText,
       exponent: _logics.firstExponent,
-      // valueText: (_logics.firstExponent.isEmpty)
-      // ? Text(
-      //   _logics.firstBoxText,
-      //   style: TextStyle(
-      //     fontSize: 40,
-      //     fontWeight: FontWeight.bold,
-      //     color: isFirstBoxSelected ? Colors.orange : Colors.white,
-      //   ),
-      // )
-      // : Row(
-      //   mainAxisAlignment: MainAxisAlignment.end,
-      //   children: [
-      //     Text(
-      //       _logics.firstBoxText,
-      //       style: TextStyle(
-      //         fontSize: 30,
-      //         fontWeight: FontWeight.bold,
-      //         color: isFirstBoxSelected ? Colors.orange : Colors.white,
-      //       ),
-      //     ),
-      //     Text(
-      //       "×",
-      //       style: TextStyle(
-      //         fontSize: 20,
-      //         fontWeight: FontWeight.bold,
-      //         color: isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
-      //       ),
-      //     ),
-      //     Text(
-      //       "10",
-      //       style: TextStyle(
-      //         fontSize: 25,
-      //         fontWeight: FontWeight.bold,
-      //         color: isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
-      //       ),
-      //     ),
-      //     Transform.translate(
-      //       offset: const Offset(0, -4),
-      //       child: Text(
-      //         _logics.firstExponent,
-      //         style: TextStyle(
-      //           color: isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
-      //           fontSize: 18,
-      //           fontWeight: FontWeight.bold,
-      //           textBaseline: TextBaseline.alphabetic,
-      //         ),
-      //       ),
-      //     ),
-      //   ]
-      // ),
       isThisBoxSelected: isFirstBoxSelected,
       unitLists: widget.unitNameLists,
       selectedItem: firstSelectedItem,
@@ -208,22 +145,8 @@ class _ImplementationPageState extends State<ImplementationPage> {
         setState(() => isSecondDDSelected = true);
         _showBottomDialog(context, btn: 2);
       },
-      dropDownDisplay: Row(
-        children: [
-          Text(
-            secondUnitBtnDD,
-            style: TextStyle(
-              color: isSecondDDSelected ? Colors.orange : Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold
-            ),
-          ),
-          Icon(
-            Icons.arrow_drop_down,
-            color: isSecondDDSelected ? Colors.orange : Colors.white,
-          )
-        ],
-      ),
+      dropDownText: secondUnitBtnDD,
+      isThisDDSelected: isSecondDDSelected,
       onTapBox: () {
         setState(() {
           isFirstBoxSelected = false;
@@ -233,57 +156,6 @@ class _ImplementationPageState extends State<ImplementationPage> {
       },
       valueText: _logics.secondBoxText,
       exponent: _logics.secondExponent,
-      // valueText: (_logics.secondExponent.isEmpty)
-      // ? Text(
-      //   _logics.secondBoxText,
-      //   maxLines: 1,
-      //   style: TextStyle(
-      //     fontSize: 40,
-      //     fontWeight: FontWeight.bold,
-      //     color: !isFirstBoxSelected ? Colors.orange : Colors.white,
-      //   ),
-      // )
-      // : Row(
-      //   mainAxisAlignment: MainAxisAlignment.end,
-      //   children: [
-      //     Text(
-      //       _logics.secondBoxText,
-      //       style: TextStyle(
-      //         fontSize: 35,
-      //         fontWeight: FontWeight.bold,
-      //         color: !isFirstBoxSelected ? Colors.orange : Colors.white,
-      //       ),
-      //     ),
-      //     Text(
-      //       "×",
-      //       style: TextStyle(
-      //         fontSize: 25,
-      //         fontWeight: FontWeight.bold,
-      //         color: !isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
-      //       ),
-      //     ),
-      //     Text(
-      //       "10",
-      //       style: TextStyle(
-      //         fontSize: 30,
-      //         fontWeight: FontWeight.bold,
-      //         color: !isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
-      //       ),
-      //     ),
-      //     Transform.translate(
-      //       offset: const Offset(0, -4),
-      //       child: Text(
-      //         _logics.secondExponent,
-      //         style: TextStyle(
-      //           color: !isFirstBoxSelected ? Colors.orange[300] : Colors.grey.shade400,
-      //           fontSize: 20,
-      //           fontWeight: FontWeight.bold,
-      //           textBaseline: TextBaseline.alphabetic,
-      //         ),
-      //       ),
-      //     ),
-      //   ]
-      // ),
       isThisBoxSelected: !isFirstBoxSelected,
       unitLists: widget.unitNameLists,
       selectedItem: secondSelectedItem,
