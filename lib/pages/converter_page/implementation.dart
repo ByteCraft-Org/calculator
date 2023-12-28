@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:calculator/properties/acceleration.dart';
-import 'package:calculator/properties/amount_of_substance.dart';
 import 'package:calculator/properties/angle.dart';
 import 'package:calculator/properties/area.dart';
 import 'package:calculator/properties/converter.dart';
@@ -17,12 +16,12 @@ import 'package:calculator/properties/length.dart';
 import 'package:calculator/properties/mass.dart';
 import 'package:calculator/properties/molar_mass.dart';
 import 'package:calculator/properties/molar_volume.dart';
-import 'package:calculator/properties/numeral_systems.dart';
 import 'package:calculator/properties/power.dart';
 import 'package:calculator/properties/pressure.dart';
 import 'package:calculator/properties/speed.dart';
 import 'package:calculator/properties/temprature.dart';
 import 'package:calculator/properties/time.dart';
+import 'package:calculator/properties/torque.dart';
 import 'package:calculator/properties/volume.dart';
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:calculator/utils/widgets/custom_snackbar.dart';
@@ -30,19 +29,15 @@ import 'package:calculator/utils/widgets/custom_unitboxes.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
-import '../../properties/torque.dart';
-
 class ImplementationPage extends StatefulWidget {
   final  String unitType;
   final List<String> unitNameLists;
   final List<String> unitSymbolLists;
-  final String bottomModalSheetHeading;
   const ImplementationPage({
     super.key,
     required this.unitType,
     required this.unitNameLists,
     required this.unitSymbolLists,
-    required this.bottomModalSheetHeading,
   });
 
   @override
@@ -178,9 +173,9 @@ class _ImplementationPageState extends State<ImplementationPage> {
               Container(// * : Bottom Sheet Heading
                 width: double.infinity,
                 alignment: Alignment.center,
-                child: Text(
-                  widget.bottomModalSheetHeading,
-                  style: const TextStyle(
+                child: const Text(
+                  "Select Unit",
+                  style: TextStyle(
                     color: Colors.orange,
                     fontSize: 20,
                     fontWeight: FontWeight.bold
@@ -388,7 +383,7 @@ class _ImplementationPageState extends State<ImplementationPage> {
           text: "AC",
         ),
         CustomConverterButton(
-          onPressed: () => setState(() => _logics._onBackSpacePressed(isFirstBoxSelected)),
+          onPressed: () => setState(() => _logics._onBackSpacePressed(isFirstBoxSelected, firstSelectedItem, secondSelectedItem)),
           icon: LineAwesomeIcons.backspace,
         ),
       ],
@@ -442,12 +437,13 @@ class Logics {
     secondExponent = "";
   }
 
-  void _onBackSpacePressed(bool isFirstBox) {
+  void _onBackSpacePressed(bool isFirstBox, int firstUnit, int secondUnit) {
     if (isFirstBox) {
       firstBoxText = _removeLastCharacter(firstBoxText);
     } else {
       secondBoxText = _removeLastCharacter(secondBoxText);
     }
+    _convertUnit(isFirstBox, firstUnit, secondUnit);
   }
 
   String _removeLastCharacter(String text) {
@@ -501,9 +497,9 @@ class Logics {
   }
 
   Converter<int> _getConverter(String unitType) {
+    print('Unit type: $unitType');
     switch (unitType) {
       case 'Acceleration' : return AccelerationConverter();
-      case 'Amount of Substance' : return AmountOfSubstanceConverter();
       case 'Angle' : return AngleConverter();
       case 'Area' : return AreaConverter();
       case 'Density' : return DensityConverter();
@@ -518,7 +514,6 @@ class Logics {
       case 'Mass' : return MassConverter();
       case 'Molar Mass' : return MolarMassConverter();
       case 'Molar Volume' : return MolarVolumeConverter();
-      case 'Numeral Systems' : return NumeralSystemsConverter();
       case 'Power' : return PowerConverter();
       case 'Pressure' : return PressureConverter();
       case 'Speed' : return SpeedConverter();

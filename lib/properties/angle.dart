@@ -9,7 +9,7 @@ enum ANGLE {
 
 class AngleConverter implements Converter<int> {
   static List<String> angleName = ["Degree", "Minutes", "Seconds", "Radians"];
-  static List<String> angleSymbols = ["°", "'", "''", "rad"];
+  static List<String> angleSymbols = ["deg °", "min '", "sec ''", "rad"];
 
   static const _toRadians = {
     ANGLE.degree: 0.0174533, // 1 degree = 0.0174533 radians
