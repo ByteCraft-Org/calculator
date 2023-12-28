@@ -160,14 +160,16 @@ class CustomButtonWrap extends StatelessWidget {
 
 class ConverterTabButton extends StatelessWidget {
   final Function() onTap;
-  final IconData icon;
+  final IconData? icon;
   final String label;
+  final String? assetPath;
 
   const ConverterTabButton({
     super.key,
     required this.onTap,
-    required this.icon,
-    required this.label
+    this.icon,
+    required this.label,
+    this.assetPath
   });
 
   @override
@@ -182,10 +184,16 @@ class ConverterTabButton extends StatelessWidget {
           crossAxisAlignment: WrapCrossAlignment.center,
           runAlignment: WrapAlignment.center,
           children: [
-            Icon(
+            (icon != null)
+            ? Icon(
               icon,
               size: 30,
               color: Colors.grey,
+            )
+            : SvgPicture.asset(
+              assetPath!,
+              height: 30,
+              colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn)
             ),
             const SizedBox(height: 15),
             Text(
@@ -236,19 +244,20 @@ class CustomConverterButton extends StatelessWidget {
         ),
       ),
       child: icon != null
-          ? Icon(
-              icon,
-              color: Colors.orange,
-              size: 35,
-            )
-          : Text(
-              text!,
-              style: const TextStyle(
-                color: Colors.orange,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+      ? Icon(
+          icon,
+          color: Colors.orange,
+          size: 35,
+        )
+      : Text(
+          text!,
+          style: const TextStyle(
+            color: Colors.orange,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
     );
   }
 }
+
