@@ -200,7 +200,7 @@ class ConverterPage extends StatelessWidget {
             )
           ),
           assetPath: "assets/svg/units/fuelConsumption.svg",
-          label: "Fuel Consumption",
+          label: "Fuel Efficiency",
         ),
         ConverterTabButton(
           onTap: () => Navigator.push(

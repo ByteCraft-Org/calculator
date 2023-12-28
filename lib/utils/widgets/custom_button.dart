@@ -176,30 +176,36 @@ class ConverterTabButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => onTap(),
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15.0),
-        child: Wrap(
-          direction: Axis.vertical,
-          alignment: WrapAlignment.center,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          runAlignment: WrapAlignment.center,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          border: Border.all(width: 3, color: Colors.teal),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             (icon != null)
             ? Icon(
               icon,
               size: 30,
-              color: Colors.grey,
+              color: Colors.purpleAccent,
             )
             : SvgPicture.asset(
               assetPath!,
               height: 30,
-              colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn)
+              colorFilter: const ColorFilter.mode(Colors.pinkAccent, BlendMode.srcIn)
             ),
             const SizedBox(height: 15),
             Text(
               label,
+              maxLines: 2,
+              textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Colors.grey,
+                color: Colors.yellow,
                 fontWeight: FontWeight.bold
               ),
             )
