@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 
 class CustomUnitBoxes extends StatefulWidget {
   final Function onTapDropDown, onTapBox;
-  final Widget dropDownDisplay;
+  final String dropDownText;
   final String valueText, exponent;
-  final bool isThisBoxSelected;
+  final bool isThisDDSelected, isThisBoxSelected;
   final List<String> unitLists;
   final int selectedItem;
   
   const CustomUnitBoxes({
     super.key,
     required this.onTapDropDown,
-    required this.dropDownDisplay,
+    required this.dropDownText,
     required this.onTapBox,
     required this.valueText,
     this.exponent = "",
+    required this.isThisDDSelected,
     required this.isThisBoxSelected,
     required this.unitLists,
     required this.selectedItem,
@@ -33,7 +34,22 @@ class _CustomUnitBoxesState extends State<CustomUnitBoxes> {
       children: [
         GestureDetector(// * : First Unit Selector
           onTap: () => widget.onTapDropDown(),
-          child: widget.dropDownDisplay
+          child: Row(
+            children: [
+              Text(
+                widget.dropDownText,
+                style: TextStyle(
+                  color: widget.isThisDDSelected ? Colors.orange : Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Icon(
+                Icons.arrow_drop_down,
+                color: widget.isThisDDSelected ? Colors.orange : Colors.white,
+              )
+            ],
+          ),
         ),
         Expanded(// * : First Unit Text Box
           child: GestureDetector(
