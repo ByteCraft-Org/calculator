@@ -67,11 +67,21 @@ class CalculatorLogics{
     isResultShown = true;
   }
 
+  void decimalCheck() {
+    if(expressionText == "" || _ExpressionHelper.isLastCharacterOperator(expressionText)){ // * : If expression text is empty
+      addText("0.");
+    } else if(_ExpressionHelper.getLastNumber(expressionText,true).contains(".")) { // * : If there is already decimal in number, then don't add another decimal.
+      return;
+    } else {
+      addText(".");
+    }
+  }
+
   void onButtonPressed(String buttonText){
     switch(buttonText){
       case "clear": clearPressed(); return;
       case "backspace": backspacePressed(); break;
-      case ".":
+      case ".": decimalCheck(); break;
       case "=": equalsPressed(); break;
 
       default:
@@ -128,5 +138,23 @@ class _ExpressionHelper{
       return true;
     }
     return false;
+  }
+
+  // * : This function extracts 
+  // * : options = true => The number after the last Operator from a given expression.
+  // * : options = false => The number before the last Operator from a given expression.
+  static String getLastNumber(String expr, [bool options = true]) {
+    final RegExp numberPattern = RegExp(r'[-+*÷%/×]');
+    final matches = numberPattern.allMatches(expr);
+    final matchIndices = [0, ...matches.map((match) => match.end)];
+    int lastOperatorIndex = matchIndices.last;
+    String result;
+
+    if (options) {
+      result = expr.substring(lastOperatorIndex);
+    } else {
+      result = expr.substring(0, lastOperatorIndex - 1);
+    }
+    return result;
   }
 }
