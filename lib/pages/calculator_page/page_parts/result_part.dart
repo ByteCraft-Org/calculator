@@ -1,8 +1,15 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:calculator/pages/calculator_page/calculator_logics.dart';
 import 'package:flutter/material.dart';
 
 class DisplayPart extends StatelessWidget {
-    const DisplayPart({super.key});
-    
+  final CalculatorLogics logic;
+  DisplayPart({
+    super.key,
+    required this.logic
+  });
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -12,7 +19,7 @@ class DisplayPart extends StatelessWidget {
             flex: 8,
             child: Container(
               color: Colors.blue,
-              child: const Center(
+              child: Center(
                 child: Text("History Part"),
               ),
             ),
@@ -25,17 +32,24 @@ class DisplayPart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Container(// * : Expression Text
-                    color: Colors.yellow,
-                    child: const Center(
-                      child: Text("Expression Part"),
+                    alignment: Alignment.bottomRight,
+                      child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        logic.expressionText,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: logic.expressionFontSize
+                        ),
+                        overflow: TextOverflow.fade,
+                        maxLines: 1,
+                      ),
                     ),
                   ),
-                  const Padding(
-                      padding: EdgeInsets.only(top: 5.0),
-                  ),
+                  Padding(padding: EdgeInsets.only(top: 5.0)),
                   Container(// * : Result Text
                     color: Colors.red,
-                    child: const Center(
+                    child: Center(
                       child: Text("Result Part"),
                     ),
                   )
@@ -43,7 +57,7 @@ class DisplayPart extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(bottom: 1.0)
           )
         ],
