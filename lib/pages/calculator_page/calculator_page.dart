@@ -1,4 +1,5 @@
 import 'package:calculator/pages/calculator_page/page_parts/button_part.dart';
+import 'package:calculator/pages/calculator_page/page_parts/result_part.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorPage extends StatelessWidget {
@@ -8,13 +9,8 @@ class CalculatorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Expanded(// * : Display Segment
-          child: Container(
-            color: Colors.blue,
-            child: const Center(
-              child: Text("Display Part"),
-            ),
-          ),
+        const Expanded(// * : Display Segment
+          child: DisplayPart(),
         ),
         const SizedBox(height: 5,),
         Divider(// * : Divider Line
