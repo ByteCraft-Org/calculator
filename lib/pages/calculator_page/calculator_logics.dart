@@ -3,12 +3,17 @@ class CalculatorLogics{
   String validExpression = ""; // * : Expression should not contain symbols at end.
   double expressionFontSize = 40; // * : Set the Font of Expresstion Text.
 
+  void clearPressed(){
+    expressionText = "0";
+    validExpression = "";
+  }
+
   void onButtonPressed(String buttonText){
     if(expressionText == "0") {
       expressionText = buttonText;
     } else {
       switch(buttonText){
-        case "clear":
+        case "clear": clearPressed(); break;
         case "backspace":
         case "%":
         case "/":
