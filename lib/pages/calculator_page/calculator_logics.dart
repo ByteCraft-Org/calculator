@@ -17,9 +17,10 @@ class CalculatorLogics{
     if(expressionText.isNotEmpty) {
       if(!_ExpressionHelper.isLastCharacterOperator(expression)  && !expression.endsWith(".")){ // * : If there is Operator at last of Expression Text it will not be considered as Valid Expression for Real Time Evaluation
         validExpression = expressionText;
-        if(["/"].any(validExpression.contains)){ // * : Expression can't evaluate ÷, so converting  it into /.
-          validExpression = validExpression.replaceAll("/", "÷");
-        }
+
+        // * : Expression can't evaluate ÷,×, so converting  it into /,*.
+        validExpression = validExpression.replaceAll("×", "*");
+        validExpression = validExpression.replaceAll("÷", "/");
         try{
           print("Valid value = $expressionText");
           Parser p = Parser();
@@ -73,7 +74,13 @@ class CalculatorLogics{
     expressionFontSize = 60;
     resultFontSize = 30;
     resultColor = Colors.grey;
-    
+
+    switch(text){
+      case "*":
+        text = "×";
+      case "/":
+        text = "÷";
+    }
     expressionText += text;
   }
 }
