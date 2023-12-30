@@ -4,7 +4,7 @@ import 'package:math_expressions/math_expressions.dart';
 class CalculatorLogics{
   String expressionText = ""; // * : Full Expression Text written by user.
   String validExpression = ""; // * : Expression should not contain symbols at end.
-  double expressionFontSize = 40; // * : Set the Font of Expresstion Text.
+  double expressionFontSize = 30; // * : Set the Font of Expresstion Text.
 
   double result = 0; // * : Result for Evaluation.
   String resultText = "0"; // * : Result for Result Text Container.
@@ -13,7 +13,6 @@ class CalculatorLogics{
   bool isResultShown = false; // * : Checks if Equals to is pressed or not.
 
   void evaluate(String expression){
-    print("Expression value = $expressionText");
     if(expressionText.isNotEmpty) {
       if(!_ExpressionHelper.isLastCharacterOperator(expression)  && !expression.endsWith(".")){ // * : If there is Operator at last of Expression Text it will not be considered as Valid Expression for Real Time Evaluation
         validExpression = expressionText;
@@ -22,7 +21,6 @@ class CalculatorLogics{
         validExpression = validExpression.replaceAll("×", "*");
         validExpression = validExpression.replaceAll("÷", "/");
         try{
-          print("Valid value = $expressionText");
           Parser p = Parser();
           Expression exp = p.parse(validExpression);
           ContextModel cm = ContextModel();
@@ -36,18 +34,30 @@ class CalculatorLogics{
     }
   }
 
-  void clearPressed(){
+  void resetValues(){
     expressionText = "";
     validExpression = "";
-    expressionFontSize = 40;
+    result = 0;
     resultText = "0";
-    resultFontSize = 60;
     resultColor = Colors.white;
-    isResultShown = true;
+		isResultShown = false;
+  }
+
+  void clearPressed(){
+    resetValues();
+    expressionFontSize = 30;
+    resultFontSize = 60;
   }
 
   void backspacePressed() { // * : This function removes the last character from the `expressionText` string
+    if(expressionText.length == 1) clearPressed();
     expressionText = _ExpressionHelper.removeLastCharacterOfString(expressionText);
+    if(isResultShown) {
+      isResultShown = false;
+      expressionFontSize = 60;
+      resultFontSize = 30;
+      resultColor = Colors.grey;
+    }
   }
 
   void equalsPressed(){
@@ -74,6 +84,19 @@ class CalculatorLogics{
     expressionFontSize = 60;
     resultFontSize = 30;
     resultColor = Colors.grey;
+    isResultShown = false;
+    if(isResultShown){ // * : When once Equals is pressed and then another button pressed, take result as expression.
+      isResultShown = false;
+      if(_ExpressionHelper.isButtonTextOperator(text)){
+        expressionText = resultText.replaceFirst("= ", "");
+      } else{
+        expressionText = "";
+      }
+    }
+
+    if(_ExpressionHelper.isButtonTextOperator(text) && _ExpressionHelper.isLastCharacterOperator(expressionText)) { // * : If Button Text is Operator and Last Character of Expression Text is Operator, then replace the Operator from expression text.
+      expressionText = _ExpressionHelper.removeLastCharacterOfString(expressionText);
+    }
 
     switch(text){
       case "*":
