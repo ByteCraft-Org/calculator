@@ -21,18 +21,14 @@ class _CalculatorPageState extends State<CalculatorPage> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Expanded(// * : Display Segment
-          child: DisplayPart(logic: logic),
-        ),
+        ResultPart(logic: logic),
         const SizedBox(height: 5,),
         Divider(// * : Divider Line
         thickness: 2,
           color: Theme.of(context).primaryColor.withOpacity(0.3),
         ),
         const SizedBox(height: 5,),
-        SizedBox(// * : Button Segment
-          child: ButtonPart(logic: logic, onButtonPressed: _onButtonPressed),
-        ),
+        ButtonPart(logic: logic, onButtonPressed: _onButtonPressed),
       ],
     );
   }

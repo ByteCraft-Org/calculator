@@ -3,9 +3,9 @@
 import 'package:calculator/pages/calculator_page/calculator_logics.dart';
 import 'package:flutter/material.dart';
 
-class DisplayPart extends StatelessWidget {
+class ResultPart extends StatelessWidget {
   final CalculatorLogics logic;
-  DisplayPart({
+  const ResultPart({
     super.key,
     required this.logic
   });
@@ -16,7 +16,7 @@ class DisplayPart extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Expanded(// * : History
-            flex: 8,
+            flex: 6,
             child: Container(
               color: Colors.blue,
               child: Center(
@@ -46,20 +46,20 @@ class DisplayPart extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(padding: EdgeInsets.only(top: 5.0)),
                   Container(// * : Result Text
-                    color: Colors.red,
-                    child: Center(
-                      child: Text("Result Part"),
-                    ),
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      logic.resultText,
+                      style: TextStyle(
+                        fontSize: logic.resultFontSize,
+                        color: logic.resultColor,
+                      ),
+                    )
                   )
                 ],
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 1.0)
-          )
         ],
       ),
     );
