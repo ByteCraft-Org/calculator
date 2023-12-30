@@ -1,45 +1,53 @@
+import 'package:calculator/pages/calculator_page/calculator_logics.dart';
 import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ButtonPart extends StatefulWidget {
-  const ButtonPart({super.key});
+  final Function(String) onButtonPressed;
+  final CalculatorLogics logic;
+
+  const ButtonPart({
+    super.key,
+    required this.logic,
+    required this.onButtonPressed,
+  });
 
   @override
   State<ButtonPart> createState() => _ButtonPartState();
 }
 
-class _ButtonPartState extends State<ButtonPart> with TickerProviderStateMixin {
-  double moreButtonsContainer = 0.0;
+class _ButtonPartState extends State<ButtonPart> {
+  double moreButtonsContainer = -1.0;
   int moreButtonsPage = 1;
   bool moreButtons = false;
-  bool isHyp = true;
+  bool isHyp = false;
 
   @override
   Widget build(BuildContext context) {
     TableRow tableRow1 =TableRow(// * : Clear, Backspace, Percent, Divide
       children: [
         CustomButtonWithText(// * : Clear
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("clear"),
           buttontext: "C",
           textColor: Colors.orange,
           fontSize: 30,
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithIcon(// * : Backspace
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("backspace"),
           icon: Icons.backspace,
           iconColor: Colors.orange,
           iconSize: 30,
         ),
         CustomButtonWithIcon(// * : Percent
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("%"),
           icon: FontAwesomeIcons.percent,
           iconColor: Colors.orange,
           iconSize: 30,
         ),
         CustomButtonWithIcon(// * : Divide
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("/"),
           icon: FontAwesomeIcons.divide,
           iconColor: Colors.orange,
           iconSize: 30,
@@ -50,25 +58,25 @@ class _ButtonPartState extends State<ButtonPart> with TickerProviderStateMixin {
     TableRow tableRow2 = TableRow(// * : 7, 8, 9, Multiply
       children: [
         CustomButtonWithText(// * : Seven
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("7"),
           buttontext: "7",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Eight
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("8"),
           buttontext: "8",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Nine
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("9"),
           buttontext: "9",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithIcon(// * : Multiply
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("*"),
           icon: FontAwesomeIcons.xmark,
           iconColor: Colors.orange,
           iconSize: 30,
@@ -79,25 +87,25 @@ class _ButtonPartState extends State<ButtonPart> with TickerProviderStateMixin {
     TableRow tableRow3 = TableRow(// * : 4, 5, 6, Subtract
       children: [
         CustomButtonWithText(// * : Four
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("4"),
           buttontext: "4",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Five
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("5"),
           buttontext: "5",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Six
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("6"),
           buttontext: "6",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithIcon(// * : Subtract
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("-"),
           icon: FontAwesomeIcons.minus,
           iconColor: Colors.orange,
           iconSize: 30,
@@ -108,25 +116,25 @@ class _ButtonPartState extends State<ButtonPart> with TickerProviderStateMixin {
     TableRow tableRow4 = TableRow(// * : 1, 2, 3, Add
       children: [
         CustomButtonWithText(// * : One
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("1"),
           buttontext: "1",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Two
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("2"),
           buttontext: "2",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithText(// * : Three
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("3"),
           buttontext: "3",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithIcon(// * : Add
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("+"),
           icon: FontAwesomeIcons.plus,
           iconColor: Colors.orange,
           iconSize: 30,
@@ -143,19 +151,19 @@ class _ButtonPartState extends State<ButtonPart> with TickerProviderStateMixin {
           iconSize: 25,
         ),
         CustomButtonWithText(// * : Zero
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("0"),
           buttontext: "0",
           textColor: Theme.of(context).primaryColor,
           fontSize: 30,
         ),
         CustomButtonWithIcon(// * : Decimal
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("."),
           icon: const IconData(46),
           iconColor: Theme.of(context).primaryColor,
           iconSize: 30,
         ),
         CustomButtonWithIcon(// * : Equals
-          onTap: (){},
+          onTap: () => widget.onButtonPressed("="),
           icon: FontAwesomeIcons.equals,
           iconColor: Theme.of(context).primaryColor,
           bgColor: Colors.orange,
