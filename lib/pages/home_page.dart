@@ -28,17 +28,23 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           controller: tabController,
           indicatorColor: Colors.orange,
           enableFeedback: true,
-          onTap: (value) => setState(() => selectedTab = value),
+          onTap: (value) => setState(() {
+            selectedTab = value;
+            tabController.index = value;
+          }),
           indicatorWeight: 5,
+          isScrollable: false,
+          physics: const NeverScrollableScrollPhysics(),
+          automaticIndicatorColorAdjustment: true,
           tabs: [
             Tab(
               child: SvgTab(
-                  selectedAsset: "assets/svg/calculatorFilled.svg",
-                  unselectedAsset: "assets/svg/calculatorOutlined.svg",
-                  isSelected: selectedTab == 0 || tabController.index == 0,
-                  selectedColor: Theme.of(context).colorScheme.secondary,
-                  unselectedColor: Colors.grey,
-                ),
+                selectedAsset: "assets/svg/calculatorFilled.svg",
+                unselectedAsset: "assets/svg/calculatorOutlined.svg",
+                isSelected: selectedTab == 0 || tabController.index == 0,
+                selectedColor: Theme.of(context).colorScheme.secondary,
+                unselectedColor: Colors.grey,
+              ),
             ),
             Tab(
               child: SvgTab(
@@ -60,15 +66,19 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ),
           ]
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TabBarView(
-            controller: tabController,
-            children: const [
-              CalculatorPage(),
-              ConverterPage(),
-              Pages(text: "Page3"),
-            ],
+        body: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TabBarView(
+              controller: tabController,
+              children: const [
+                CalculatorPage(),
+                ConverterPage(),
+                Pages(text: "Page3"),
+              ],
+            ),
           ),
         ),
       ),
@@ -78,7 +88,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
 class Pages extends StatelessWidget {
   final String text;
-  const Pages({Key? key, required this.text}) : super(key: key);
+  const Pages({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
