@@ -8,13 +8,21 @@ class CalculatorLogics{
     validExpression = "";
   }
 
+  void backspacePressed() { // * : This function removes the last character from the `expressionText` string
+    if(expressionText.length == 1) {
+      expressionText = "0";
+    } else {
+      expressionText = _ExpressionHelper.removeLastCharacterOfString(expressionText);
+    }
+  }
+
   void onButtonPressed(String buttonText){
     if(expressionText == "0") {
       expressionText = buttonText;
     } else {
       switch(buttonText){
         case "clear": clearPressed(); break;
-        case "backspace":
+        case "backspace": backspacePressed(); break;
         case "%":
         case "/":
         case "*":
@@ -31,4 +39,11 @@ class CalculatorLogics{
   }
 
   void addText(String text) => expressionText = expressionText + text;
+}
+
+class _ExpressionHelper{
+  static String removeLastCharacterOfString(String expr){ // * : The function removes the last character from a given string and returns the modified string.
+    expr = expr.substring(0, expr.length - 1);
+    return expr;
+  }
 }
