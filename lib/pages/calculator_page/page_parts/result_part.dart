@@ -38,7 +38,7 @@ class ResultPart extends StatelessWidget {
                       child: Text(
                         logic.expressionText,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: logic.expressionColor,
                           fontSize: logic.expressionFontSize
                         ),
                         overflow: TextOverflow.fade,
@@ -53,6 +53,7 @@ class ResultPart extends StatelessWidget {
                       style: TextStyle(
                         fontSize: logic.resultFontSize,
                         color: logic.resultColor,
+                        fontWeight: (logic.resultColor == Colors.white) ? FontWeight.bold : FontWeight.normal
                       ),
                     )
                   )
