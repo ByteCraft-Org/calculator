@@ -45,7 +45,7 @@ class ImplementationPage extends StatefulWidget {
 }
 
 class _ImplementationPageState extends State<ImplementationPage> {
-  late final Logics _logics;
+  late final ConverterLogics _logics;
 
   bool isFirstBoxSelected = true;
   int firstSelectedItem = 0;
@@ -58,7 +58,7 @@ class _ImplementationPageState extends State<ImplementationPage> {
 
   @override
   void initState() {
-    _logics = Logics(widget.unitType);
+    _logics = ConverterLogics(widget.unitType);
 
     firstUnitBtnDD = widget.unitSymbolLists[firstSelectedItem];
     secondUnitBtnDD = widget.unitSymbolLists[secondSelectedItem];
@@ -401,7 +401,7 @@ class _ImplementationPageState extends State<ImplementationPage> {
   }
 }
 
-class Logics {
+class ConverterLogics {
   String firstBoxText = "0";
   String firstExponent = "";
   String secondBoxText = "0";
@@ -409,7 +409,7 @@ class Logics {
 
   String unitType = "";
 
-  Logics(String unit){
+  ConverterLogics(String unit){
     unitType = unit;
   }
 
