@@ -22,8 +22,7 @@ class CalculatorPage extends StatelessWidget {
           color: Theme.of(context).primaryColor.withOpacity(0.3),
         ),
         const SizedBox(height: 5,),
-        const Align(// * : Button Segment
-          alignment: Alignment.bottomCenter,
+        const SizedBox(// * : Button Segment
           child: ButtonPart(),
         ),
       ],

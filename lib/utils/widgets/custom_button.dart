@@ -48,7 +48,6 @@ class CustomButtonWithIcon extends StatelessWidget {
   final IconData icon;
   final Color iconColor, bgColor;
   final double iconSize;
-  final OutlinedBorder borderType;
 
   const CustomButtonWithIcon({
     super.key,
@@ -57,7 +56,6 @@ class CustomButtonWithIcon extends StatelessWidget {
     required this.iconColor,
     this.bgColor = Colors.transparent,
     this.iconSize = 25,
-    this.borderType = const LinearBorder(),
   });
 
   @override
@@ -69,7 +67,7 @@ class CustomButtonWithIcon extends StatelessWidget {
         shadowColor: const MaterialStatePropertyAll(Colors.transparent),
         surfaceTintColor: const MaterialStatePropertyAll(Colors.transparent),
         overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
-        shape: MaterialStatePropertyAll(borderType),
+        shape: const MaterialStatePropertyAll(LinearBorder()),
         minimumSize: const MaterialStatePropertyAll(
           Size(60, 60)
         )

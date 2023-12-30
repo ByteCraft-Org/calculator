@@ -9,269 +9,648 @@ class ButtonPart extends StatefulWidget {
   State<ButtonPart> createState() => _ButtonPartState();
 }
 
-class _ButtonPartState extends State<ButtonPart> {
-  bool isExpanded = true;
+class _ButtonPartState extends State<ButtonPart> with TickerProviderStateMixin {
+  double moreButtonsContainer = 0.0;
+  int moreButtonsPage = 1;
+  bool moreButtons = false;
+  bool isHyp = true;
+
   @override
   Widget build(BuildContext context) {
-    Row row1 = Row(// * : Exponent, mod, Open Bracket, Close Bracket, Modulus
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    TableRow tableRow1 =TableRow(// * : Clear, Backspace, Percent, Divide
       children: [
-        CustomButtonWrap(// * : Exponent
-          onTap: (){},
-          childern1: const Padding(
-            padding: EdgeInsets.only(top: 5),
-            child: Text(
-              "X",
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 20,
-                fontWeight: FontWeight.bold
-              ),
-            ),
-          ),
-          childern2: Container(
-            alignment: Alignment.topLeft,
-            child: const Text(
-              "y",
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 15,
-                fontWeight: FontWeight.bold
-              ),
-            ),
-          ),
-          childern3: Container(),
-        ),
-        CustomButtonWithText(// * : mod
-          onTap: (){},
-          buttontext: "|X|",
-          textColor: Colors.grey,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-        CustomButtonWithText(// * : Open Bracket
-          onTap: (){},
-          buttontext: "(",
-          textColor: Colors.grey,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-        CustomButtonWithText(// * : Close Bracket
-          onTap: (){},
-          buttontext: ")",
-          textColor: Colors.grey,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-        CustomButtonWithText(// * : Modulus
-          onTap: (){},
-          buttontext: "mod",
-          textColor: Colors.grey,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ],
-    );
-    
-    Row row2 = Row(// * : Square Root, Clear, Backspace, Percent, Divide
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        if(isExpanded)
-          SvgButton(// * : Square Root
-            onTap: () {},
-            assetPath: "assets/svg/squareRoot.svg",
-            height: 22,
-          ),
         CustomButtonWithText(// * : Clear
           onTap: (){},
           buttontext: "C",
-          textColor: Theme.of(context).colorScheme.secondary,
-          fontSize: isExpanded ? 25 : 30,
+          textColor: Colors.orange,
+          fontSize: 30,
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithIcon(// * : Backspace
           onTap: (){},
           icon: Icons.backspace,
-          iconColor: Theme.of(context).colorScheme.secondary,
-          iconSize: isExpanded ? 25 : 30,
+          iconColor: Colors.orange,
+          iconSize: 30,
         ),
         CustomButtonWithIcon(// * : Percent
           onTap: (){},
           icon: FontAwesomeIcons.percent,
-          iconColor: Theme.of(context).colorScheme.secondary,
-          iconSize: isExpanded ? 25 : 30,
+          iconColor: Colors.orange,
+          iconSize: 30,
         ),
         CustomButtonWithIcon(// * : Divide
           onTap: (){},
           icon: FontAwesomeIcons.divide,
-          iconColor: Theme.of(context).colorScheme.secondary,
-          iconSize: isExpanded ? 25 : 30,
+          iconColor: Colors.orange,
+          iconSize: 30,
         )
       ],
     );
 
-    Row row3 = Row(// * : Factorial, 7, 8, 9, Multiply
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    TableRow tableRow2 = TableRow(// * : 7, 8, 9, Multiply
       children: [
-        if(isExpanded)
-          CustomButtonWithText(// * : Factorial
-            onTap: (){},buttontext: "n!",
-            textColor: Colors.grey,
-            fontSize: 20,
-          ),
         CustomButtonWithText(// * : Seven
           onTap: (){},
           buttontext: "7",
           textColor: Theme.of(context).primaryColor,
-          fontSize: isExpanded ? 25 : 30,
+          fontSize: 30,
         ),
         CustomButtonWithText(// * : Eight
           onTap: (){},
           buttontext: "8",
           textColor: Theme.of(context).primaryColor,
-          fontSize: isExpanded ? 25 : 30,
+          fontSize: 30,
         ),
         CustomButtonWithText(// * : Nine
           onTap: (){},
           buttontext: "9",
           textColor: Theme.of(context).primaryColor,
-          fontSize: isExpanded ? 25 : 30,
+          fontSize: 30,
         ),
         CustomButtonWithIcon(// * : Multiply
           onTap: (){},
           icon: FontAwesomeIcons.xmark,
-          iconColor: Theme.of(context).colorScheme.secondary,
-          iconSize: isExpanded ? 25 : 30,
+          iconColor: Colors.orange,
+          iconSize: 30,
         )
       ],
     );
 
-    Row row4 = Row(// * : Inverse, 4, 5, 6, Subtract
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    TableRow tableRow3 = TableRow(// * : 4, 5, 6, Subtract
       children: [
-        if(isExpanded)
-          CustomButtonWithText(// * : Inverse
-            onTap: () {},
-            buttontext: "1/x",
-            textColor: Colors.grey,
-            fontSize: 15,
-          ),
         CustomButtonWithText(// * : Four
           onTap: (){},
           buttontext: "4",
           textColor: Theme.of(context).primaryColor,
-          fontSize: isExpanded ? 25 : 30,
+          fontSize: 30,
         ),
         CustomButtonWithText(// * : Five
           onTap: (){},
           buttontext: "5",
           textColor: Theme.of(context).primaryColor,
-          fontSize: isExpanded ? 25 : 30,
+          fontSize: 30,
         ),
         CustomButtonWithText(// * : Six
           onTap: (){},
           buttontext: "6",
           textColor: Theme.of(context).primaryColor,
-          fontSize: isExpanded ? 25 : 30,
+          fontSize: 30,
         ),
         CustomButtonWithIcon(// * : Subtract
           onTap: (){},
-          
           icon: FontAwesomeIcons.minus,
-          iconColor: Theme.of(context).colorScheme.secondary,
-          iconSize: isExpanded ? 25 : 30,
+          iconColor: Colors.orange,
+          iconSize: 30,
         )
       ],
     );
 
-    Row row5 = Row(// * : Pi, 1, 2, 3, Add
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    TableRow tableRow4 = TableRow(// * : 1, 2, 3, Add
       children: [
-        if(isExpanded)
-          CustomButtonWithIcon(// * : Pi
-            onTap: () {},
-            
-            icon: const IconData(0X03C0, fontFamily: "Arial Bold"),
-            iconColor: Colors.grey
-          ),
         CustomButtonWithText(// * : One
           onTap: (){},
           buttontext: "1",
           textColor: Theme.of(context).primaryColor,
-          fontSize: isExpanded ? 25 : 30,
+          fontSize: 30,
         ),
         CustomButtonWithText(// * : Two
           onTap: (){},
           buttontext: "2",
           textColor: Theme.of(context).primaryColor,
-          fontSize: isExpanded ? 25 : 30,
+          fontSize: 30,
         ),
         CustomButtonWithText(// * : Three
           onTap: (){},
           buttontext: "3",
           textColor: Theme.of(context).primaryColor,
-          fontSize: isExpanded ? 25 : 30,
+          fontSize: 30,
         ),
         CustomButtonWithIcon(// * : Add
           onTap: (){},
           icon: FontAwesomeIcons.plus,
-          iconColor: Theme.of(context).colorScheme.secondary,
-          iconSize: isExpanded ? 25 : 30,
+          iconColor: Colors.orange,
+          iconSize: 30,
         )
       ],
     );
 
-    Row row6 = Row(// * : Expand, e, 0, Decimal, Equals
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    TableRow tableRow5 = TableRow(// * : Expand, 0, Decimal, Equals
       children: [
         CustomButtonWithIcon(// * : Expand
-        onTap: () {
-          setState(() => isExpanded = !isExpanded);
-        },
-          icon: isExpanded ? FontAwesomeIcons.minimize : FontAwesomeIcons.maximize,
-          iconColor: Theme.of(context).colorScheme.secondary,
+        onTap: () => setState(() => moreButtonsContainer = 0.0),
+          icon: FontAwesomeIcons.arrowRight,
+          iconColor: Colors.orange,
           iconSize: 25,
-        ),
-        CustomButtonWithIcon(// * : Decimal
-          onTap: (){},
-          icon: const IconData(46),
-          iconColor: Theme.of(context).primaryColor,
-          iconSize: isExpanded ? 25 : 30,
         ),
         CustomButtonWithText(// * : Zero
           onTap: (){},
           buttontext: "0",
           textColor: Theme.of(context).primaryColor,
-          fontSize: isExpanded ? 25 : 30,
+          fontSize: 30,
         ),
-        if(isExpanded)
-          CustomButtonWithText(// * : Ans
-            onTap: (){},
-            buttontext: "Ans",
-            textColor: Theme.of(context).colorScheme.secondary,
-            fontSize: isExpanded ? 20 : 30,
-          ),
+        CustomButtonWithIcon(// * : Decimal
+          onTap: (){},
+          icon: const IconData(46),
+          iconColor: Theme.of(context).primaryColor,
+          iconSize: 30,
+        ),
         CustomButtonWithIcon(// * : Equals
           onTap: (){},
           icon: FontAwesomeIcons.equals,
           iconColor: Theme.of(context).primaryColor,
-          bgColor: Theme.of(context).colorScheme.secondary,
-          iconSize: isExpanded ? 25 : 30,
+          bgColor: Colors.orange,
+          iconSize: 30,
         )
       ],
     );
 
-    return Wrap(
-      runSpacing: 5,
+    return Stack(
       children: [
-        if(isExpanded)
-          row1,
-        row2,
-        row3,
-        row4,
-        row5,
-        row6
+        Table(// * : Calculator Basic Buttons
+          children: [
+            tableRow1, tableRow2, tableRow3, tableRow4, tableRow5
+          ],
+        ),
+        AnimatedContainer(// * : Calculator more buttons
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeInOut,
+          transform: Matrix4.translationValues(moreButtonsContainer * MediaQuery.of(context).size.width, 0, 0),
+          color: (moreButtonsContainer >= -0.9) ? Colors.black.withOpacity(0.7) : Colors.transparent,
+          width: MediaQuery.of(context).size.width,
+          child: _moreButtons()
+        )
+      ],
+    );
+  }
+
+  Widget _moreButtons() {
+    Color cellColor = Colors.deepPurple;
+
+    TableRow page1Row1 = TableRow(// * : Page changer, Hyperbolic, Square root
+      children: [
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: () => setState(() => moreButtonsPage = 2),
+            buttontext: "\u{21C6}2nd",
+            fontSize: 18,
+            textColor: Colors.greenAccent,
+          ),
+        ),
+        Container(
+          height: 64,
+          color: (isHyp) ? Colors.amber : cellColor,
+          child: CustomButtonWithText(
+            onTap: () => setState(() => isHyp = !isHyp),
+            buttontext: "hyp",
+            fontSize: 20,
+            textColor: (isHyp) ? Colors.red : Colors.redAccent,
+          ),
+        ),
+        Container(
+          height: 64,
+          decoration: BoxDecoration(
+            color: cellColor,
+            borderRadius: const BorderRadius.only(topRight: Radius.circular(20))
+          ),
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "\u{221A}x",
+            fontSize: 20,
+            textColor: Colors.yellowAccent,
+          ),
+        ),
+        const SizedBox(height: 5),
       ]
+    );
+
+    TableRow page1Row2IsNotHyp = TableRow(// * : Sin, Cos, Tan
+      children: [
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "sin",
+            fontSize: 20,
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "cos",
+            fontSize: 20,
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "tan",
+            fontSize: 20,
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        const SizedBox(height: 5),
+      ]
+    );
+
+    TableRow page1Row2IsHyp = TableRow(// * : Sinh, Cosh, Tanh
+      children: [
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "sinh",
+            fontSize: 20,
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "cosh",
+            fontSize: 20,
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "tanh",
+            fontSize: 20,
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        const SizedBox(height: 5),
+      ]
+    );
+
+    TableRow page1Row3 = TableRow(// * : Open braces, Close braces, 1/x
+      children: [
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "(",
+            fontSize: 20,
+            textColor: Colors.yellowAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: ")",
+            fontSize: 20,
+            textColor: Colors.yellowAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "1/x",
+            fontSize: 20,
+            textColor: Colors.yellowAccent,
+          ),
+        ),
+        const SizedBox(height: 5),
+      ]
+    );
+
+    TableRow page1Row4 = TableRow(// * : e^x, x^2, x^y
+      children: [
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "e\u{02E3}",
+            fontSize: 20,
+            textColor: Colors.orangeAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "x\u00B2",
+            fontSize: 20,
+            textColor: Colors.yellowAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "x\u02B8",
+            fontSize: 20,
+            textColor: Colors.yellowAccent,
+          ),
+        ),
+        const SizedBox(height: 5),
+      ]
+    );
+
+    TableRow page1Row5 = TableRow(// * : Mod, Pi, Euler, Back
+      children: [
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "|X|",
+            fontSize: 20,
+            textColor: Colors.yellowAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "\u03C0",
+            fontSize: 20,
+            textColor: Colors.yellowAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "e",
+            fontSize: 20,
+            textColor: Colors.orangeAccent,
+          ),
+        ),
+        Container(
+          height: 64,
+          decoration: BoxDecoration(
+            color: cellColor,
+            borderRadius: const BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20))
+          ),
+          child: CustomButtonWithIcon(
+            onTap: () => setState(() => moreButtonsContainer = -1.0),
+            icon: FontAwesomeIcons.arrowLeft,
+            iconColor: Colors.pinkAccent,
+            iconSize: 30,
+          ),
+        ),
+      ]
+    );
+
+    Table page1table = Table(
+      children: [
+        page1Row1,
+        (isHyp) ? page1Row2IsHyp : page1Row2IsNotHyp,
+        page1Row3, page1Row4, page1Row5
+      ],
+    );
+
+    TableRow page2Row1 = TableRow(// * : Page changer, Hyperbolic, Cube root
+      children: [
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: () => setState(() => moreButtonsPage = 1),
+            buttontext: "\u{21C6}1st",
+            fontSize: 20,
+            textColor: Colors.greenAccent,
+          )
+        ),
+        Container(
+          height: 64,
+          color: (isHyp) ? Colors.amber : cellColor,
+          child: CustomButtonWithText(
+            onTap: () => setState(() => isHyp = !isHyp),
+            buttontext: "hyp",
+            fontSize: 20,
+            textColor: (isHyp) ? Colors.red : Colors.redAccent,
+          ),
+        ),
+        Container(
+          height: 64,
+          decoration: BoxDecoration(
+            color: cellColor,
+            borderRadius: const BorderRadius.only(topRight: Radius.circular(20))
+          ),
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "\u{00B3}\u{221A}x",
+            fontSize: 20,
+            textColor: Colors.yellowAccent,
+          ),
+        ),
+        const SizedBox(height: 5),
+      ]
+    );
+
+    TableRow page2Row2IsNotHyp = TableRow(// * : Sin^-1, Cos^-1, Tan^-1
+      children: [
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            fontSize: 20,
+            buttontext: "sin\u{207B}\u{00B9}",
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            fontSize: 20,
+            buttontext: "cos\u{207B}\u{00B9}",
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            fontSize: 20,
+            buttontext: "tan\u{207B}\u{00B9}",
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        const SizedBox(height: 5),
+      ]
+    );
+
+    TableRow page2Row2IsHyp = TableRow(// * : Sinh^-1, Cosh^-1, Tanh^-1
+      children: [
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            fontSize: 18,
+            buttontext: "sinh\u{207B}\u{00B9}",
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            fontSize: 17,
+            buttontext: "cosh\u{207B}\u{00B9}",
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            fontSize: 18,
+            buttontext: "tanh\u{207B}\u{00B9}",
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        const SizedBox(height: 5),
+      ]
+    );
+
+    TableRow page2Row3 = TableRow(// * : cosec, sec, cot
+      children: [
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            fontSize: 18,
+            buttontext: "cosec",
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            fontSize: 20,
+            buttontext: "sec",
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            fontSize: 20,
+            buttontext: "cot",
+            textColor: Colors.cyanAccent,
+          ),
+        ),
+        const SizedBox(height: 5),
+      ]
+    );
+
+    TableRow page2Row4 = TableRow(// * : ln, log, exp
+      children: [
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "ln",
+            fontSize: 20,
+            textColor: Colors.orangeAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "log",
+            fontSize: 20,
+            textColor: Colors.orangeAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "exp",
+            fontSize: 20,
+            textColor: Colors.orangeAccent,
+          ),
+        ),
+        const SizedBox(height: 5),
+      ]
+    );
+
+    TableRow page2Row5 = TableRow(// * : 2^x, x^3, Factorial
+      children: [
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "2\u{02E3}",
+            fontSize: 20,
+            textColor: Colors.yellowAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "x\u{00B3}",
+            fontSize: 20,
+            textColor: Colors.yellowAccent,
+          ),
+        ),
+        Container(
+          height: 64, color: cellColor,
+          child: CustomButtonWithText(
+            onTap: (){},
+            buttontext: "x!",
+            fontSize: 20,
+            textColor: Colors.yellowAccent,
+          ),
+        ),
+        Container(
+          height: 64,
+          decoration: BoxDecoration(
+            color: cellColor,
+            borderRadius: const BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20))
+          ),
+          child: CustomButtonWithIcon(
+            onTap: () => setState(() {
+              moreButtonsContainer = -1.0;
+              isHyp = false;
+              moreButtons = false;
+              moreButtonsPage = 1;
+            }),
+            icon: FontAwesomeIcons.arrowLeft,
+            iconColor: Colors.pinkAccent,
+            iconSize: 30,
+          ),
+        ),
+      ]
+    );
+
+    Table page2table = Table(
+      children: [
+        page2Row1,
+        (isHyp) ? page2Row2IsHyp : page2Row2IsNotHyp,
+        page2Row3, page2Row4, page2Row5
+      ],
+    );
+
+    return GestureDetector(
+      onHorizontalDragEnd: (details) {
+        if (details.primaryVelocity! < 0) {
+          setState(() => moreButtonsContainer = -1.0);
+        }
+      },
+      child: Container(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(12),
+          )
+        ),
+        child: (moreButtonsPage == 1) ? page1table : page2table,
+      ),
     );
   }
 }
