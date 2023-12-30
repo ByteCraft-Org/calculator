@@ -23,10 +23,10 @@ class CustomButtonWithText extends StatelessWidget {
       onPressed: () => onTap(),
       style: const ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+        shadowColor: MaterialStatePropertyAll(Colors.transparent),
+        surfaceTintColor: MaterialStatePropertyAll(Colors.transparent),
         overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
-        shape: MaterialStatePropertyAll(
-          CircleBorder(),
-        ),
+        shape: MaterialStatePropertyAll(LinearBorder()),
         minimumSize: MaterialStatePropertyAll(
           Size(60,60)
         )
@@ -48,6 +48,7 @@ class CustomButtonWithIcon extends StatelessWidget {
   final IconData icon;
   final Color iconColor, bgColor;
   final double iconSize;
+  final OutlinedBorder borderType;
 
   const CustomButtonWithIcon({
     super.key,
@@ -56,6 +57,7 @@ class CustomButtonWithIcon extends StatelessWidget {
     required this.iconColor,
     this.bgColor = Colors.transparent,
     this.iconSize = 25,
+    this.borderType = const LinearBorder(),
   });
 
   @override
@@ -64,10 +66,10 @@ class CustomButtonWithIcon extends StatelessWidget {
       onPressed: () => onTap(),
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(bgColor),
+        shadowColor: const MaterialStatePropertyAll(Colors.transparent),
+        surfaceTintColor: const MaterialStatePropertyAll(Colors.transparent),
         overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
-        shape: const MaterialStatePropertyAll(
-          CircleBorder(),
-        ),
+        shape: MaterialStatePropertyAll(borderType),
         minimumSize: const MaterialStatePropertyAll(
           Size(60, 60)
         )
@@ -92,8 +94,8 @@ class SvgButton extends StatelessWidget {
     required this.onTap,
     required this.assetPath,
     this.bgColor = Colors.transparent,
-    this.svgColor = Colors.grey,
-    this.height = 25
+    this.svgColor = Colors.orange,
+    this.height = 25,
   });
 
   @override
@@ -102,10 +104,10 @@ class SvgButton extends StatelessWidget {
       onPressed: () => onTap(),
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(bgColor),
+        shadowColor: const MaterialStatePropertyAll(Colors.transparent),
+        surfaceTintColor: const MaterialStatePropertyAll(Colors.transparent),
         overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
-        shape: const MaterialStatePropertyAll(
-          CircleBorder(),
-        ),
+        shape: const MaterialStatePropertyAll(LinearBorder()),
         minimumSize: const MaterialStatePropertyAll(
           Size(60, 60)
         )
@@ -114,45 +116,6 @@ class SvgButton extends StatelessWidget {
         assetPath,
         height: height,
         colorFilter: ColorFilter.mode(svgColor, BlendMode.srcIn),
-      )
-    );
-  }
-}
-
-class CustomButtonWrap extends StatelessWidget {
-  final Function() onTap;
-  final Widget childern1, childern2, childern3;
-  final Color bgColor;
-
-  const CustomButtonWrap({
-    super.key,
-    required this.onTap,
-    required this.childern1,
-    required this.childern2,
-    required this.childern3,
-    this.bgColor = Colors.transparent,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () => onTap(),
-      style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(bgColor),
-        overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
-        shape: const MaterialStatePropertyAll(
-          CircleBorder(),
-        ),
-        minimumSize: const MaterialStatePropertyAll(
-          Size(60, 60)
-        )
-      ),
-      child: Wrap(
-        children: [
-          childern1,
-          childern2,
-          childern3
-        ],
       )
     );
   }
@@ -169,7 +132,7 @@ class ConverterTabButton extends StatelessWidget {
     required this.onTap,
     this.icon,
     required this.label,
-    this.assetPath
+    this.assetPath,
   });
 
   @override
