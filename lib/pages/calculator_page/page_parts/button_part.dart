@@ -18,9 +18,9 @@ class ButtonPart extends StatefulWidget {
 }
 
 class _ButtonPartState extends State<ButtonPart> {
-  double moreButtonsContainer = -1.0;
+  double moreButtonsContainer = 0.0;
+  bool moreButtons = true;
   int moreButtonsPage = 1;
-  bool moreButtons = false;
   bool isHyp = false;
 
   @override
@@ -222,7 +222,7 @@ class _ButtonPartState extends State<ButtonPart> {
             borderRadius: const BorderRadius.only(topRight: Radius.circular(20))
           ),
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("sqroot"),
             buttontext: "\u{221A}x",
             fontSize: 20,
             textColor: Colors.yellowAccent,
@@ -237,7 +237,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("sin"),
             buttontext: "sin",
             fontSize: 20,
             textColor: Colors.cyanAccent,
@@ -246,7 +246,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("cos"),
             buttontext: "cos",
             fontSize: 20,
             textColor: Colors.cyanAccent,
@@ -255,7 +255,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("tan"),
             buttontext: "tan",
             fontSize: 20,
             textColor: Colors.cyanAccent,
@@ -270,7 +270,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("sinh"),
             buttontext: "sinh",
             fontSize: 20,
             textColor: Colors.cyanAccent,
@@ -279,7 +279,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("cosh"),
             buttontext: "cosh",
             fontSize: 20,
             textColor: Colors.cyanAccent,
@@ -288,7 +288,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("tanh"),
             buttontext: "tanh",
             fontSize: 20,
             textColor: Colors.cyanAccent,
@@ -303,7 +303,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("("),
             buttontext: "(",
             fontSize: 20,
             textColor: Colors.yellowAccent,
@@ -312,7 +312,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed(")"),
             buttontext: ")",
             fontSize: 20,
             textColor: Colors.yellowAccent,
@@ -321,7 +321,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("1/x"),
             buttontext: "1/x",
             fontSize: 20,
             textColor: Colors.yellowAccent,
@@ -336,7 +336,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("e^x"),
             buttontext: "e\u{02E3}",
             fontSize: 20,
             textColor: Colors.orangeAccent,
@@ -345,7 +345,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("sq"),
             buttontext: "x\u00B2",
             fontSize: 20,
             textColor: Colors.yellowAccent,
@@ -354,7 +354,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("pow"),
             buttontext: "x\u02B8",
             fontSize: 20,
             textColor: Colors.yellowAccent,
@@ -369,7 +369,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("mod"),
             buttontext: "|X|",
             fontSize: 20,
             textColor: Colors.yellowAccent,
@@ -378,7 +378,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("pi"),
             buttontext: "\u03C0",
             fontSize: 20,
             textColor: Colors.yellowAccent,
@@ -387,7 +387,7 @@ class _ButtonPartState extends State<ButtonPart> {
         Container(
           height: 64, color: cellColor,
           child: CustomButtonWithText(
-            onTap: (){},
+            onTap: () => widget.onButtonPressed("e"),
             buttontext: "e",
             fontSize: 20,
             textColor: Colors.orangeAccent,
