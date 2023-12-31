@@ -20,7 +20,7 @@ class CalculatorLogics{
   bool sendToValidExpression() {
     if(expressionText.isEmpty) {return false;} // * : If expression text is empty then return.
     if(_ExpressionHelper.isLastCharacterOperator(expressionText)  && !expressionText.endsWith(".")) {return false;} // * : If there is Operator at last of Expression Text then return
-    if(!_ExpressionHelper.validPi(expressionText)) {return false;}
+    if(!_ExpressionHelper.validConstants(expressionText)) {return false;}
     return true;
   }
   
@@ -33,7 +33,7 @@ class CalculatorLogics{
     validExpression = validExpression.replaceAll("×", "*");
     validExpression = validExpression.replaceAll("÷", "/");
     validExpression = validExpression.replaceAll("\u03C0", pi.toString());
-    print("pie VAL $pi");
+    validExpression = validExpression.replaceAll("e", e.toString());
 
     try{
       Parser p = Parser();
@@ -96,10 +96,6 @@ class CalculatorLogics{
     }
   }
 
-  void piPressed() {
-    addText("\u03C0");
-  }
-
   void onButtonPressed(String buttonText){
     if(!isMoreTextAllowed && !["clear","backspace","="].any(buttonText.contains)){
       return;
@@ -112,7 +108,8 @@ class CalculatorLogics{
       case "=": equalsPressed(); return;
 
       // * : More Buttons Page 1
-      case "pi": piPressed(); break;
+      case "pi": addText("\u03C0"); break;
+      case "e": addText("e"); break;
 
       default:
         addText(buttonText);
@@ -192,8 +189,8 @@ class _ExpressionHelper{
     return ["1","2","3","4","5","6","7","8","9","0"].contains(lastCharacter);
   }
 
-  static bool validPi(String expr) {
-    for (List<int> innerList in findPiLocations(expr)) {
+  static bool validConstants(String expr) {
+    for (List<int> innerList in findConstantsLocations(expr)) {
     for (int value in innerList) {
       if(value>=0 && !["+", "-", "*", "×", "/", "÷", "%", ""].contains(expr[value])) {return false;}
     }
@@ -201,15 +198,22 @@ class _ExpressionHelper{
     return true;
   }
 
-  static List<List<int>> findPiLocations(String expr) {
-    final List<List<int>> piLocations = [];
-    int index = expr.indexOf("\u03C0");
+  static List<List<int>> findConstantsLocations(String expr) {
+    final List<List<int>> constantsLocations = [];
+    int piIndex = expr.indexOf("\u03C0");
+    int eIndex = expr.indexOf("e");
 
-    while (index != 0) {
-      piLocations.add([index - 1, index + 1]);
-      index = expr.indexOf("\u03C0", index + 1);
+    while (piIndex != 0) {
+      constantsLocations.add([piIndex - 1, piIndex + 1]);
+      piIndex = expr.indexOf("\u03C0", piIndex + 1);
     }
-    return piLocations;
+
+    while (eIndex != 0) {
+      constantsLocations.add([eIndex - 1, eIndex + 1]);
+      eIndex = expr.indexOf("e", eIndex + 1);
+    }
+
+    return constantsLocations;
   }
   
   static bool isButtonTextOperator(String expr){ // * : The function checks if a given expression ends with any of the specified arithmetic operators.
