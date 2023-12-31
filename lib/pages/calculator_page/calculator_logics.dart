@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -15,25 +17,33 @@ class CalculatorLogics{
 
   bool isMoreTextAllowed = true; // * : It determines whether more text can be added to the expression or not.
 
-  void evaluate(String expression){
-    if(expressionText.isNotEmpty) {
-      if(!_ExpressionHelper.isLastCharacterOperator(expression)  && !expression.endsWith(".")){ // * : If there is Operator at last of Expression Text it will not be considered as Valid Expression for Real Time Evaluation
-        validExpression = expressionText;
+  bool sendToValidExpression() {
+    if(expressionText.isEmpty) {return false;} // * : If expression text is empty then return.
+    if(_ExpressionHelper.isLastCharacterOperator(expressionText)  && !expressionText.endsWith(".")) {return false;} // * : If there is Operator at last of Expression Text then return
+    if(!_ExpressionHelper.validPi(expressionText)) {return false;}
+    return true;
+  }
+  
+  void evaluate(){
+    if(!sendToValidExpression()) {return;} // * : If the expression is not valid, it will return and not continue with the evaluation.
 
-        // * : Expression can't evaluate ÷,×, so converting  it into /,*.
-        validExpression = validExpression.replaceAll("×", "*");
-        validExpression = validExpression.replaceAll("÷", "/");
-        try{
-          Parser p = Parser();
-          Expression exp = p.parse(validExpression);
-          ContextModel cm = ContextModel();
-          result = exp.evaluate(EvaluationType.REAL, cm);
-          resultText = result.toString();
-          resultText = "= ${result.toStringAsFixed(result.truncateToDouble() == result ? 0 : 2)}";
-        } catch(err){
-          resultText = err.toString();
-        }
-      }
+    validExpression = expressionText; // * : create a separate variable that will be used for evaluating the expression without modifying the original `expressionText` variable.
+
+    // * : Expression can't evaluate ÷,×, so converting  it into /,*.
+    validExpression = validExpression.replaceAll("×", "*");
+    validExpression = validExpression.replaceAll("÷", "/");
+    validExpression = validExpression.replaceAll("\u03C0", pi.toString());
+    print("pie VAL $pi");
+
+    try{
+      Parser p = Parser();
+      Expression exp = p.parse(validExpression);
+      ContextModel cm = ContextModel();
+      result = exp.evaluate(EvaluationType.REAL, cm);
+      resultText = result.toString();
+      resultText = "= ${result.toStringAsFixed(result.truncateToDouble() == result ? 0 : 2)}";
+    } catch(err){
+      resultText = "Error";
     }
   }
 
@@ -86,6 +96,10 @@ class CalculatorLogics{
     }
   }
 
+  void piPressed() {
+    addText("\u03C0");
+  }
+
   void onButtonPressed(String buttonText){
     if(!isMoreTextAllowed && !["clear","backspace","="].any(buttonText.contains)){
       return;
@@ -97,10 +111,13 @@ class CalculatorLogics{
       case ".": decimalPressed(); break;
       case "=": equalsPressed(); return;
 
+      // * : More Buttons Page 1
+      case "pi": piPressed(); break;
+
       default:
         addText(buttonText);
     }
-    evaluate(expressionText);
+    evaluate();
     overflowAllowed();
   }
 
@@ -118,6 +135,8 @@ class CalculatorLogics{
         expressionText = "";
       }
     }
+
+    if(_ExpressionHelper.isButtonTextOperator(text) && expressionText.isEmpty) {clearPressed(); return;}
 
     if(_ExpressionHelper.isButtonTextOperator(text) && _ExpressionHelper.isLastCharacterOperator(expressionText)) { // * : If Button Text is Operator and Last Character of Expression Text is Operator, then replace the Operator from expression text.
       expressionText = _ExpressionHelper.removeLastCharacterOfString(expressionText);
@@ -153,6 +172,8 @@ class CalculatorLogics{
 
 class _ExpressionHelper{
   List<String> operators = ["+", "-", "*", "×", "/", "÷", "%"];
+  List<String> numbers = ["1","2","3","4","5","6","7","8","9","0"];
+
   static String removeLastCharacterOfString(String expr){ // * : The function removes the last character from a given string and returns the modified string.
     return (expr.isEmpty) ? "" : (expr.length == 1) ? "0" : expr.substring(0, expr.length - 1);
   }
@@ -165,7 +186,31 @@ class _ExpressionHelper{
     String lastCharacter = expr.isNotEmpty ? expr[expr.length - 1] : '';
     return ["+", "-", "*", "×", "/", "÷", "%"].contains(lastCharacter);
   }
-  
+
+  static bool isLastCharacterNumber(String expr){ // * : The function checks if the last character of a given Expression is a number.
+    String lastCharacter = expr.isNotEmpty ? expr[expr.length - 1] : '';
+    return ["1","2","3","4","5","6","7","8","9","0"].contains(lastCharacter);
+  }
+
+  static bool validPi(String expr) {
+    for (List<int> innerList in findPiLocations(expr)) {
+    for (int value in innerList) {
+      if(value>=0 && !["+", "-", "*", "×", "/", "÷", "%", ""].contains(expr[value])) {return false;}
+    }
+  }
+    return true;
+  }
+
+  static List<List<int>> findPiLocations(String expr) {
+    final List<List<int>> piLocations = [];
+    int index = expr.indexOf("\u03C0");
+
+    while (index != 0) {
+      piLocations.add([index - 1, index + 1]);
+      index = expr.indexOf("\u03C0", index + 1);
+    }
+    return piLocations;
+  }
   
   static bool isButtonTextOperator(String expr){ // * : The function checks if a given expression ends with any of the specified arithmetic operators.
     if(["+","-","*","×","/","÷","%"].any(expr.endsWith)){
