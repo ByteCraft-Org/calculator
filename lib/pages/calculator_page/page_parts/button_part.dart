@@ -18,10 +18,12 @@ class ButtonPart extends StatefulWidget {
 }
 
 class _ButtonPartState extends State<ButtonPart> {
-  double moreButtonsContainer = 0.0;
+  double moreButtonsContainerPosition = 0.0;
   bool moreButtons = true;
   int moreButtonsPage = 1;
   bool isHyp = false;
+
+  closeMoreButtons() => setState(() =>  moreButtonsContainerPosition = -1.0);
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +147,7 @@ class _ButtonPartState extends State<ButtonPart> {
     TableRow tableRow5 = TableRow(// * : Expand, 0, Decimal, Equals
       children: [
         CustomButtonWithIcon(// * : Expand
-        onTap: () => setState(() => moreButtonsContainer = 0.0),
+        onTap: () => setState(() => moreButtonsContainerPosition = 0.0),
           icon: FontAwesomeIcons.arrowRight,
           iconColor: Colors.orange,
           iconSize: 25,
@@ -182,8 +184,8 @@ class _ButtonPartState extends State<ButtonPart> {
         AnimatedContainer(// * : Calculator more buttons
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeInOut,
-          transform: Matrix4.translationValues(moreButtonsContainer * MediaQuery.of(context).size.width, 0, 0),
-          color: (moreButtonsContainer >= -0.9) ? Colors.black.withOpacity(0.7) : Colors.transparent,
+          transform: Matrix4.translationValues(moreButtonsContainerPosition * MediaQuery.of(context).size.width, 0, 0),
+          color: (moreButtonsContainerPosition >= -0.9) ? Colors.black.withOpacity(0.7) : Colors.transparent,
           width: MediaQuery.of(context).size.width,
           child: _moreButtons()
         )
@@ -228,7 +230,7 @@ class _ButtonPartState extends State<ButtonPart> {
             textColor: Colors.yellowAccent,
           ),
         ),
-        const SizedBox(height: 5),
+        GestureDetector(onTap: () => closeMoreButtons(), child: Container(color: Colors.transparent, height: 64)),
       ]
     );
 
@@ -261,7 +263,7 @@ class _ButtonPartState extends State<ButtonPart> {
             textColor: Colors.cyanAccent,
           ),
         ),
-        const SizedBox(height: 5),
+        GestureDetector(onTap: () => closeMoreButtons(), child: Container(color: Colors.transparent, height: 64)),
       ]
     );
 
@@ -294,7 +296,7 @@ class _ButtonPartState extends State<ButtonPart> {
             textColor: Colors.cyanAccent,
           ),
         ),
-        const SizedBox(height: 5),
+        GestureDetector(onTap: () => closeMoreButtons(), child: Container(color: Colors.transparent, height: 64)),
       ]
     );
 
@@ -327,7 +329,7 @@ class _ButtonPartState extends State<ButtonPart> {
             textColor: Colors.yellowAccent,
           ),
         ),
-        const SizedBox(height: 5),
+        GestureDetector(onTap: () => closeMoreButtons(), child: Container(color: Colors.transparent, height: 64)),
       ]
     );
 
@@ -360,7 +362,7 @@ class _ButtonPartState extends State<ButtonPart> {
             textColor: Colors.yellowAccent,
           ),
         ),
-        const SizedBox(height: 5),
+        GestureDetector(onTap: () => closeMoreButtons(), child: Container(color: Colors.transparent, height: 64)),
       ]
     );
 
@@ -400,7 +402,7 @@ class _ButtonPartState extends State<ButtonPart> {
             borderRadius: const BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20))
           ),
           child: CustomButtonWithIcon(
-            onTap: () => setState(() => moreButtonsContainer = -1.0),
+            onTap: () => setState(() => closeMoreButtons()),
             icon: FontAwesomeIcons.arrowLeft,
             iconColor: Colors.pinkAccent,
             iconSize: 30,
@@ -451,7 +453,7 @@ class _ButtonPartState extends State<ButtonPart> {
             textColor: Colors.yellowAccent,
           ),
         ),
-        const SizedBox(height: 5),
+        GestureDetector(onTap: () => closeMoreButtons(), child: Container(color: Colors.transparent, height: 64)),
       ]
     );
 
@@ -484,7 +486,7 @@ class _ButtonPartState extends State<ButtonPart> {
             textColor: Colors.cyanAccent,
           ),
         ),
-        const SizedBox(height: 5),
+        GestureDetector(onTap: () => closeMoreButtons(), child: Container(color: Colors.transparent, height: 64)),
       ]
     );
 
@@ -517,7 +519,7 @@ class _ButtonPartState extends State<ButtonPart> {
             textColor: Colors.cyanAccent,
           ),
         ),
-        const SizedBox(height: 5),
+        GestureDetector(onTap: () => closeMoreButtons(), child: Container(color: Colors.transparent, height: 64)),
       ]
     );
 
@@ -550,7 +552,7 @@ class _ButtonPartState extends State<ButtonPart> {
             textColor: Colors.cyanAccent,
           ),
         ),
-        const SizedBox(height: 5),
+        GestureDetector(onTap: () => closeMoreButtons(), child: Container(color: Colors.transparent, height: 64)),
       ]
     );
 
@@ -583,7 +585,7 @@ class _ButtonPartState extends State<ButtonPart> {
             textColor: Colors.orangeAccent,
           ),
         ),
-        const SizedBox(height: 5),
+        GestureDetector(onTap: () => closeMoreButtons(), child: Container(color: Colors.transparent, height: 64)),
       ]
     );
 
@@ -624,7 +626,7 @@ class _ButtonPartState extends State<ButtonPart> {
           ),
           child: CustomButtonWithIcon(
             onTap: () => setState(() {
-              moreButtonsContainer = -1.0;
+              closeMoreButtons();
               isHyp = false;
               moreButtons = false;
               moreButtonsPage = 1;
@@ -648,7 +650,7 @@ class _ButtonPartState extends State<ButtonPart> {
     return GestureDetector(
       onHorizontalDragEnd: (details) {
         if (details.primaryVelocity! < 0) {
-          setState(() => moreButtonsContainer = -1.0);
+          setState(() => closeMoreButtons());
         }
       },
       child: Container(
