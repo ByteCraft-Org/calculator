@@ -1,5 +1,5 @@
 import 'package:calculator/pages/calculator_page/calculator_logics.dart';
-import 'package:calculator/pages/calculator_page/page_parts/button_part.dart';
+import 'package:calculator/pages/calculator_page/page_parts/standard_buttons.dart';
 import 'package:calculator/pages/calculator_page/page_parts/result_part.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +28,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
           color: Theme.of(context).primaryColor.withOpacity(0.3),
         ),
         const SizedBox(height: 5,),
-        ButtonPart(logic: logic, onButtonPressed: _onButtonPressed),
+        StandardButtons(logic: logic, onButtonPressed: _onButtonPressed),
       ],
     );
   }
