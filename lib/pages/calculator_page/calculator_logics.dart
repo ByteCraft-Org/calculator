@@ -20,7 +20,6 @@ class CalculatorLogics{
   bool sendToValidExpression() {
     if(expressionText.isEmpty) {return false;} // * : If expression text is empty then return.
     if(_ExpressionHelper.isLastCharacterOperator(expressionText)  && !expressionText.endsWith(".")) {return false;} // * : If there is Operator at last of Expression Text then return
-    if(!_ExpressionHelper.validConstants(expressionText)) {return false;}
     return true;
   }
   
@@ -96,6 +95,14 @@ class CalculatorLogics{
     }
   }
 
+  void constantsCheck(String constant) {
+    if(_ExpressionHelper.isLastCharacterNumber(expressionText)) {
+      addText("×$constant");
+    } else {
+      addText(constant);
+    }
+  }
+
   void onButtonPressed(String buttonText){
     if(!isMoreTextAllowed && !["clear","backspace","="].any(buttonText.contains)){
       return;
@@ -108,8 +115,8 @@ class CalculatorLogics{
       case "=": equalsPressed(); return;
 
       // * : More Buttons Page 1
-      case "pi": addText("\u03C0"); break;
-      case "e": addText("e"); break;
+      case "pi": constantsCheck("\u03C0"); break;
+      case "e": constantsCheck("e"); break;
 
       default:
         addText(buttonText);
@@ -138,6 +145,8 @@ class CalculatorLogics{
     if(_ExpressionHelper.isButtonTextOperator(text) && _ExpressionHelper.isLastCharacterOperator(expressionText)) { // * : If Button Text is Operator and Last Character of Expression Text is Operator, then replace the Operator from expression text.
       expressionText = _ExpressionHelper.removeLastCharacterOfString(expressionText);
     }
+
+    if(_ExpressionHelper.isLastCharacterConstants(expressionText)) {text = "×$text";} // * : If Last Character of Expression Text is Constants, then add "×" before the text.
 
     switch(text){
       case "*":
@@ -170,6 +179,7 @@ class CalculatorLogics{
 class _ExpressionHelper{
   List<String> operators = ["+", "-", "*", "×", "/", "÷", "%"];
   List<String> numbers = ["1","2","3","4","5","6","7","8","9","0"];
+  List<String> constants = ["\u03C0", "e"];
 
   static String removeLastCharacterOfString(String expr){ // * : The function removes the last character from a given string and returns the modified string.
     return (expr.isEmpty) ? "" : (expr.length == 1) ? "0" : expr.substring(0, expr.length - 1);
@@ -189,33 +199,11 @@ class _ExpressionHelper{
     return ["1","2","3","4","5","6","7","8","9","0"].contains(lastCharacter);
   }
 
-  static bool validConstants(String expr) {
-    for (List<int> innerList in findConstantsLocations(expr)) {
-    for (int value in innerList) {
-      if(value>=0 && !["+", "-", "*", "×", "/", "÷", "%", ""].contains(expr[value])) {return false;}
-    }
-  }
-    return true;
+  static bool isLastCharacterConstants(String expr){ // * : The function checks if the last character of a given Expression is a number.
+    String lastCharacter = expr.isNotEmpty ? expr[expr.length - 1] : '';
+    return ["\u03C0","e"].contains(lastCharacter);
   }
 
-  static List<List<int>> findConstantsLocations(String expr) {
-    final List<List<int>> constantsLocations = [];
-    int piIndex = expr.indexOf("\u03C0");
-    int eIndex = expr.indexOf("e");
-
-    while (piIndex != 0) {
-      constantsLocations.add([piIndex - 1, piIndex + 1]);
-      piIndex = expr.indexOf("\u03C0", piIndex + 1);
-    }
-
-    while (eIndex != 0) {
-      constantsLocations.add([eIndex - 1, eIndex + 1]);
-      eIndex = expr.indexOf("e", eIndex + 1);
-    }
-
-    return constantsLocations;
-  }
-  
   static bool isButtonTextOperator(String expr){ // * : The function checks if a given expression ends with any of the specified arithmetic operators.
     if(["+","-","*","×","/","÷","%"].any(expr.endsWith)){
       return true;
