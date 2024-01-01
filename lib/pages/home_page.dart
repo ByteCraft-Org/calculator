@@ -1,10 +1,8 @@
 import 'package:calculator/pages/calculator_page/calculator_page.dart';
-import 'package:calculator/pages/converter_page/converter_page.dart';
-import 'package:calculator/utils/widgets/custom_tabs.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -24,74 +22,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: TabBar(
-          controller: tabController,
-          indicatorColor: Colors.orange,
-          enableFeedback: true,
-          onTap: (value) => setState(() {
-            selectedTab = value;
-            tabController.index = value;
-          }),
-          indicatorWeight: 5,
-          isScrollable: false,
-          physics: const NeverScrollableScrollPhysics(),
-          automaticIndicatorColorAdjustment: true,
-          tabs: [
-            Tab(
-              child: SvgTab(
-                selectedAsset: "assets/svg/calculatorFilled.svg",
-                unselectedAsset: "assets/svg/calculatorOutlined.svg",
-                isSelected: selectedTab == 0 || tabController.index == 0,
-                selectedColor: Theme.of(context).colorScheme.secondary,
-                unselectedColor: Colors.grey,
-              ),
-            ),
-            Tab(
-              child: SvgTab(
-                selectedAsset: "assets/svg/converterFilled.svg",
-                unselectedAsset: "assets/svg/converterOutlined.svg",
-                isSelected: selectedTab == 1 || tabController.index == 1,
-                selectedColor: Theme.of(context).colorScheme.secondary,
-                unselectedColor: Colors.grey,
-              ),
-            ),
-            Tab(
-              child: SvgTab(
-                selectedAsset: "assets/svg/currencyFilled.svg",
-                unselectedAsset: "assets/svg/currencyOutlined.svg",
-                isSelected: selectedTab == 2 || tabController.index == 2,
-                selectedColor: Theme.of(context).colorScheme.secondary,
-                unselectedColor: Colors.grey,
-              ),
-            ),
-          ]
-        ),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TabBarView(
-              controller: tabController,
-              children: const [
-                CalculatorPage(),
-                ConverterPage(),
-                Pages(text: "Page3"),
-              ],
-            ),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: CalculatorPage(),
           ),
         ),
       ),
     );
-  }
-}
-
-class Pages extends StatelessWidget {
-  final String text;
-  const Pages({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text(text));
   }
 }
