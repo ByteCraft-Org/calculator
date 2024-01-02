@@ -1,5 +1,4 @@
 import 'package:calculator/pages/calculator_page/calculator_logics.dart';
-import 'package:calculator/utils/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -198,6 +197,85 @@ class StandardButtons extends StatelessWidget {
       children: [
         tableRow1, tableRow2, tableRow3, tableRow4, tableRow5, tableRow6
       ],
+    );
+  }
+}
+
+class CustomButtonWithText extends StatelessWidget {
+  final Function() onTap;
+  final String buttontext;
+  final Color textColor, bgColor;
+  final FontWeight fontWeight;
+  final double fontSize;
+
+  const CustomButtonWithText({
+    super.key,
+    required this.onTap,
+    required this.buttontext,
+    required this.textColor,
+    this.bgColor = Colors.transparent,
+    this.fontWeight = FontWeight.bold,
+    this.fontSize = 30,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => onTap(),
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(bgColor),
+        shadowColor: const MaterialStatePropertyAll(Colors.transparent),
+        surfaceTintColor: const MaterialStatePropertyAll(Colors.transparent),
+        overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
+        shape: const MaterialStatePropertyAll(LinearBorder()),
+        minimumSize: const MaterialStatePropertyAll(Size(60,60)),
+        padding: const MaterialStatePropertyAll(EdgeInsets.zero)
+      ),
+      child: Text(
+        buttontext,
+        style: TextStyle(
+          color: textColor,
+          fontSize: fontSize,
+          fontWeight: fontWeight
+        ),
+      )
+    );
+  }
+}
+
+class CustomButtonWithIcon extends StatelessWidget {
+  final Function() onTap;
+  final IconData icon;
+  final Color iconColor, bgColor;
+  final double iconSize;
+
+  const CustomButtonWithIcon({
+    super.key,
+    required this.onTap,
+    required this.icon,
+    required this.iconColor,
+    this.bgColor = Colors.transparent,
+    this.iconSize = 25,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => onTap(),
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(bgColor),
+        shadowColor: const MaterialStatePropertyAll(Colors.transparent),
+        surfaceTintColor: const MaterialStatePropertyAll(Colors.transparent),
+        overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
+        shape: const MaterialStatePropertyAll(LinearBorder()),
+        minimumSize: const MaterialStatePropertyAll(Size(60, 60)),
+        padding: const MaterialStatePropertyAll(EdgeInsets.zero)
+      ),
+      child: Icon(
+        icon,
+        color: iconColor,
+        size: iconSize,
+      ),
     );
   }
 }
