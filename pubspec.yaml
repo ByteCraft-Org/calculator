@@ -36,7 +36,7 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
   assets:
-  - assets/svg/squareRoot.svg
+  - assets/svg/historyDelete.svg
   - assets/svg/calculatorFilled.svg
   - assets/svg/calculatorOutlined.svg
   - assets/svg/converterFilled.svg

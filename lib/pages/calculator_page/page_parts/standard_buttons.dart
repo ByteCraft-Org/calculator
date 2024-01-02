@@ -28,7 +28,7 @@ class StandardButtons extends StatelessWidget {
           onTap: () => onButtonPressed("mod"),
           buttontext: "mod",
           textColor: Colors.orange,
-          fontSize: 25,
+          fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithText(// * : Clear
