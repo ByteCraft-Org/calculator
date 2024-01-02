@@ -27,9 +27,8 @@ class CustomButtonWithText extends StatelessWidget {
         surfaceTintColor: MaterialStatePropertyAll(Colors.transparent),
         overlayColor: MaterialStatePropertyAll(Color(0x999E9E9E)),
         shape: MaterialStatePropertyAll(LinearBorder()),
-        minimumSize: MaterialStatePropertyAll(
-          Size(60,60)
-        )
+        minimumSize: MaterialStatePropertyAll(Size(60,60)),
+        padding: MaterialStatePropertyAll(EdgeInsets.zero)
       ),
       child: Text(
         buttontext,
@@ -68,9 +67,8 @@ class CustomButtonWithIcon extends StatelessWidget {
         surfaceTintColor: const MaterialStatePropertyAll(Colors.transparent),
         overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
         shape: const MaterialStatePropertyAll(LinearBorder()),
-        minimumSize: const MaterialStatePropertyAll(
-          Size(60, 60)
-        )
+        minimumSize: const MaterialStatePropertyAll(Size(60, 60)),
+        padding: const MaterialStatePropertyAll(EdgeInsets.zero)
       ),
       child: Icon(
         icon,
@@ -106,9 +104,7 @@ class SvgButton extends StatelessWidget {
         surfaceTintColor: const MaterialStatePropertyAll(Colors.transparent),
         overlayColor: const MaterialStatePropertyAll(Color(0x999E9E9E)),
         shape: const MaterialStatePropertyAll(LinearBorder()),
-        minimumSize: const MaterialStatePropertyAll(
-          Size(60, 60)
-        )
+        minimumSize: const MaterialStatePropertyAll(Size(60, 60))
       ),
       child: SvgPicture.asset(
         assetPath,
