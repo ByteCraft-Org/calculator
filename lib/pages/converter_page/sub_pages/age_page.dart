@@ -57,14 +57,6 @@ class _AgePageState extends State<AgePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back),
-        ),
-        title: const Text("Age"),
-        centerTitle: true,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
@@ -74,10 +66,12 @@ class _AgePageState extends State<AgePage> {
                 const Text(
                   "Date of birth",
                   style: TextStyle(
-                    fontSize: 20
+                    fontSize: 20,
+                    color: Colors.blueAccent,
+                    fontWeight: FontWeight.bold
                   ),
                 ),
-                Expanded(child: Container()),
+                const Spacer(),
                 GestureDetector(
                   onTap: () => _showBottomDialog(context),
                   child: Row(
@@ -85,12 +79,12 @@ class _AgePageState extends State<AgePage> {
                       Text(
                         "${date.toString()} $monthString ${year.toString()}",
                         style: const TextStyle(
-                          color: Colors.orange,
+                          color: Colors.yellowAccent,
                           fontWeight: FontWeight.bold,
                           fontSize: 18
                         ),
                       ),
-                      const Icon(Icons.arrow_drop_down)
+                      const Icon(Icons.arrow_drop_down, color: Colors.yellowAccent,)
                     ],
                   )
                 ),
@@ -102,20 +96,19 @@ class _AgePageState extends State<AgePage> {
                 const Text(
                   "Today",
                   style: TextStyle(
-                    fontSize: 20
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueAccent
                   ),
                 ),
                 Expanded(child: Container()),
-                GestureDetector(
-                  onTap: () => _showBottomDialog(context),
-                  child: Text(
-                    "${today.day.toString().padLeft(2, '0')} ${_getMonthName(today.month)} ${today.year.toString()}",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
-                    ),
-                  )
+                Text(
+                  "${today.day.toString().padLeft(2, '0')} ${_getMonthName(today.month)} ${today.year.toString()}",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18
+                  ),
                 ),
               ]
             ),
@@ -360,7 +353,8 @@ class _AgePageState extends State<AgePage> {
         const Text(
           "Age",
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.purpleAccent,
+            fontWeight: FontWeight.bold,
             fontSize: 40,
           ),
         ),
@@ -372,7 +366,7 @@ class _AgePageState extends State<AgePage> {
                 "${age.getAgeInYears(dob)}",
                 style: const TextStyle(
                   fontSize: 65,
-                  color: Colors.orange
+                  color: Colors.cyanAccent
                 ),
               ),
             ),
@@ -389,7 +383,7 @@ class _AgePageState extends State<AgePage> {
         Text(
           "${age.getAgeInMonths(dob)} months | ${age.getAgeInDays(dob)} days",
           style: const TextStyle(
-            color: Colors.white,
+            color: Colors.tealAccent,
             fontSize: 15
           ),
         )
@@ -408,19 +402,20 @@ class _AgePageState extends State<AgePage> {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Colors.orange
+            color: Colors.purpleAccent
           ),
         ),
         const SizedBox(height: 12,),
         SvgPicture.asset(
           "assets/svg/cake.svg",
           height: 50,
+          colorFilter: const ColorFilter.mode(Colors.cyanAccent, BlendMode.srcIn),
         ),
         const SizedBox(height: 12,),
         Text(
           nextBirthday.getWeekDay(dob),
           style: const TextStyle(
-            color: Colors.white,
+            color: Colors.amber,
             fontSize: 20,
             fontWeight: FontWeight.bold
           ),
@@ -429,7 +424,7 @@ class _AgePageState extends State<AgePage> {
         Text(
           "${nextBirthday.getMonthsLeft(dob)} months | ${nextBirthday.getDaysLeft(dob)} days",
           style: const TextStyle(
-            color: Colors.white,
+            color: Colors.tealAccent,
             fontSize: 15
           ),
         )
@@ -448,7 +443,7 @@ class _AgePageState extends State<AgePage> {
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
-              color: Colors.orange
+              color: Colors.blueAccent
             ),
           )
         ),
@@ -463,14 +458,14 @@ class _AgePageState extends State<AgePage> {
                     const Text(
                       "Years",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.yellow,
                         fontSize: 20,
                       ),
                     ),
                     Text(
                       "${summary.getAgeInYears(dob)}",
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: Colors.greenAccent,
                         fontSize: 40,
                       ),
                     ),
@@ -485,14 +480,14 @@ class _AgePageState extends State<AgePage> {
                     const Text(
                       "Months",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.yellow,
                         fontSize: 20,
                       ),
                     ),
                     Text(
                       "${summary.getAgeInMonths(dob)}",
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: Colors.greenAccent,
                         fontSize: 40,
                       ),
                     ),
@@ -507,14 +502,14 @@ class _AgePageState extends State<AgePage> {
                     const Text(
                       "Weeks",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.yellow,
                         fontSize: 20,
                       ),
                     ),
                     Text(
                       "${summary.getAgeInWeeks(dob)}",
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: Colors.greenAccent,
                         fontSize: 40,
                       ),
                     ),
@@ -535,15 +530,15 @@ class _AgePageState extends State<AgePage> {
                     const Text(
                       "Days",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.yellow,
                         fontSize: 20,
                       ),
                     ),
                     Text(
                       "${summary.getAgeInDays(dob)}",
                       style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
+                        color: Colors.greenAccent,
+                        fontSize: 20,
                       ),
                     ),
                   ],
@@ -559,15 +554,15 @@ class _AgePageState extends State<AgePage> {
                       overflow: TextOverflow.fade,
                       maxLines: 1,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.yellow,
                         fontSize: 20,
                       ),
                     ),
                     Text(
                       "${summary.getAgeInHours(dob)}",
                       style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
+                        color: Colors.greenAccent,
+                        fontSize: 20,
                       ),
                     ),
                   ],
@@ -583,15 +578,15 @@ class _AgePageState extends State<AgePage> {
                       overflow: TextOverflow.fade,
                       maxLines: 1,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.yellow,
                         fontSize: 20,
                       ),
                     ),
                     Text(
                       "${summary.getAgeInMinutes(dob)}",
                       style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
+                        color: Colors.greenAccent,
+                        fontSize: 20,
                       ),
                     ),
                   ],
