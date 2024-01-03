@@ -22,13 +22,8 @@ class _StandardCalculatorState extends State<StandardCalculator> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        ResultPart(logic: logic),
-        const SizedBox(height: 5,),
-        Divider(// * : Divider Line
-        thickness: 2,
-          color: Theme.of(context).primaryColor.withOpacity(0.3),
-        ),
-        const SizedBox(height: 5,),
+        ResultPart(logic: logic, isStandardButtons: true),
+        Divider(thickness: 2, color: Theme.of(context).primaryColor.withOpacity(0.3)),// * : Divider Line
         StandardButtons(logic: logic, onButtonPressed: _onButtonPressed),
       ],
     );
@@ -53,12 +48,8 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        ResultPart(logic: logic),
-        const SizedBox(height: 5,),
-        Divider(// * : Divider Line
-        thickness: 2,
-          color: Theme.of(context).primaryColor.withOpacity(0.3),
-        ),
+        ResultPart(logic: logic, isStandardButtons: false,),
+        Divider(thickness: 2, color: Theme.of(context).primaryColor.withOpacity(0.3)),// * : Divider Line
         ScientificButtons(logic: logic, onButtonPressed: _onButtonPressed),
       ],
     );
