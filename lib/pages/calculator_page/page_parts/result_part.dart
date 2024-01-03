@@ -5,18 +5,17 @@ import 'package:flutter/material.dart';
 
 class ResultPart extends StatelessWidget {
   final CalculatorLogics logic;
-  const ResultPart({
-    super.key,
-    required this.logic
-  });
+  final bool isStandardButtons;
+
+  const ResultPart({super.key, required this.logic, required this.isStandardButtons});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
         children: <Widget>[
-          Expanded(// * : History
-            flex: 6,
+          Flexible(// * : History
+            flex: (isStandardButtons) ? 6 : 4,
             child: Container(
               color: Colors.blue,
               child: Center(
@@ -32,21 +31,21 @@ class ResultPart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Container(// * : Expression Text
+                    width: MediaQuery.of(context).size.width,
                     alignment: Alignment.bottomRight,
-                      child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Text(
-                        logic.expressionText,
-                        style: TextStyle(
-                          color: logic.expressionColor,
-                          fontSize: logic.expressionFontSize
-                        ),
-                        overflow: TextOverflow.fade,
-                        maxLines: 1,
+                    child: Text(
+                      logic.expressionText,
+                      style: TextStyle(
+                        color: logic.expressionColor,
+                        fontSize: logic.expressionFontSize
                       ),
+                      overflow: TextOverflow.fade,
+                      maxLines: 1,
                     ),
                   ),
                   Container(// * : Result Text
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.zero,
                     alignment: Alignment.bottomRight,
                     child: Text(
                       logic.resultText,
