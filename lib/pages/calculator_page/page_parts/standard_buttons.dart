@@ -20,28 +20,28 @@ class StandardButtons extends StatelessWidget {
         CustomButtonWithText(// * : Inverse
           onTap: () => onButtonPressed("inverse"),
           buttontext: "1/x",
-          textColor: Colors.orange,
+          textColor: Colors.amber,
           fontSize: 30,
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithText(// * : Modulus
           onTap: () => onButtonPressed("mod"),
           buttontext: "mod",
-          textColor: Colors.orange,
-          fontSize: 20,
+          textColor: Colors.cyanAccent,
+          fontSize: 30,
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithText(// * : Clear
           onTap: () => onButtonPressed("clear"),
           buttontext: "C",
-          textColor: Colors.orange,
+          textColor: Colors.yellowAccent,
           fontSize: 30,
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithIcon(// * : Backspace
           onTap: () => onButtonPressed("backspace"),
           icon: Icons.backspace,
-          iconColor: Colors.orange,
+          iconColor: Colors.yellowAccent,
           iconSize: 30,
         ),
       ],
@@ -52,20 +52,20 @@ class StandardButtons extends StatelessWidget {
         CustomButtonWithText(// * : Square
           onTap: () => onButtonPressed("square"),
           buttontext: "x²",
-          textColor: Colors.orange,
+          textColor: Colors.amber,
           fontSize: 30,
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithIcon(// * : Square Root
           onTap: () => onButtonPressed("squareRoot"),
           icon: FontAwesomeIcons.squareRootVariable,
-          iconColor: Colors.orange,
+          iconColor: Colors.amber,
           iconSize: 30,
         ),
         CustomButtonWithIcon(// * : Percent
           onTap: () => onButtonPressed("%"),
           icon: FontAwesomeIcons.percent,
-          iconColor: Colors.orange,
+          iconColor: Colors.purple,
           iconSize: 30,
         ),
         CustomButtonWithIcon(// * : Divide
@@ -169,7 +169,7 @@ class StandardButtons extends StatelessWidget {
         CustomButtonWithIcon(// * : PlusMinus
         onTap: () {},
           icon: FontAwesomeIcons.plusMinus,
-          iconColor: Colors.orange,
+          iconColor: Colors.cyanAccent,
           iconSize: 25,
         ),
         CustomButtonWithText(// * : Zero

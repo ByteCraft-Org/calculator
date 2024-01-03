@@ -124,7 +124,7 @@ class _ScientificButtonsState extends State<ScientificButtons> {
           fontSize: 25,
           fontWeight: FontWeight.bold,
         )
-        : CustomButtonWithText(// * : Square
+        : CustomButtonWithText(// * : Cube
           onTap: () => _onButtonPressed("³"),
           buttontext: "x³",
           textColor: Colors.amber,
