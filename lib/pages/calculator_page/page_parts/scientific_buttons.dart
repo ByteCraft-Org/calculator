@@ -18,6 +18,10 @@ class ScientificButtons extends StatefulWidget {
 
 class _ScientificButtonsState extends State<ScientificButtons> {
   bool is2ndPage = false;
+  bool isDropdownOpen = false;
+  bool isTrig2ndPage = false;
+  bool ishyp = false;
+
   @override
   Widget build(BuildContext context) {
     TableRow tableRow1 = TableRow(// * : Button Toggle, Pi, e, Clear, Backspace
@@ -316,14 +320,116 @@ class _ScientificButtonsState extends State<ScientificButtons> {
       ],
     );
 
-    return Table(// * : Scientific Calculator
-      border: TableBorder.all(
-        color: Colors.grey.withOpacity(0.5)
-      ),
+    return Stack(// * : Scientific Calculator
       children: [
-        tableRow1, tableRow2, tableRow3, tableRow4, tableRow5, tableRow6, tableRow7
+        Column(
+          children: [
+            _buildTrignometry(),
+            const SizedBox(height: 5),
+            Table(
+              border: TableBorder.all(
+                color: Colors.grey.withOpacity(0.5)
+              ),
+              children: [
+                tableRow1, tableRow2, tableRow3, tableRow4, tableRow5, tableRow6, tableRow7
+              ],
+            ),
+          ],
+        ),
       ],
     );
+  }
+
+  Table _buildTrignometry() {
+    CustomButtonWithText secondButton = CustomButtonWithText(// * : Button Toggle
+      onTap: () => setState(() => isTrig2ndPage = !isTrig2ndPage),
+      buttontext: "2\u207F\u1D48",
+      textColor: (isTrig2ndPage) ? Colors.white : Colors.teal,
+      bgColor: (isTrig2ndPage) ? Colors.teal : Colors.transparent,
+      fontSize: 25,
+      fontWeight: FontWeight.bold,
+    );
+
+    CustomButtonWithText hypButton = CustomButtonWithText(// * : Hyperbolic Toggle
+      onTap: () => setState(() => ishyp = !ishyp),
+      buttontext: "hyp",
+      textColor: (ishyp) ? Colors.white : Colors.brown,
+      bgColor: (ishyp) ? Colors.brown : Colors.transparent,
+      fontSize: 25,
+      fontWeight: FontWeight.bold,
+    );
+
+    CustomButtonWithText trigButton(String label) {
+      return CustomButtonWithText(
+        onTap: () => widget.onButtonPressed(label),
+        buttontext: label,
+        textColor: Colors.cyan,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      );
+    }
+    
+    TableRow trigTableRow1Normal = TableRow(// * : Button Toggle, Normal Functions
+      children: [secondButton, trigButton("sin"), trigButton("cos"), trigButton("tan")],
+    );
+
+    TableRow trigTableRow2Normal = TableRow(// * : Hyperbolic Toggle, Normal Functions
+      children: [hypButton, trigButton("sec"), trigButton("csc"), trigButton("cot")],
+    );
+    
+    TableRow trigTableRow12nd = TableRow(// * : Button Toggle, Inverse Functions
+      children: [secondButton, trigButton("sin⁻¹"), trigButton("cos⁻¹"), trigButton("tan⁻¹")],
+    );
+
+    TableRow trigTableRow22nd = TableRow(// * : Hyperbolic Toggle, Inverse Functions
+      children: [hypButton, trigButton("sec⁻¹"), trigButton("csc⁻¹"), trigButton("cot⁻¹")],
+    );
+
+    TableRow trigTableRow1hyp = TableRow(// * : Button Toggle, Hyperbolic Functions
+      children: [secondButton, trigButton("sinh"), trigButton("cosh"), trigButton("tanh")],
+    );
+
+    TableRow trigTableRow2hyp = TableRow(// * : Hyperbolic Toggle, Hyperbolic Functions
+      children: [hypButton, trigButton("sech"), trigButton("csch"), trigButton("coth")],
+    );
+
+    TableRow trigTableRow1hyp2nd = TableRow(// * : Button Toggle, Inverse hyperbolic functions
+      children: [secondButton, trigButton("sinh⁻¹"), trigButton("cosh⁻¹"), trigButton("tanh⁻¹"),],
+    );
+
+    TableRow trigTableRow2hyp2nd = TableRow(// * : Hyperbolic Toggle, Inverse hyperbolic functions
+      children: [hypButton, trigButton("sech⁻¹"), trigButton("csch⁻¹"), trigButton("coth⁻¹")],
+    );
+
+    Table normalTrigTable = Table(
+      border: TableBorder.all(color: Colors.grey.withOpacity(0.5)),
+      children: [trigTableRow1Normal, trigTableRow2Normal],
+    );
+
+    Table secondTrigTable = Table(
+      border: TableBorder.all(color: Colors.grey.withOpacity(0.5)),
+      children: [trigTableRow12nd, trigTableRow22nd],
+    );
+
+    Table hypTrigTable = Table(
+      border: TableBorder.all(color: Colors.grey.withOpacity(0.5)),
+      children: [trigTableRow1hyp, trigTableRow2hyp],
+    );
+
+    Table hyp2ndTrigTable = Table(
+      border: TableBorder.all(color: Colors.grey.withOpacity(0.5)),
+      children: [trigTableRow1hyp2nd, trigTableRow2hyp2nd],
+    );
+
+    if(isTrig2ndPage && !ishyp) {
+      return secondTrigTable;
+    } else if(!isTrig2ndPage && ishyp) {
+      return hypTrigTable;
+    } else if(isTrig2ndPage && ishyp) {
+      return hyp2ndTrigTable;
+    } else {
+      return normalTrigTable;
+    }
   }
 }
 
