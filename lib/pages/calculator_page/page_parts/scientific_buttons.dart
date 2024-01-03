@@ -1,5 +1,6 @@
 import 'package:calculator/pages/calculator_page/calculator_logics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ScientificButtons extends StatefulWidget {
@@ -22,8 +23,57 @@ class _ScientificButtonsState extends State<ScientificButtons> {
   bool isTrig2ndPage = false;
   bool ishyp = false;
 
+  void _onButtonPressed(String buttonText) {
+    isDropdownOpen = false;
+    widget.onButtonPressed(buttonText);
+  }
+
   @override
   Widget build(BuildContext context) {
+    return Stack(// * : Scientific Calculator
+      children: [
+        Column(
+          children: [
+            ElevatedButton(
+              onPressed: () => setState(() => isDropdownOpen = !isDropdownOpen),
+              style: ButtonStyle(
+                padding: const MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 20, vertical: 15)),
+                overlayColor: MaterialStatePropertyAll(Colors.grey.withOpacity(0.5))
+              ),
+              child: Row(
+                children: [
+                  SvgPicture.asset("assets/svg/calculator/trigonometry.svg", colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),height: 25),
+                  const SizedBox(width: 10,),
+                  const Text("Trigonometry", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                  const Spacer(),
+                  const Icon(Icons.arrow_drop_down, color: Colors.white),
+                ],
+              ),
+            ),
+            const SizedBox(height: 5),
+            GestureDetector(
+              onTap: () => setState(() => isDropdownOpen = false),
+              child: _buildScientific()
+            ),
+          ],
+        ),
+        if(isDropdownOpen)
+          Positioned(
+            top: 60,
+            child: Container(
+              width: MediaQuery.of(context).size.width - 24,
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(50, 50, 50, 1),
+                borderRadius: BorderRadius.circular(20)
+              ),
+              child: _buildTrignometry()
+            )
+          )
+      ],
+    );
+  }
+
+  Table _buildScientific() {
     TableRow tableRow1 = TableRow(// * : Button Toggle, Pi, e, Clear, Backspace
       children: [
         CustomButtonWithText(// * : Button Toggle
@@ -35,28 +85,28 @@ class _ScientificButtonsState extends State<ScientificButtons> {
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithText(// * : Pi
-          onTap: () => widget.onButtonPressed("\u03C0"),
+          onTap: () => _onButtonPressed("\u03C0"),
           buttontext: "\u03C0",
           textColor: Colors.purpleAccent,
           fontSize: 25,
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithText(// * : e
-          onTap: () => widget.onButtonPressed("e"),
+          onTap: () => _onButtonPressed("e"),
           buttontext: "e",
           textColor: Colors.purpleAccent,
           fontSize: 25,
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithText(// * : Clear
-          onTap: () => widget.onButtonPressed("clear"),
+          onTap: () => _onButtonPressed("clear"),
           buttontext: "C",
           textColor: Colors.yellowAccent,
           fontSize: 25,
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithIcon(// * : Backspace
-          onTap: () => widget.onButtonPressed("backspace"),
+          onTap: () => _onButtonPressed("backspace"),
           icon: Icons.backspace,
           iconColor: Colors.yellowAccent,
           iconSize: 20,
@@ -68,40 +118,40 @@ class _ScientificButtonsState extends State<ScientificButtons> {
       children: [
         (!is2ndPage)
         ? CustomButtonWithText(// * : Square
-          onTap: () => widget.onButtonPressed("²"),
+          onTap: () => _onButtonPressed("²"),
           buttontext: "x²",
           textColor: Colors.amber,
           fontSize: 25,
           fontWeight: FontWeight.bold,
         )
         : CustomButtonWithText(// * : Square
-          onTap: () => widget.onButtonPressed("³"),
+          onTap: () => _onButtonPressed("³"),
           buttontext: "x³",
           textColor: Colors.amber,
           fontSize: 25,
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithText(// * : Inverse
-          onTap: () => widget.onButtonPressed("inverse"),
+          onTap: () => _onButtonPressed("inverse"),
           buttontext: "1/x",
           textColor: Colors.amber,
           fontSize: 25,
           fontWeight: FontWeight.bold,
         ),
         CustomButtonWithIcon(// * : Positiive Numbers
-          onTap: () => widget.onButtonPressed("positive"),
+          onTap: () => _onButtonPressed("positive"),
           icon: FontAwesomeIcons.squareRootVariable,
           iconColor: Colors.amber,
           iconSize: 30,
         ),
         CustomButtonWithText(// * : exp
-          onTap: () => widget.onButtonPressed("exp"),
+          onTap: () => _onButtonPressed("exp"),
           buttontext: "exp",
           textColor: Colors.deepPurpleAccent,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : mod
-          onTap: () => widget.onButtonPressed("mod"),
+          onTap: () => _onButtonPressed("mod"),
           buttontext: "mod",
           textColor: Colors.orange,
           fontSize: 25,
@@ -113,37 +163,37 @@ class _ScientificButtonsState extends State<ScientificButtons> {
       children: [
         (!is2ndPage)
         ? CustomButtonWithText(// * : Square Root
-          onTap: () => widget.onButtonPressed("\u{221A}"),
+          onTap: () => _onButtonPressed("\u{221A}"),
           buttontext: "²\u{221A}x",
           textColor: Colors.amber,
           fontSize: 25,
         )
         : CustomButtonWithText(// * : Square Root
-          onTap: () => widget.onButtonPressed("³\u{221A}"),
+          onTap: () => _onButtonPressed("³\u{221A}"),
           buttontext: "³\u{221A}x",
           textColor: Colors.amber,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : Open Bracket
-          onTap: () => widget.onButtonPressed("("),
+          onTap: () => _onButtonPressed("("),
           buttontext: "(",
           textColor: Colors.indigoAccent,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : Close Bracket
-          onTap: () => widget.onButtonPressed(")"),
+          onTap: () => _onButtonPressed(")"),
           buttontext: ")",
           textColor: Colors.indigoAccent,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : Factorial
-          onTap: () => widget.onButtonPressed("!"),
+          onTap: () => _onButtonPressed("!"),
           buttontext: "n!",
           textColor: Colors.tealAccent,
           fontSize: 25,
         ),
         CustomButtonWithIcon(// * : Divide
-          onTap: () => widget.onButtonPressed("/"),
+          onTap: () => _onButtonPressed("/"),
           icon: FontAwesomeIcons.divide,
           iconColor: Colors.orange,
           iconSize: 25,
@@ -155,37 +205,37 @@ class _ScientificButtonsState extends State<ScientificButtons> {
       children: [
         (!is2ndPage)
         ? CustomButtonWithText(// * : Power
-          onTap: () => widget.onButtonPressed("power"),
+          onTap: () => _onButtonPressed("power"),
           buttontext: "x\u{02B8}",
           textColor: Colors.amber,
           fontSize: 25,
         )
         : CustomButtonWithText(// * : Power
-          onTap: () => widget.onButtonPressed("rootPower"),
+          onTap: () => _onButtonPressed("rootPower"),
           buttontext: "\u{02B8}\u{221A}x",
           textColor: Colors.amber,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : Seven
-          onTap: () => widget.onButtonPressed("7"),
+          onTap: () => _onButtonPressed("7"),
           buttontext: "7",
           textColor: Colors.white,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : Eight
-          onTap: () => widget.onButtonPressed("8"),
+          onTap: () => _onButtonPressed("8"),
           buttontext: "8",
           textColor: Colors.white,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : Nine
-          onTap: () => widget.onButtonPressed("9"),
+          onTap: () => _onButtonPressed("9"),
           buttontext: "9",
           textColor: Colors.white,
           fontSize: 25,
         ),
         CustomButtonWithIcon(// * : Multiply
-          onTap: () => widget.onButtonPressed("*"),
+          onTap: () => _onButtonPressed("*"),
           icon: FontAwesomeIcons.xmark,
           iconColor: Colors.orange,
           iconSize: 25,
@@ -197,37 +247,37 @@ class _ScientificButtonsState extends State<ScientificButtons> {
       children: [
         (!is2ndPage)
         ? CustomButtonWithText(// * : 10PowerX
-          onTap: () => widget.onButtonPressed("10powerX"),
+          onTap: () => _onButtonPressed("10powerX"),
           buttontext: "10\u{02E3}",
           textColor: Colors.amber,
           fontSize: 25,
         )
         : CustomButtonWithText(// * : 2PowerX
-          onTap: () => widget.onButtonPressed("2powerX"),
+          onTap: () => _onButtonPressed("2powerX"),
           buttontext: "2\u{02E3}",
           textColor: Colors.amber,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : Four
-          onTap: () => widget.onButtonPressed("4"),
+          onTap: () => _onButtonPressed("4"),
           buttontext: "4",
           textColor: Colors.white,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : Five
-          onTap: () => widget.onButtonPressed("5"),
+          onTap: () => _onButtonPressed("5"),
           buttontext: "5",
           textColor: Colors.white,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : Six
-          onTap: () => widget.onButtonPressed("6"),
+          onTap: () => _onButtonPressed("6"),
           buttontext: "6",
           textColor: Colors.white,
           fontSize: 25,
         ),
         CustomButtonWithIcon(// * : Minus
-          onTap: () => widget.onButtonPressed("-"),
+          onTap: () => _onButtonPressed("-"),
           icon: FontAwesomeIcons.minus,
           iconColor: Colors.orange,
           iconSize: 25,
@@ -239,37 +289,37 @@ class _ScientificButtonsState extends State<ScientificButtons> {
       children: [
         (!is2ndPage)
         ? CustomButtonWithText(// * : log
-          onTap: () => widget.onButtonPressed("log"),
+          onTap: () => _onButtonPressed("log"),
           buttontext: "log",
           textColor: Colors.blue,
           fontSize: 25,
         )
         : CustomButtonWithText(// * : logyx
-          onTap: () => widget.onButtonPressed("logyx"),
+          onTap: () => _onButtonPressed("logyx"),
           buttontext: "logᵧx",
           textColor: Colors.blue,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : One
-          onTap: () => widget.onButtonPressed("1"),
+          onTap: () => _onButtonPressed("1"),
           buttontext: "1",
           textColor: Colors.white,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : Two
-          onTap: () => widget.onButtonPressed("2"),
+          onTap: () => _onButtonPressed("2"),
           buttontext: "2",
           textColor: Colors.white,
           fontSize: 25,
         ),
         CustomButtonWithText(// * : Three
-          onTap: () => widget.onButtonPressed("3"),
+          onTap: () => _onButtonPressed("3"),
           buttontext: "3",
           textColor: Colors.white,
           fontSize: 25,
         ),
         CustomButtonWithIcon(// * : Plus
-          onTap: () => widget.onButtonPressed("+"),
+          onTap: () => _onButtonPressed("+"),
           icon: FontAwesomeIcons.plus,
           iconColor: Colors.orange,
           iconSize: 25,
@@ -281,37 +331,37 @@ class _ScientificButtonsState extends State<ScientificButtons> {
       children: [
         (!is2ndPage)
         ? CustomButtonWithText(// * : ln
-          onTap: () => widget.onButtonPressed("ln"),
+          onTap: () => _onButtonPressed("ln"),
           buttontext: "ln",
           textColor: Colors.blue,
           fontSize: 25,
         )
         : CustomButtonWithText(// * : ePowerX
-          onTap: () => widget.onButtonPressed("e\u{02E3}"),
+          onTap: () => _onButtonPressed("e\u{02E3}"),
           buttontext: "e\u{02E3}",
           textColor: Colors.blue,
           fontSize: 25,
         ),
         CustomButtonWithIcon(// * : PlusMinus
-        onTap: () => widget.onButtonPressed("+-"),
+        onTap: () => _onButtonPressed("+-"),
           icon: FontAwesomeIcons.plusMinus,
           iconColor: Colors.orange,
           iconSize: 25,
         ),
         CustomButtonWithText(// * : Zero
-          onTap: () => widget.onButtonPressed("0"),
+          onTap: () => _onButtonPressed("0"),
           buttontext: "0",
           textColor: Colors.white,
           fontSize: 25,
         ),
         CustomButtonWithIcon(// * : Decimal
-          onTap: () => widget.onButtonPressed("."),
+          onTap: () => _onButtonPressed("."),
           icon: const IconData(46),
           iconColor: Colors.white,
           iconSize: 30,
         ),
         CustomButtonWithIcon(// * : Equals
-          onTap: () => widget.onButtonPressed("="),
+          onTap: () => _onButtonPressed("="),
           icon: FontAwesomeIcons.equals,
           iconColor: Colors.white,
           bgColor: Colors.orange,
@@ -320,22 +370,12 @@ class _ScientificButtonsState extends State<ScientificButtons> {
       ],
     );
 
-    return Stack(// * : Scientific Calculator
+    return Table(
+      border: TableBorder.all(
+        color: Colors.grey.withOpacity(0.5)
+      ),
       children: [
-        Column(
-          children: [
-            _buildTrignometry(),
-            const SizedBox(height: 5),
-            Table(
-              border: TableBorder.all(
-                color: Colors.grey.withOpacity(0.5)
-              ),
-              children: [
-                tableRow1, tableRow2, tableRow3, tableRow4, tableRow5, tableRow6, tableRow7
-              ],
-            ),
-          ],
-        ),
+        tableRow1, tableRow2, tableRow3, tableRow4, tableRow5, tableRow6, tableRow7
       ],
     );
   }
@@ -361,7 +401,10 @@ class _ScientificButtonsState extends State<ScientificButtons> {
 
     CustomButtonWithText trigButton(String label) {
       return CustomButtonWithText(
-        onTap: () => widget.onButtonPressed(label),
+        onTap: () {
+          setState(() => isDropdownOpen = false);
+          _onButtonPressed(label);
+        },
         buttontext: label,
         textColor: Colors.cyan,
         fontSize: 20,
@@ -402,7 +445,7 @@ class _ScientificButtonsState extends State<ScientificButtons> {
     );
 
     Table normalTrigTable = Table(
-      border: TableBorder.all(color: Colors.grey.withOpacity(0.5)),
+      border: TableBorder.all(color: Colors.grey.withOpacity(0.5), borderRadius: BorderRadius.circular(20)),
       children: [trigTableRow1Normal, trigTableRow2Normal],
     );
 
