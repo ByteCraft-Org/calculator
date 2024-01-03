@@ -101,7 +101,7 @@ class _AgePageState extends State<AgePage> {
                     color: Colors.blueAccent
                   ),
                 ),
-                Expanded(child: Container()),
+                const Spacer(),
                 Text(
                   "${today.day.toString().padLeft(2, '0')} ${_getMonthName(today.month)} ${today.year.toString()}",
                   style: const TextStyle(
