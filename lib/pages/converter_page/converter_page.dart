@@ -1,4 +1,4 @@
-import 'package:calculator/pages/converter_page/implementation.dart';
+import 'package:calculator/pages/converter_page/sub_pages/implementation.dart';
 import 'package:calculator/properties/acceleration.dart';
 import 'package:calculator/properties/angle.dart';
 import 'package:calculator/properties/area.dart';

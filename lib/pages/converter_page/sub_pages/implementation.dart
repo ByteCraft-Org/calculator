@@ -74,15 +74,6 @@ class _ImplementationPageState extends State<ImplementationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back),
-        ),
-        title: Text(widget.unitType),
-        centerTitle: true,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -497,7 +488,6 @@ class ConverterLogics {
   }
 
   Converter<int> _getConverter(String unitType) {
-    print('Unit type: $unitType');
     switch (unitType) {
       case 'Acceleration' : return AccelerationConverter();
       case 'Angle' : return AngleConverter();
